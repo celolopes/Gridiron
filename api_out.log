@@ -1,0 +1,721 @@
+
+> api@0.0.1 start:dev D:\dev\projects\Gridiron\apps\api
+> nest start --watch
+
+[2J[3J[H[[90m10:56:12[0m] Starting compilation in watch mode...
+
+[[90m10:56:18[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +35ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:22 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 37996  - [39m23/02/2026, 10:56:25 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3136ms[39m
+[31m[Nest] 37996  - [39m23/02/2026, 10:57:07 [31m  ERROR[39m [38;5;3m[ExceptionsHandler] [39mPrismaClientInitializationError: 
+Invalid `this.prisma.order.create()` invocation in
+D:\dev\projects\Gridiron\apps\api\src\orders\orders.service.ts:20:38
+
+  17 
+  18 // Logic would go here to calculate totalAmount from items...
+  19 
+→ 20 return await this.prisma.order.create(
+Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+    at $n.handleRequestError (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:121:6623)
+    at $n.request (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:121:6307)
+    at async l (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:130:9633)
+    at async OrdersService.createOrder [90m(D:\dev\projects\Gridiron\apps\api\[39msrc\orders\orders.service.ts:20:14[90m)[39m
+    at async D:\dev\projects\Gridiron\node_modules\[4m.pnpm[24m\@nestjs+core@11.1.14_@nestjs+common@11.1.14_@nestjs+platform-express@11.1.14_reflect-metadata@0.2.2_rxjs@7.8.2\node_modules\[4m@nestjs\core[24m\router\router-execution-context.js:46:28
+    at async D:\dev\projects\Gridiron\node_modules\[4m.pnpm[24m\@nestjs+core@11.1.14_@nestjs+common@11.1.14_@nestjs+platform-express@11.1.14_reflect-metadata@0.2.2_rxjs@7.8.2\node_modules\[4m@nestjs\core[24m\router\router-proxy.js:9:17 {
+  clientVersion: [32m'5.22.0'[39m,
+  errorCode: [90mundefined[39m
+}
+[31m[Nest] 37996  - [39m23/02/2026, 10:58:23 [31m  ERROR[39m [38;5;3m[ExceptionsHandler] [39mPrismaClientInitializationError: 
+Invalid `this.prisma.order.create()` invocation in
+D:\dev\projects\Gridiron\apps\api\src\orders\orders.service.ts:20:38
+
+  17 
+  18 // Logic would go here to calculate totalAmount from items...
+  19 
+→ 20 return await this.prisma.order.create(
+Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+    at $n.handleRequestError (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:121:6623)
+    at $n.request (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:121:6307)
+    at async l (D:\dev\projects\Gridiron\packages\database\dist\src\generated\client\runtime\library.js:130:9633)
+    at async OrdersService.createOrder [90m(D:\dev\projects\Gridiron\apps\api\[39msrc\orders\orders.service.ts:20:14[90m)[39m
+    at async D:\dev\projects\Gridiron\node_modules\[4m.pnpm[24m\@nestjs+core@11.1.14_@nestjs+common@11.1.14_@nestjs+platform-express@11.1.14_reflect-metadata@0.2.2_rxjs@7.8.2\node_modules\[4m@nestjs\core[24m\router\router-execution-context.js:46:28
+    at async D:\dev\projects\Gridiron\node_modules\[4m.pnpm[24m\@nestjs+core@11.1.14_@nestjs+common@11.1.14_@nestjs+platform-express@11.1.14_reflect-metadata@0.2.2_rxjs@7.8.2\node_modules\[4m@nestjs\core[24m\router\router-proxy.js:9:17 {
+  clientVersion: [32m'5.22.0'[39m,
+  errorCode: [90mundefined[39m
+}
+[2J[3J[H[[90m11:03:38[0m] File change detected. Starting incremental compilation...
+
+[[90m11:03:39[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:03:40[0m] File change detected. Starting incremental compilation...
+
+[[90m11:03:40[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:03:41[0m] File change detected. Starting incremental compilation...
+
+[[90m11:03:42[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:03:58[0m] File change detected. Starting incremental compilation...
+
+[[90m11:03:59[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:04:48[0m] File change detected. Starting incremental compilation...
+
+[[90m11:04:49[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:15 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +6647ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +4ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:21 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +1ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 44884  - [39m23/02/2026, 11:05:25 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3692ms[39m
+[2J[3J[H[[90m11:10:02[0m] File change detected. Starting incremental compilation...
+
+[[90m11:10:02[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:10:04[0m] File change detected. Starting incremental compilation...
+
+[[90m11:10:05[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +80ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +4ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:10 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 37000  - [39m23/02/2026, 11:10:14 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3776ms[39m
+[2J[3J[H[[90m11:10:23[0m] File change detected. Starting incremental compilation...
+
+[[90m11:10:24[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +118ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +3ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 2316  - [39m23/02/2026, 11:10:25 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +11ms[39m
+[2J[3J[H[[90m11:11:26[0m] File change detected. Starting incremental compilation...
+
+[[90m11:11:27[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:31 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +124ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:32 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 29040  - [39m23/02/2026, 11:11:36 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3941ms[39m
+[2J[3J[H[[90m11:12:24[0m] File change detected. Starting incremental compilation...
+
+[[90m11:12:24[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +27ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:29 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Can't reach database server at `db.mpfqpueldajpmphahezr.supabase.co:5432`
+
+Please make sure your database server is running at `db.mpfqpueldajpmphahezr.supabase.co:5432`.
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 38172  - [39m23/02/2026, 11:12:33 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3431ms[39m
+[2J[3J[H[[90m11:15:34[0m] File change detected. Starting incremental compilation...
+
+[[90m11:15:35[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +115ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:40 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 29476  - [39m23/02/2026, 11:15:41 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +446ms[39m
+[2J[3J[H[[90m11:19:33[0m] File change detected. Starting incremental compilation...
+
+[[90m11:19:33[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +35ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:37 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 29188  - [39m23/02/2026, 11:19:38 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +197ms[39m
+[2J[3J[H[[90m11:23:02[0m] File change detected. Starting incremental compilation...
+
+[[90m11:23:02[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:23:05[0m] File change detected. Starting incremental compilation...
+
+[[90m11:23:05[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:23:06[0m] File change detected. Starting incremental compilation...
+
+[[90m11:23:07[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +28ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 16840  - [39m23/02/2026, 11:23:09 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +185ms[39m
+[2J[3J[H[[90m11:23:18[0m] File change detected. Starting incremental compilation...
+
+[[90m11:23:19[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +33ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:20 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 40848  - [39m23/02/2026, 11:23:21 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +197ms[39m
+[2J[3J[H[[90m11:24:24[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:25[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:24:26[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:26[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:24:27[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:28[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +31ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:30 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 42012  - [39m23/02/2026, 11:24:31 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +154ms[39m
+[2J[3J[H[[90m11:24:31[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:32[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:24:32[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:33[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +31ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +16ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +4ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 24772  - [39m23/02/2026, 11:24:34 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +172ms[39m
+[2J[3J[H[[90m11:24:35[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:35[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m11:24:36[0m] File change detected. Starting incremental compilation...
+
+[[90m11:24:36[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +35ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 43496  - [39m23/02/2026, 11:24:38 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +164ms[39m
+[2J[3J[H[[90m11:27:38[0m] File change detected. Starting incremental compilation...
+
+[[90m11:27:39[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +34ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 12308  - [39m23/02/2026, 11:27:43 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +183ms[39m
+[2J[3J[H[[90m11:28:53[0m] File change detected. Starting incremental compilation...
+
+[2J[3J[H[[90m11:28:54[0m] File change detected. Starting incremental compilation...
+
+[2J[3J[H[[90m11:29:21[0m] File change detected. Starting incremental compilation...
+
+[[90m11:29:22[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +28ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmailModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAdminModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOrdersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAnalyticsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +2ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAdminController {/admin}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/admin/:tenantSlug/diagnostics/db, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantsController {/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:slug/settings, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogController {/tenants/:tenantId/catalog}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/catalog/products/:slug, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOrdersController {/tenants/:tenantId/orders}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/payment-link, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/orders/:id/mark-paid, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEventsController {/tenants/:tenantId/events}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/events, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAnalyticsController {/tenants/:tenantId/analytics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/suggestions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tenants/:tenantId/analytics/calculate-demand, POST} route[39m[38;5;3m +0ms[39m
+--- PRISMA CONNECTION DIAGNOSTICS ---
+Error Code: undefined
+Message: Error querying the database: FATAL: Tenant or user not found
+Target Host: db.mpfqpueldajpmphahezr.supabase.co
+SSL Mode: require
+--------------------------------------
+[32m[Nest] 40540  - [39m23/02/2026, 11:29:27 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +157ms[39m

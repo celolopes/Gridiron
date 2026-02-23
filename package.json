@@ -1,0 +1,22 @@
+{
+  "name": "gridiron-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:generate": "pnpm --filter @gridiron/database exec prisma generate",
+    "db:migrate:dev": "pnpm --filter @gridiron/database exec prisma migrate dev",
+    "db:migrate:deploy": "pnpm --filter @gridiron/database exec prisma migrate deploy",
+    "db:studio": "pnpm --filter @gridiron/database exec prisma studio",
+    "db:seed": "pnpm --filter @gridiron/database run db:seed"
+  },
+  "devDependencies": {
+    "turbo": "^1.12.0",
+    "prettier": "^3.2.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}

@@ -1,0 +1,34 @@
+.next/types/validator.ts(121,31): error TS2344: Type 'typeof import("D:/dev/projects/Gridiron/apps/web/src/app/admin/[tenantSlug]/layout")' does not satisfy the constraint 'LayoutConfig<"/admin/[tenantSlug]">'.
+  Types of property 'default' are incompatible.
+    Type '({ children, params }: { children: ReactNode; params: { tenantSlug: string; }; }) => Promise<Element>' is not assignable to type 'ComponentType<LayoutProps<"/admin/[tenantSlug]">> | ((props: LayoutProps<"/admin/[tenantSlug]">) => void | ReactNode | Promise<...> | Promise<...>)'.
+      Type '({ children, params }: { children: ReactNode; params: { tenantSlug: string; }; }) => Promise<Element>' is not assignable to type 'FunctionComponent<LayoutProps<"/admin/[tenantSlug]">>'.
+        Types of parameters '__0' and 'props' are incompatible.
+          Type 'LayoutProps<"/admin/[tenantSlug]">' is not assignable to type '{ children: ReactNode; params: { tenantSlug: string; }; }'.
+            Types of property 'params' are incompatible.
+              Property 'tenantSlug' is missing in type 'Promise<{ tenantSlug: string; }>' but required in type '{ tenantSlug: string; }'.
+.next/types/validator.ts(139,31): error TS2344: Type 'typeof import("D:/dev/projects/Gridiron/apps/web/src/app/t/[tenantSlug]/layout")' does not satisfy the constraint 'LayoutConfig<"/t/[tenantSlug]">'.
+  Types of property 'default' are incompatible.
+    Type '({ children, params }: { children: ReactNode; params: { tenantSlug: string; }; }) => Promise<Element>' is not assignable to type 'ComponentType<LayoutProps<"/t/[tenantSlug]">> | ((props: LayoutProps<"/t/[tenantSlug]">) => void | ReactNode | Promise<...> | Promise<...>)'.
+      Type '({ children, params }: { children: ReactNode; params: { tenantSlug: string; }; }) => Promise<Element>' is not assignable to type 'FunctionComponent<LayoutProps<"/t/[tenantSlug]">>'.
+        Types of parameters '__0' and 'props' are incompatible.
+          Type 'LayoutProps<"/t/[tenantSlug]">' is not assignable to type '{ children: ReactNode; params: { tenantSlug: string; }; }'.
+            Types of property 'params' are incompatible.
+              Property 'tenantSlug' is missing in type 'Promise<{ tenantSlug: string; }>' but required in type '{ tenantSlug: string; }'.
+lib/api.ts(16,5): error TS7053: Element implicitly has an 'any' type because expression of type '"Authorization"' can't be used to index type 'HeadersInit'.
+  Property 'Authorization' does not exist on type 'HeadersInit'.
+lib/api.ts(30,36): error TS2322: Type 'null' is not assignable to type 'T'.
+  'T' could be instantiated with an arbitrary type which could be unrelated to 'null'.
+src/app/admin/[tenantSlug]/layout.tsx(1,26): error TS2307: Cannot find module '../../../lib/api' or its corresponding type declarations.
+src/app/admin/[tenantSlug]/orders/[orderId]/page.tsx(6,11): error TS2339: Property 'tenantSlug' does not exist on type 'unknown'.
+src/app/admin/[tenantSlug]/orders/[orderId]/page.tsx(6,23): error TS2339: Property 'orderId' does not exist on type 'unknown'.
+src/app/admin/[tenantSlug]/orders/page.tsx(8,5): error TS2322: Type 'unknown' is not assignable to type 'any[]'.
+src/app/admin/[tenantSlug]/page.tsx(8,5): error TS2322: Type 'unknown' is not assignable to type 'any[]'.
+src/app/t/[tenantSlug]/checkout/page.tsx(4,52): error TS2307: Cannot find module '@gridiron/ui' or its corresponding type declarations.
+src/app/t/[tenantSlug]/checkout/page.tsx(8,11): error TS2339: Property 'tenantSlug' does not exist on type 'unknown'.
+src/app/t/[tenantSlug]/layout.tsx(1,26): error TS2307: Cannot find module '../../../lib/api' or its corresponding type declarations.
+src/app/t/[tenantSlug]/page.tsx(1,26): error TS2307: Cannot find module '../../../lib/api' or its corresponding type declarations.
+src/app/t/[tenantSlug]/page.tsx(2,40): error TS2307: Cannot find module '@gridiron/ui' or its corresponding type declarations.
+src/app/t/[tenantSlug]/products/[productSlug]/page.tsx(1,26): error TS2307: Cannot find module '../../../../../lib/api' or its corresponding type declarations.
+src/app/t/[tenantSlug]/products/[productSlug]/page.tsx(2,47): error TS2307: Cannot find module '@gridiron/ui' or its corresponding type declarations.
+src/app/t/[tenantSlug]/products/page.tsx(1,26): error TS2307: Cannot find module '../../../../lib/api' or its corresponding type declarations.
+src/app/t/[tenantSlug]/products/page.tsx(2,40): error TS2307: Cannot find module '@gridiron/ui' or its corresponding type declarations.

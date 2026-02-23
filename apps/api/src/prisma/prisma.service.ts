@@ -1,0 +1,70 @@
+import { Injectable, OnModuleInit, INestApplication } from '@nestjs/common';
+import { PrismaClient } from '@gridiron/database';
+
+@Injectable()
+export class PrismaService
+  extends (PrismaClient as any)
+  implements OnModuleInit
+{
+  async onModuleInit() {
+    await this.connectWithDiagnostics();
+  }
+
+  async connectWithDiagnostics() {
+    try {
+      await this.$connect();
+      console.log('Database connected successfully');
+      return { success: true };
+    } catch (error) {
+      const dbUrl = process.env.DATABASE_URL || '';
+      const host = dbUrl.split('@')[1]?.split(':')[0] || 'unknown';
+      const sslMode = dbUrl.includes('sslmode=require')
+        ? 'require'
+        : 'not specified';
+
+      console.error('--- PRISMA CONNECTION DIAGNOSTICS ---');
+      console.error(`Error Code: ${error.code}`);
+      console.error(`Message: ${error.message}`);
+      console.error(`Target Host: ${host}`);
+      console.error(`SSL Mode: ${sslMode}`);
+
+      if (error.code === 'P1001') {
+        console.error('HINT: This is a network timeout (P1001).');
+        console.error(
+          'Check if your corporate network blocks port 5432 or DNS resolution for *.supabase.co.',
+        );
+        console.error(
+          'Try switching to the IP-based DATABASE_URL in the .env file if DNS fails.',
+        );
+      }
+      console.error('--------------------------------------');
+
+      return { success: false, error };
+    }
+  }
+
+  async checkHealth() {
+    const start = Date.now();
+    try {
+      const [dbMetadata]: any[] = await this.$queryRaw`
+        SELECT 
+          current_user as "user",
+          inet_server_addr()::text as "addr",
+          inet_server_port() as "port",
+          version() as "version"
+      `;
+      return {
+        status: 'ok',
+        latency: `${Date.now() - start}ms`,
+        metadata: dbMetadata,
+      };
+    } catch (error) {
+      return {
+        status: 'error',
+        latency: `${Date.now() - start}ms`,
+        message: error.message,
+        code: error.code,
+      };
+    }
+  }
+}

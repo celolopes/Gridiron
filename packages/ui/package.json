@@ -1,0 +1,30 @@
+{
+  "name": "@gridiron/ui",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles.css"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext ts,tsx"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "tailwindcss": "^4",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.575.0",
+    "tailwind-merge": "^3.5.0"
+  }
+}
