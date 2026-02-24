@@ -18,8 +18,11 @@
     "mobile": "pnpm --filter mobile run start"
   },
   "devDependencies": {
-    "turbo": "^1.12.0",
-    "prettier": "^3.2.0"
+    "prettier": "^3.2.0",
+    "turbo": "^1.12.0"
   },
-  "packageManager": "pnpm@10.30.2"
+  "packageManager": "pnpm@10.30.2",
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
 }
