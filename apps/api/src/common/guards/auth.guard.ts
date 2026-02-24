@@ -5,75 +5,67 @@ import {
   UnauthorizedException,
   ForbiddenException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 interface JwtPayload {
   sub: string;
-  role: 'ADMIN' | 'STAFF' | 'USER' | 'SUPER_ADMIN';
-  tenantId: string;
+  email: string;
+  roles: string[];
   tenantSlug: string;
-  exp: number;
 }
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  constructor(private jwtService: JwtService) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const authHeader = request.headers.authorization;
+    const token = this.extractTokenFromHeader(request);
 
-    if (!authHeader) {
-      throw new UnauthorizedException('Authorization header is missing');
+    if (!token) {
+      throw new UnauthorizedException('Missing authentication token');
     }
 
-    // Mock implementation for Phase 1 hardening
-    // In production, use @nestjs/jwt JwtService.verify()
-    const token = authHeader.split(' ')[1];
+    try {
+      const payload: JwtPayload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_SECRET || 'gridiron_secret_unsecure_dev_only',
+      });
 
-    // Simulate a decoded payload
-    const mockPayload: JwtPayload = this.decodeMockToken(token);
+      // Attach trusted payload to request
+      request['user'] = payload;
 
-    // 1. Signature & Expiration Check (Simulation)
-    if (mockPayload.exp < Date.now()) {
-      throw new UnauthorizedException('Token has expired');
+      // 1. RBAC Check (Only ADMIN, STAFF, or SUPER_ADMIN)
+      const allowedRoles = ['ADMIN', 'STAFF', 'SUPER_ADMIN'];
+      const hasRole = payload.roles.some((role) => allowedRoles.includes(role));
+
+      if (!hasRole) {
+        throw new ForbiddenException('Insufficient permissions: RBAC failure');
+      }
+
+      // 2. Tenant Isolation
+      const tenantSlugInPath = request.params.tenantSlug;
+
+      // Bypass tenant check if SUPER_ADMIN
+      const isSuperAdmin = payload.roles.includes('SUPER_ADMIN');
+
+      if (
+        tenantSlugInPath &&
+        !isSuperAdmin &&
+        payload.tenantSlug !== tenantSlugInPath
+      ) {
+        throw new ForbiddenException('Tenant mismatch: Access denied');
+      }
+    } catch (e) {
+      if (e instanceof ForbiddenException) throw e;
+      throw new UnauthorizedException('Invalid or expired token');
     }
-
-    // 2. RBAC Check (Only ADMIN or STAFF can access admin routes)
-    const allowedRoles = ['ADMIN', 'STAFF'];
-    if (!allowedRoles.includes(mockPayload.role)) {
-      throw new ForbiddenException('Insufficient permissions: RBAC failure');
-    }
-
-    // 3. Tenant Isolation (Trusted Claim Match)
-    // We use the tenantSlug from the TOKEN, not just the path or header.
-    const tenantSlugInPath = request.params.tenantSlug;
-
-    if (
-      tenantSlugInPath &&
-      mockPayload.tenantSlug !== tenantSlugInPath &&
-      mockPayload.role !== 'SUPER_ADMIN'
-    ) {
-      throw new ForbiddenException(
-        'Tenant mismatch: Access denied for this resource',
-      );
-    }
-
-    // Attach trusted identity to request
-    request.user = mockPayload;
 
     return true;
   }
 
-  private decodeMockToken(token: string): JwtPayload {
-    // Simulation: token format is "role:tenantSlug" (e.g. "ADMIN:my-store")
-    const [role, tenantSlug] = token.split(':');
-    return {
-      sub: 'user-123',
-      role: (role as any) || 'USER',
-      tenantSlug: tenantSlug || 'unknown',
-      tenantId: 'tenant-uuid-123',
-      exp: Date.now() + 3600000, // +1 hour
-    };
+  private extractTokenFromHeader(request: Request): string | undefined {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
   }
 }

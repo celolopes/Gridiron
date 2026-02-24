@@ -9,6 +9,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { EmailModule } from './email/email.module';
 import { AdminModule } from './admin/admin.module';
 import { StorefrontModule } from './storefront/storefront.module';
+import { AuthModule } from './auth/auth.module';
 
 import { PrismaModule } from './prisma/prisma.module';
 
@@ -23,6 +24,7 @@ import { PrismaModule } from './prisma/prisma.module';
     AnalyticsModule,
     EmailModule,
     StorefrontModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
