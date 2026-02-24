@@ -1,29 +1,35 @@
+process.env.JWT_SECRET = 'gridiron_secret_unsecure_dev_only';
+process.env.DATABASE_URL = 'postgresql://user:pass@localhost:5432/db';
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
-import { AppModule } from './../src/app.module';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from './../src/prisma/prisma.service';
+import { AuthModule } from './../src/auth/auth.module';
+import { AdminModule } from './../src/admin/admin.module';
 
 describe('Auth (e2e)', () => {
   let app: INestApplication;
   let jwtService: JwtService;
-  const secret = 'gridiron_secret_unsecure_dev_only';
+  const secret = process.env.JWT_SECRET;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [AuthModule, AdminModule],
     })
       .overrideProvider(PrismaService)
       .useValue({
-        tenant: {
-          findUnique: jest.fn(),
-          findFirst: jest.fn(),
-        },
-        user: {
-          findUnique: jest.fn(),
-        },
-        checkHealth: jest.fn().mockResolvedValue({ status: 'ok' }),
+        checkHealth: jest.fn().mockResolvedValue({
+          status: 'ok',
+          latency: '5ms',
+          metadata: {
+            user: 'test-user',
+            addr: '127.0.0.1',
+            port: 5432,
+            version: 'PostgreSQL 15',
+          },
+        }),
       })
       .compile();
 
@@ -63,26 +69,22 @@ describe('Auth (e2e)', () => {
     });
 
     it('should fail if token is expired', async () => {
-      const expiredToken = jwtService.sign(
-        { sub: '123', roles: ['ADMIN'], tenantSlug: 'my-tenant' },
-        { expiresInt: '-1h' } as any, // jwtService.sign doesn't take expiresIn easily in some versions, using jsonwebtoken style or options
-      );
-
-      // Let's use a real expired token by signing it with 0 exp if possible or just use a helper
       const token = jwtService.sign(
         {
           sub: '123',
           roles: ['ADMIN'],
           tenantSlug: 'my-tenant',
-          exp: Math.floor(Date.now() / 1000) - 30,
         },
-        { secret },
+        { secret, expiresIn: '-30s' },
       );
 
       return request(app.getHttpServer())
         .get('/admin/my-tenant/diagnostics/db')
         .set('Authorization', `Bearer ${token}`)
-        .expect(401);
+        .expect(401)
+        .expect((res) => {
+          expect(res.body.message).toBe('Invalid or expired token');
+        });
     });
 
     it('should fail if user has wrong role (CUSTOMER)', async () => {
@@ -126,7 +128,11 @@ describe('Auth (e2e)', () => {
       return request(app.getHttpServer())
         .get('/admin/my-tenant/diagnostics/db')
         .set('Authorization', `Bearer ${token}`)
-        .expect(200);
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.database.status).toBe('ok');
+          expect(res.body.tenant).toBe('my-tenant');
+        });
     });
 
     it('should pass for SUPER_ADMIN even with tenant mismatch', async () => {
@@ -138,7 +144,10 @@ describe('Auth (e2e)', () => {
       return request(app.getHttpServer())
         .get('/admin/my-tenant/diagnostics/db')
         .set('Authorization', `Bearer ${token}`)
-        .expect(200);
+        .expect(200)
+        .expect((res) => {
+          expect(res.body.database.status).toBe('ok');
+        });
     });
   });
 });

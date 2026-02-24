@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build:api": "pnpm --filter @gridiron/api build",
+    "start:api": "pnpm --filter @gridiron/api start:prod",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",

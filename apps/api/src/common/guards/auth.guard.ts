@@ -28,8 +28,12 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
+      const secret = process.env.JWT_SECRET;
+      if (!secret)
+        throw new Error('JWT_SECRET environment variable is required');
+
       const payload: JwtPayload = await this.jwtService.verifyAsync(token, {
-        secret: process.env.JWT_SECRET || 'gridiron_secret_unsecure_dev_only',
+        secret,
       });
 
       // Attach trusted payload to request
