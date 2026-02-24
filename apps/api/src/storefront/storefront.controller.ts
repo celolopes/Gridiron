@@ -75,15 +75,26 @@ export class StorefrontController {
 
   @Post('orders/request-pix')
   async requestPix(@Param('tenantSlug') slug: string, @Body() body: any) {
-    const tenant = await this.getTenant(slug);
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { slug },
+      include: { settings: true },
+    });
+    if (!tenant) throw new NotFoundException('Tenant not found');
+
+    const product = await this.prisma.product.findUnique({
+      where: { id: body.productId },
+    });
+
+    if (!product) throw new NotFoundException('Product not found');
+
+    const orderNumber = Math.random().toString(36).substring(7).toUpperCase();
 
     // Create order with requested status
-    // Note: In a real app we'd create/find a guest user or use sessionId
     const order = await this.prisma.order.create({
       data: {
         tenantId: tenant.id,
-        orderNumber: Math.random().toString(36).substring(7).toUpperCase(),
-        total: 0, // Should be calculated
+        orderNumber,
+        total: product.price,
         status: 'REQUESTED_PAYMENT',
         customerEmail: body.customerEmail,
         customerName: body.customerName,
@@ -96,14 +107,18 @@ export class StorefrontController {
         items: {
           create: [
             {
-              productId: body.productId,
+              productId: product.id,
               quantity: 1,
-              price: 0, // Should be fetched from product
+              price: product.price,
             },
           ],
         },
       },
     });
+
+    console.log(
+      `[Order Created] #${order.orderNumber} for tenant ${tenant.id}. Status: ${order.status}. Total: ${order.total}`,
+    );
 
     return {
       orderNumber: order.orderNumber,

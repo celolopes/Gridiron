@@ -7,3 +7,4 @@ export * from "./components/GlassBadge";
 export * from "./components/ProductCard";
 export * from "./components/SectionTitle";
 export * from "./components/LoadingSkeleton";
+export * from "./components/ErrorBoundary";

@@ -16,7 +16,7 @@
       "persistent": true
     },
     "typecheck": {
-      "dependsOn": ["^typecheck"]
+      "dependsOn": ["^typecheck", "db:generate"]
     },
     "clean": {
       "cache": false

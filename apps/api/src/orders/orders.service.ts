@@ -21,7 +21,8 @@ export class OrdersService {
 
       // Logic would go here to calculate totalAmount from items...
 
-      return await this.prisma.order.create({
+      const order = await this.prisma.order.create({
+        // ... (data same as original)
         data: {
           tenantId,
           userId,
@@ -41,6 +42,11 @@ export class OrdersService {
         },
         include: { orderItems: true },
       });
+
+      console.log(
+        `[Order Created] orderId=${order.id} tenantId=${tenantId} status=${order.status}`,
+      );
+      return order;
     } catch (error) {
       throw error;
     }
@@ -60,13 +66,17 @@ export class OrdersService {
     paymentLinkManualUrl: string,
   ) {
     try {
-      return await this.prisma.order.update({
+      const order = await this.prisma.order.update({
         where: { id: orderId, tenantId },
         data: {
           paymentLinkManualUrl,
           status: OrderStatus.LINK_SENT,
         },
       });
+      console.log(
+        `[Order Updated] orderId=${order.id} tenantId=${tenantId} transition=REQUESTED_PAYMENT->LINK_SENT`,
+      );
+      return order;
     } catch (error) {
       throw error;
     }
@@ -81,6 +91,9 @@ export class OrdersService {
           paidAt: new Date(),
         },
       });
+      console.log(
+        `[Order Updated] orderId=${order.id} tenantId=${tenantId} transition=->PAID`,
+      );
 
       await this.events.trackEvent(tenantId, {
         userId: order.userId,

@@ -23,7 +23,10 @@ export class EventsService {
       metadata?: any;
     },
   ) {
-    console.log(`[Event Tracking] ${tenantId}: ${data.eventType}`, data);
+    // Avoid logging full metadata to prevent leaking PII
+    console.log(
+      `[Event Tracking] tenant=${tenantId} type=${data.eventType} userId=${data.userId || 'guest'}`,
+    );
     return await this.prisma.event.create({
       data: {
         tenantId,
