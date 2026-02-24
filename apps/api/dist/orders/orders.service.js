@@ -24,7 +24,7 @@ let OrdersService = class OrdersService {
     async createOrder(tenantId, userId, data) {
         try {
             const totalAmount = 0;
-            return await this.prisma.order.create({
+            const order = await this.prisma.order.create({
                 data: {
                     tenantId,
                     userId,
@@ -44,6 +44,8 @@ let OrdersService = class OrdersService {
                 },
                 include: { orderItems: true },
             });
+            console.log(`[Order Created] orderId=${order.id} tenantId=${tenantId} status=${order.status}`);
+            return order;
         }
         catch (error) {
             throw error;
@@ -58,13 +60,15 @@ let OrdersService = class OrdersService {
     }
     async updateOrderLink(tenantId, orderId, paymentLinkManualUrl) {
         try {
-            return await this.prisma.order.update({
+            const order = await this.prisma.order.update({
                 where: { id: orderId, tenantId },
                 data: {
                     paymentLinkManualUrl,
                     status: database_1.OrderStatus.LINK_SENT,
                 },
             });
+            console.log(`[Order Updated] orderId=${order.id} tenantId=${tenantId} transition=REQUESTED_PAYMENT->LINK_SENT`);
+            return order;
         }
         catch (error) {
             throw error;
@@ -79,6 +83,7 @@ let OrdersService = class OrdersService {
                     paidAt: new Date(),
                 },
             });
+            console.log(`[Order Updated] orderId=${order.id} tenantId=${tenantId} transition=->PAID`);
             await this.events.trackEvent(tenantId, {
                 userId: order.userId,
                 eventType: 'PURCHASE',

@@ -26,7 +26,7 @@ let EventsService = class EventsService {
         this.prisma = prisma;
     }
     async trackEvent(tenantId, data) {
-        console.log(`[Event Tracking] ${tenantId}: ${data.eventType}`, data);
+        console.log(`[Event Tracking] tenant=${tenantId} type=${data.eventType} userId=${data.userId || 'guest'}`);
         return await this.prisma.event.create({
             data: {
                 tenantId,

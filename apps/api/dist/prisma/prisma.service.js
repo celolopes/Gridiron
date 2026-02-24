@@ -33,7 +33,10 @@ let PrismaService = class PrismaService extends database_1.PrismaClient {
             if (error.code === 'P1001') {
                 console.error('HINT: This is a network timeout (P1001).');
                 console.error('Check if your corporate network blocks port 5432 or DNS resolution for *.supabase.co.');
-                console.error('Try switching to the IP-based DATABASE_URL in the .env file if DNS fails.');
+                if (dbUrl.includes('pooler.supabase.com')) {
+                    console.error('HINT (Supabase): You are using the pooler. If in dev, ensure you are not hitting connection limits.');
+                    console.error('Try port 6543 for transaction pooling or 5432 for session pooling.');
+                }
             }
             console.error('--------------------------------------');
             return { success: false, error };

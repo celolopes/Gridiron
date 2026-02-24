@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const auth_guard_1 = require("../common/guards/auth.guard");
 let AdminController = class AdminController {
     prisma;
     constructor(prisma) {
@@ -77,6 +78,7 @@ __decorate([
 ], AdminController.prototype, "getDbDiagnostics", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], AdminController);
 //# sourceMappingURL=admin.controller.js.map

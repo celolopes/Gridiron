@@ -17,6 +17,8 @@ const events_module_1 = require("./events/events.module");
 const analytics_module_1 = require("./analytics/analytics.module");
 const email_module_1 = require("./email/email.module");
 const admin_module_1 = require("./admin/admin.module");
+const storefront_module_1 = require("./storefront/storefront.module");
+const auth_module_1 = require("./auth/auth.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 let AppModule = class AppModule {
 };
@@ -32,6 +34,8 @@ exports.AppModule = AppModule = __decorate([
             events_module_1.EventsModule,
             analytics_module_1.AnalyticsModule,
             email_module_1.EmailModule,
+            storefront_module_1.StorefrontModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
