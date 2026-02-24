@@ -19,6 +19,7 @@ exports.OrdersModule = OrdersModule = __decorate([
         imports: [events_module_1.EventsModule],
         controllers: [orders_controller_1.OrdersController],
         providers: [orders_service_1.OrdersService],
+        exports: [orders_service_1.OrdersService],
     })
 ], OrdersModule);
 //# sourceMappingURL=orders.module.js.map
