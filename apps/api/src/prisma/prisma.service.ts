@@ -6,28 +6,6 @@ export class PrismaService
   extends (PrismaClient as any)
   implements OnModuleInit
 {
-  constructor() {
-    const url = process.env.DATABASE_URL;
-    if (!url) {
-      console.error(
-        'CRITICAL: DATABASE_URL is not defined in environment variables',
-      );
-    } else {
-      console.log(
-        'PrismaService: Initializing with DATABASE_URL (length: ' +
-          url.length +
-          ')',
-      );
-    }
-    super({
-      datasources: {
-        db: {
-          url: url,
-        },
-      },
-    });
-  }
-
   async onModuleInit() {
     await this.connectWithDiagnostics();
   }
