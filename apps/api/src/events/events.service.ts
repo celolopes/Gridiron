@@ -17,14 +17,20 @@ export class EventsService {
     tenantId: string,
     data: {
       userId?: string;
-      eventType: EventType;
+      eventType: string;
       productId?: string;
       variantId?: string;
+      metadata?: any;
     },
   ) {
     console.log(`[Event Tracking] ${tenantId}: ${data.eventType}`, data);
-    // For MVP, we aren't storing raw events, just using them to trigger analytics
-    // In Phase 1, we focus on the core flow.
-    return { success: true };
+    return await this.prisma.event.create({
+      data: {
+        tenantId,
+        userId: data.userId,
+        eventType: data.eventType,
+        metadata: data.metadata || {},
+      },
+    });
   }
 }

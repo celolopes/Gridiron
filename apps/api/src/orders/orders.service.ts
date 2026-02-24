@@ -4,12 +4,16 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { EventsService } from '../events/events.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderStatus, FulfillmentType } from '@gridiron/database';
 
 @Injectable()
 export class OrdersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly events: EventsService,
+  ) {}
 
   async createOrder(tenantId: string, userId: string, data: CreateOrderDto) {
     try {
@@ -70,13 +74,24 @@ export class OrdersService {
 
   async markAsPaid(tenantId: string, orderId: string) {
     try {
-      return await this.prisma.order.update({
+      const order = await this.prisma.order.update({
         where: { id: orderId, tenantId },
         data: {
           status: OrderStatus.PAID,
           paidAt: new Date(),
         },
       });
+
+      await this.events.trackEvent(tenantId, {
+        userId: order.userId,
+        eventType: 'PURCHASE',
+        metadata: {
+          orderId: order.id,
+          totalAmount: order.totalAmount,
+        },
+      });
+
+      return order;
     } catch (error) {
       throw error;
     }

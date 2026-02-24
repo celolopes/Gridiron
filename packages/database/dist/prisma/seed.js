@@ -33,9 +33,9 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("../src/generated/client");
+const src_1 = require("../src");
 const bcrypt = __importStar(require("bcrypt"));
-const prisma = new client_1.PrismaClient();
+const prisma = new src_1.PrismaClient();
 async function main() {
     console.log("Starting seed...");
     // Create Demo Tenant

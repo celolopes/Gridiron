@@ -8,13 +8,27 @@ export declare class AdminController {
         database: {
             status: string;
             latency: string;
-            message: any;
-            metadata: any;
+            connectionMode: string;
+            serverInfo: {
+                user: any;
+                addr: any;
+                port: any;
+                version: any;
+            } | undefined;
+            error: {
+                message: any;
+                code: any;
+            } | undefined;
         };
         environment: {
             nodeEnv: string | undefined;
-            useFallback: boolean;
             host: string;
+            urlMasked: string;
+        };
+        debug: {
+            rawUrlMasked: string;
+            expectedUser: string;
+            mode: string;
         };
     }>;
 }

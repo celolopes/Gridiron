@@ -11,10 +11,9 @@ export declare class EventsService {
     constructor(prisma: PrismaService);
     trackEvent(tenantId: string, data: {
         userId?: string;
-        eventType: EventType;
+        eventType: string;
         productId?: string;
         variantId?: string;
-    }): Promise<{
-        success: boolean;
-    }>;
+        metadata?: any;
+    }): Promise<any>;
 }

@@ -1,12 +1,9 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
 }
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 model Tenant {
@@ -20,6 +17,7 @@ model Tenant {
   settings             TenantSettings?
   demandScores         DemandScore[]
   purchaseSuggestions  PurchaseSuggestion[]
+  events               Event[]
 }
 
 model TenantSettings {
@@ -192,4 +190,14 @@ model PurchaseSuggestion {
   suggestedQty   Int
   reason         String?
   createdAt      DateTime @default(now())
+}
+
+model Event {
+  id        String   @id @default(uuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  userId    String?
+  eventType String   // e.g., "PURCHASE", "PRODUCT_VIEW"
+  metadata  Json?
+  createdAt DateTime @default(now())
 }

@@ -12,11 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const events_service_1 = require("../events/events.service");
 const database_1 = require("@gridiron/database");
 let OrdersService = class OrdersService {
     prisma;
-    constructor(prisma) {
+    events;
+    constructor(prisma, events) {
         this.prisma = prisma;
+        this.events = events;
     }
     async createOrder(tenantId, userId, data) {
         try {
@@ -69,13 +72,22 @@ let OrdersService = class OrdersService {
     }
     async markAsPaid(tenantId, orderId) {
         try {
-            return await this.prisma.order.update({
+            const order = await this.prisma.order.update({
                 where: { id: orderId, tenantId },
                 data: {
                     status: database_1.OrderStatus.PAID,
                     paidAt: new Date(),
                 },
             });
+            await this.events.trackEvent(tenantId, {
+                userId: order.userId,
+                eventType: 'PURCHASE',
+                metadata: {
+                    orderId: order.id,
+                    totalAmount: order.totalAmount,
+                },
+            });
+            return order;
         }
         catch (error) {
             throw error;
@@ -85,6 +97,7 @@ let OrdersService = class OrdersService {
 exports.OrdersService = OrdersService;
 exports.OrdersService = OrdersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        events_service_1.EventsService])
 ], OrdersService);
 //# sourceMappingURL=orders.service.js.map

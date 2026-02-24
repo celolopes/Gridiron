@@ -7,7 +7,5 @@ export declare class EventsController {
         eventType: EventType;
         productId?: string;
         variantId?: string;
-    }): Promise<{
-        success: boolean;
-    }>;
+    }): Promise<any>;
 }

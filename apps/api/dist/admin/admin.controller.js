@@ -22,20 +22,47 @@ let AdminController = class AdminController {
     }
     async getDbDiagnostics(tenantSlug) {
         const health = await this.prisma.checkHealth();
+        const dbUrl = process.env.DATABASE_URL || '';
+        let connectionMode = 'unknown';
+        if (dbUrl.includes('pooler.supabase.com')) {
+            connectionMode = dbUrl.includes('5432')
+                ? 'session_pooler'
+                : 'transaction_pooler';
+        }
+        else if (dbUrl.includes('supabase.co')) {
+            connectionMode = 'direct';
+        }
         return {
             tenant: tenantSlug,
             timestamp: new Date().toISOString(),
             database: {
                 status: health.status,
                 latency: health.latency,
-                message: health.message,
-                metadata: health.metadata,
+                connectionMode,
+                serverInfo: health.status === 'ok'
+                    ? {
+                        user: health.metadata.user,
+                        addr: health.metadata.addr,
+                        port: health.metadata.port,
+                        version: health.metadata.version,
+                    }
+                    : undefined,
+                error: health.status === 'error'
+                    ? {
+                        message: health.message,
+                        code: health.code,
+                    }
+                    : undefined,
             },
             environment: {
                 nodeEnv: process.env.NODE_ENV,
-                useFallback: process.env.USE_DB_FALLBACK === 'true',
-                host: (process.env.DATABASE_URL || '').split('@')[1]?.split('/')[0] ||
-                    'unknown',
+                host: dbUrl.split('@')[1]?.split('/')[0] || 'unknown',
+                urlMasked: dbUrl.replace(/:[^@:]+@/, ':****@'),
+            },
+            debug: {
+                rawUrlMasked: dbUrl.replace(/:[^@:]+@/, ':****@'),
+                expectedUser: 'postgres.mpfqpueldajpmphahezr',
+                mode: connectionMode,
             },
         };
     }
