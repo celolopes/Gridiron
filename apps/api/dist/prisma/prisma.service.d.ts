@@ -1,6 +1,7 @@
 import { OnModuleInit } from '@nestjs/common';
 declare const PrismaService_base: any;
 export declare class PrismaService extends PrismaService_base implements OnModuleInit {
+    constructor();
     onModuleInit(): Promise<void>;
     connectWithDiagnostics(): Promise<{
         success: boolean;

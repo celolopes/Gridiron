@@ -1,11 +1,26 @@
 import { Injectable, OnModuleInit, INestApplication } from '@nestjs/common';
 import { PrismaClient } from '@gridiron/database';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 
 @Injectable()
 export class PrismaService
   extends (PrismaClient as any)
   implements OnModuleInit
 {
+  constructor() {
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      console.error(
+        'CRITICAL: DATABASE_URL is not defined in environment variables',
+      );
+      super();
+    } else {
+      const pool = new Pool({ connectionString });
+      const adapter = new PrismaPg(pool);
+      super({ adapter });
+    }
+  }
   async onModuleInit() {
     await this.connectWithDiagnostics();
   }
