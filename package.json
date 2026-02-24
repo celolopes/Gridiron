@@ -12,7 +12,8 @@
     "db:migrate:dev": "pnpm --filter @gridiron/database exec prisma migrate dev",
     "db:migrate:deploy": "pnpm --filter @gridiron/database exec prisma migrate deploy",
     "db:studio": "pnpm --filter @gridiron/database exec prisma studio",
-    "db:seed": "pnpm --filter @gridiron/database run db:seed"
+    "db:seed": "pnpm --filter @gridiron/database run db:seed",
+    "mobile": "pnpm --filter mobile run start"
   },
   "devDependencies": {
     "turbo": "^1.12.0",
