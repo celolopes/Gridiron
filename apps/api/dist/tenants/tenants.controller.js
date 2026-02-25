@@ -26,6 +26,9 @@ let TenantsController = class TenantsController {
     async getTenantSettings(slug) {
         return this.tenantsService.getSettings(slug);
     }
+    async listSuppliers(slug) {
+        return this.tenantsService.listSuppliersBySlug(slug);
+    }
 };
 exports.TenantsController = TenantsController;
 __decorate([
@@ -42,6 +45,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "getTenantSettings", null);
+__decorate([
+    (0, common_1.Get)(':slug/suppliers'),
+    __param(0, (0, common_1.Param)('slug')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "listSuppliers", null);
 exports.TenantsController = TenantsController = __decorate([
     (0, common_1.Controller)('tenants'),
     __metadata("design:paramtypes", [tenants_service_1.TenantsService])

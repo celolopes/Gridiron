@@ -4,4 +4,5 @@ export declare class TenantsController {
     constructor(tenantsService: TenantsService);
     getTenantBySlug(slug: string): Promise<any>;
     getTenantSettings(slug: string): Promise<any>;
+    listSuppliers(slug: string): Promise<any>;
 }

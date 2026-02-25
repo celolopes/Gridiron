@@ -10,6 +10,11 @@ export class AnalyticsController {
     return this.analyticsService.getSuggestions(tenantId);
   }
 
+  @Get('financial')
+  async getFinancialMetrics(@Param('tenantId') tenantId: string) {
+    return this.analyticsService.getFinancialMetrics(tenantId);
+  }
+
   // Usually triggered by Cron, exposing here for manual trigger/testing
   @Post('calculate-demand')
   async calculateDemandScores(@Param('tenantId') tenantId: string) {

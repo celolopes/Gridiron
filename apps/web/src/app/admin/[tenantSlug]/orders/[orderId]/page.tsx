@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { API_URL } from "../../../../../../lib/api";
 
 export default function AdminOrderDetail({ params }: { params: Promise<{ tenantSlug: string; orderId: string }> }) {
   const { tenantSlug, orderId } = React.use(params);
@@ -11,7 +12,7 @@ export default function AdminOrderDetail({ params }: { params: Promise<{ tenantS
 
   const fetchOrder = async () => {
     try {
-      const res = await fetch(`http://localhost:3001/tenants/${tenantSlug}/orders`, {
+      const res = await fetch(`${API_URL}/tenants/${tenantSlug}/orders`, {
         headers: { Authorization: "Bearer mock-admin-token" },
       });
       const orders = await res.json();
@@ -30,7 +31,7 @@ export default function AdminOrderDetail({ params }: { params: Promise<{ tenantS
 
   const handleSendLink = async () => {
     if (!pixLink) return alert("Insira o link Pix");
-    await fetch(`http://localhost:3001/tenants/${tenantSlug}/orders/${orderId}/payment-link`, {
+    await fetch(`${API_URL}/tenants/${tenantSlug}/orders/${orderId}/payment-link`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json", Authorization: "Bearer mock-admin-token" },
       body: JSON.stringify({ url: pixLink }),
@@ -41,7 +42,7 @@ export default function AdminOrderDetail({ params }: { params: Promise<{ tenantS
 
   const handleMarkPaid = async () => {
     if (!confirm("Confirmar que o pagamento foi recebido?")) return;
-    await fetch(`http://localhost:3001/tenants/${tenantSlug}/orders/${orderId}/mark-paid`, {
+    await fetch(`${API_URL}/tenants/${tenantSlug}/orders/${orderId}/mark-paid`, {
       method: "PATCH",
       headers: { Authorization: "Bearer mock-admin-token" },
     });

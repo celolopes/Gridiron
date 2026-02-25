@@ -6,10 +6,13 @@ export declare class AnalyticsService {
         message: string;
         algorithm: string;
     }>;
-    getSuggestions(tenantId: string): Promise<{
-        productId: string;
-        sku: string;
-        demandScore14d: number;
-        suggestionQty: number;
-    }[]>;
+    getSuggestions(tenantId: string): Promise<any>;
+    getFinancialMetrics(tenantId: string): Promise<{
+        totalRevenue: number;
+        totalProfit: number;
+        averageMargin: number;
+        ticketMedio: number;
+        paidOrdersCount: any;
+        totalItemsSold: number;
+    }>;
 }

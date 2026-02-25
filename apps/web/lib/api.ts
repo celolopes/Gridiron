@@ -1,7 +1,12 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+if (!API_URL && process.env.NODE_ENV === "production") {
+  console.error("CRITICAL: NEXT_PUBLIC_API_URL is not defined. API calls will fail.");
+}
 
 interface FetchOptions extends RequestInit {
   adminToken?: string;
+  next?: NextFetchRequestConfig;
 }
 
 export async function fetchApi<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {

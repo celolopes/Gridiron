@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { GlassCard, GlassInput, GlassButton } from "@gridiron/ui";
+import { API_URL } from "../../../../../lib/api";
 
 export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug: string }> }) {
   // Using React.use to unwrap params in Next 15+ client component rules
@@ -16,14 +17,14 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
 
     try {
       // Mock tracking event
-      await fetch(`http://localhost:3001/tenants/${tenantSlug}/events`, {
+      await fetch(`${API_URL}/tenants/${tenantSlug}/events`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ eventType: "BEGIN_CHECKOUT" }),
       }).catch(console.error);
 
       // Create Order
-      const res = await fetch(`http://localhost:3001/tenants/${tenantSlug}/orders`, {
+      const res = await fetch(`${API_URL}/tenants/${tenantSlug}/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

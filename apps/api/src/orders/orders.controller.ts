@@ -1,5 +1,6 @@
 import { Controller, Post, Get, Patch, Param, Body } from '@nestjs/common';
 import { OrdersService } from './orders.service';
+import { CreateOrderDto } from './dto/create-order.dto';
 
 @Controller('tenants/:tenantId/orders')
 export class OrdersController {
@@ -8,14 +9,11 @@ export class OrdersController {
   @Post()
   async createOrder(
     @Param('tenantId') tenantId: string,
-    @Body()
-    body: {
-      userId: string;
-      items: { variantId: string; quantity: number }[];
-      paymentMethodPreference: string;
-    },
+    @Body() body: CreateOrderDto,
+    // Note: userId could come from auth guard in future. For now, we take it from Body if exists or set to null
   ) {
-    return this.ordersService.createOrder(tenantId, body.userId, body);
+    const userId = (body as any).userId || null;
+    return this.ordersService.createOrder(tenantId, userId, body);
   }
 
   @Get()
@@ -38,5 +36,13 @@ export class OrdersController {
     @Param('id') orderId: string,
   ) {
     return this.ordersService.markAsPaid(tenantId, orderId);
+  }
+
+  @Patch(':id/forward-to-supplier')
+  async forwardToSupplier(
+    @Param('tenantId') tenantId: string,
+    @Param('id') orderId: string,
+  ) {
+    return this.ordersService.forwardToSupplier(tenantId, orderId);
   }
 }

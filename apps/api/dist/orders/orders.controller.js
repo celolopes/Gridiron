@@ -15,13 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersController = void 0;
 const common_1 = require("@nestjs/common");
 const orders_service_1 = require("./orders.service");
+const create_order_dto_1 = require("./dto/create-order.dto");
 let OrdersController = class OrdersController {
     ordersService;
     constructor(ordersService) {
         this.ordersService = ordersService;
     }
     async createOrder(tenantId, body) {
-        return this.ordersService.createOrder(tenantId, body.userId, body);
+        const userId = body.userId || null;
+        return this.ordersService.createOrder(tenantId, userId, body);
     }
     async listAdminOrders(tenantId) {
         return this.ordersService.listAdminOrders(tenantId);
@@ -32,6 +34,9 @@ let OrdersController = class OrdersController {
     async markAsPaid(tenantId, orderId) {
         return this.ordersService.markAsPaid(tenantId, orderId);
     }
+    async forwardToSupplier(tenantId, orderId) {
+        return this.ordersService.forwardToSupplier(tenantId, orderId);
+    }
 };
 exports.OrdersController = OrdersController;
 __decorate([
@@ -39,7 +44,7 @@ __decorate([
     __param(0, (0, common_1.Param)('tenantId')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, create_order_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "createOrder", null);
 __decorate([
@@ -66,6 +71,14 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "markAsPaid", null);
+__decorate([
+    (0, common_1.Patch)(':id/forward-to-supplier'),
+    __param(0, (0, common_1.Param)('tenantId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], OrdersController.prototype, "forwardToSupplier", null);
 exports.OrdersController = OrdersController = __decorate([
     (0, common_1.Controller)('tenants/:tenantId/orders'),
     __metadata("design:paramtypes", [orders_service_1.OrdersService])

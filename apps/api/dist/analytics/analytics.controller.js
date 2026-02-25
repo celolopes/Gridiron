@@ -23,6 +23,9 @@ let AnalyticsController = class AnalyticsController {
     async getSuggestions(tenantId) {
         return this.analyticsService.getSuggestions(tenantId);
     }
+    async getFinancialMetrics(tenantId) {
+        return this.analyticsService.getFinancialMetrics(tenantId);
+    }
     async calculateDemandScores(tenantId) {
         return this.analyticsService.calculateDemandScores(tenantId);
     }
@@ -35,6 +38,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnalyticsController.prototype, "getSuggestions", null);
+__decorate([
+    (0, common_1.Get)('financial'),
+    __param(0, (0, common_1.Param)('tenantId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AnalyticsController.prototype, "getFinancialMetrics", null);
 __decorate([
     (0, common_1.Post)('calculate-demand'),
     __param(0, (0, common_1.Param)('tenantId')),

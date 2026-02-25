@@ -1,4 +1,5 @@
 import { fetchApi } from "../../../../lib/api";
+import Link from "next/link";
 
 export default async function AdminLayout({ children, params }: { children: React.ReactNode; params: Promise<{ tenantSlug: string }> }) {
   const { tenantSlug } = await params;
@@ -21,15 +22,21 @@ export default async function AdminLayout({ children, params }: { children: Reac
           <span className="ml-2 px-2 py-0.5 text-[10px] uppercase font-bold bg-accent text-white rounded-full">Painel</span>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          <a href={`/admin/${tenantSlug}`} className="block px-4 py-2 text-sm rounded-md bg-neutral-800 font-medium text-white">
+          <Link href={`/admin/${tenantSlug}`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
             Dashboard
-          </a>
-          <a href={`/admin/${tenantSlug}/orders`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
+          </Link>
+          <Link href={`/admin/${tenantSlug}/finance`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
+            Financeiro
+          </Link>
+          <Link href={`/admin/${tenantSlug}/orders`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
             Pedidos
-          </a>
-          <a href={`/admin/${tenantSlug}/products`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
+          </Link>
+          <Link href={`/admin/${tenantSlug}/products`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
             Produtos
-          </a>
+          </Link>
+          <Link href={`/admin/${tenantSlug}/suppliers`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
+            Fornecedores
+          </Link>
         </nav>
       </aside>
 

@@ -6,36 +6,20 @@ export class CatalogService {
   constructor(private readonly prisma: PrismaService) {}
 
   async listProducts(tenantId: string) {
-    try {
-      return await this.prisma.product.findMany({
-        where: {
-          tenantId,
-        },
-        include: {
-          images: true,
-          variants: true,
-        },
-      });
-    } catch (error) {
-      if (process.env.USE_DB_FALLBACK === 'true') {
-        console.warn(
-          `Database query failed for products of tenant ${tenantId}, using dummy fallback.`,
-          error.message,
-        );
-        return [
-          {
-            id: 'dummy-p1',
-            name: 'Classic Gridiron Jersey',
-            slug: 'classic-jersey',
-            description: 'A premium gridiron jersey for champions.',
-            price: 89.99,
-            images: [],
-            variants: [{ id: 'v1', name: 'Large', price: 89.99, stock: 10 }],
+    return await this.prisma.product.findMany({
+      where: {
+        tenantId,
+      },
+      include: {
+        images: true,
+        variants: {
+          include: {
+            inventory: true,
           },
-        ];
-      }
-      throw error;
-    }
+        },
+        demandScores: true,
+      },
+    });
   }
 
   async getProduct(tenantId: string, slug: string) {

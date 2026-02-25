@@ -14,4 +14,9 @@ export class TenantsController {
   async getTenantSettings(@Param('slug') slug: string) {
     return this.tenantsService.getSettings(slug);
   }
+
+  @Get(':slug/suppliers')
+  async listSuppliers(@Param('slug') slug: string) {
+    return this.tenantsService.listSuppliersBySlug(slug);
+  }
 }
