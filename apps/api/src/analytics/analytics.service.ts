@@ -20,7 +20,28 @@ export class AnalyticsService {
     };
   }
 
-  async getSuggestions(tenantId: string) {
+  async resolveTenantId(idOrSlug: string): Promise<string> {
+    // If it's a UUID, return it
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (uuidRegex.test(idOrSlug)) {
+      return idOrSlug;
+    }
+
+    // Otherwise, assume it's a slug and find the tenant
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { slug: idOrSlug },
+    });
+
+    if (!tenant) {
+      throw new Error(`Tenant with slug or ID ${idOrSlug} not found`);
+    }
+
+    return tenant.id;
+  }
+
+  async getSuggestions(idOrSlug: string) {
+    const tenantId = await this.resolveTenantId(idOrSlug);
     const suggestions = await this.prisma.purchaseSuggestion.findMany({
       where: { tenantId },
       orderBy: { createdAt: 'desc' },
@@ -35,11 +56,12 @@ export class AnalyticsService {
     }));
   }
 
-  async getFinancialMetrics(tenantId: string) {
+  async getFinancialMetrics(idOrSlug: string) {
+    const tenantId = await this.resolveTenantId(idOrSlug);
     const paidOrders = await this.prisma.order.findMany({
       where: {
         tenantId,
-        status: { in: ['PAID', 'SHIPPED', 'DELIVERED'] }, // Consider SHIPPED/DELIVERED as PAID too
+        status: { in: ['PAID', 'SHIPPED', 'DELIVERED'] },
       },
       include: {
         orderItems: {
@@ -54,12 +76,30 @@ export class AnalyticsService {
       },
     });
 
+    // Get "Awaiting Payment" count too
+    const awaitingPaymentCount = await this.prisma.order.count({
+      where: {
+        tenantId,
+        status: { in: ['REQUESTED_PAYMENT', 'LINK_SENT'] },
+      },
+    });
+
+    // Get today's orders count
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const ordersTodayCount = await this.prisma.order.count({
+      where: {
+        tenantId,
+        createdAt: { gte: today },
+      },
+    });
+
     let totalRevenue = 0;
     let totalCost = 0;
     let totalItems = 0;
 
     paidOrders.forEach((order) => {
-      totalRevenue += order.totalAmount - order.shippingAmount; // Revenue without shipping? User might want net revenue.
+      totalRevenue += order.totalAmount - order.shippingAmount;
 
       order.orderItems.forEach((item) => {
         const prod = item.variant.product;
@@ -84,6 +124,8 @@ export class AnalyticsService {
       averageMargin,
       ticketMedio,
       paidOrdersCount: paidOrders.length,
+      awaitingPaymentCount,
+      ordersTodayCount,
       totalItemsSold: totalItems,
     };
   }

@@ -83,70 +83,8 @@ export class TenantsService {
           });
           console.log(`[TenantsService] Admin user created`);
 
-          // Seeding initial "Elite" products for the client
-          const initialProducts = [
-            {
-              name: 'Home Jersey Elite 24/25',
-              slug: 'home-jersey-24-25',
-              price: 349.9,
-              description:
-                'A armadura oficial para os jogos em casa. Tecido ultra-respirável com tecnologia de absorção de suor e detalhes bordados em alta definição.',
-              image:
-                'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=1000&auto=format&fit=crop',
-            },
-            {
-              name: 'Away Jersey Legend Series',
-              slug: 'away-jersey-legend',
-              price: 329.9,
-              description:
-                'Design clássico inspirado nas grandes vitórias históricas. O equilíbrio perfeito entre nostalgia e performance moderna.',
-              image:
-                'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=1000&auto=format&fit=crop',
-            },
-            {
-              name: 'Pro Training Hoodie - Stealth',
-              slug: 'training-hoodie-stealth',
-              price: 249.9,
-              description:
-                'Ideal para treinos em dias frios ou para compor seu estilo lifestyle com a identidade do futebol americano.',
-              image:
-                'https://images.unsplash.com/photo-1510283310217-18751336427d?q=80&w=1000&auto=format&fit=crop',
-            },
-            {
-              name: 'Elite Match Gloves',
-              slug: 'elite-match-gloves',
-              price: 189.9,
-              description:
-                'Grip superior em todas as condições climáticas. Usada pelos profissionais para garantir aquela recepção decisiva.',
-              image:
-                'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1000&auto=format&fit=crop',
-            },
-          ];
-
-          for (const p of initialProducts) {
-            await tx.product.create({
-              data: {
-                tenantId: tenant.id,
-                name: p.name,
-                slug: `${data.slug}-${p.slug}`,
-                price: p.price,
-                description: p.description,
-                images: {
-                  create: { url: p.image },
-                },
-                variants: {
-                  create: {
-                    name: 'Padrão',
-                    sku: `${data.slug}-${p.slug}-std`,
-                    inventory: {
-                      create: { available: 50 },
-                    },
-                  },
-                },
-              },
-            });
-          }
-          console.log(`[TenantsService] Products seeded successfully`);
+          // Store starts empty as requested by user ("loja zerada")
+          console.log(`[TenantsService] Store created with empty catalog`);
 
           return { tenant };
         },

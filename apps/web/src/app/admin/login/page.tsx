@@ -18,16 +18,19 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (initialEmail) setEmail(initialEmail);
   }, [initialEmail]);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setIsLoading(true);
     setError("");
+    setSuccess("");
 
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
@@ -44,14 +47,7 @@ function LoginForm() {
       }
 
       const { access_token } = await response.json();
-
-      // Store token in cookie for server-side access
       document.cookie = `adminToken=${access_token}; path=/; samesite=strict; max-age=3600`;
-
-      // Decode JWT roughly to get the tenantSlug (or simpler, just redirect to a generic success page
-      // where we fetch the profile to find the tenant)
-      // For MVP simplicity, we'll try to find the tenantSlug from the token payload if possible,
-      // or redirect to a loading page.
 
       const payload = JSON.parse(atob(access_token.split(".")[1]));
       const tenantSlug = payload.tenantSlug;
@@ -61,6 +57,39 @@ function LoginForm() {
       } else {
         router.push("/admin");
       }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleForgotPassword(e: React.FormEvent) {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await fetch(`${API_URL}/auth/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || "Erro ao solicitar recuperação");
+      }
+
+      setSuccess(data.message);
+      // Wait a bit and switch back to login
+      setTimeout(() => {
+        setIsForgotPassword(false);
+        setSuccess("");
+      }, 5000);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -79,19 +108,19 @@ function LoginForm() {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 mb-6 shadow-xl shadow-blue-500/20">
             <Layers className="text-white" size={32} />
           </div>
-          <h1 className="text-3xl font-outfit font-bold text-white mb-2">Acesso Restrito</h1>
-          <p className="text-zinc-500">Faça login para gerenciar sua loja Gridiron.</p>
+          <h1 className="text-3xl font-outfit font-bold text-white mb-2">{isForgotPassword ? "Recuperar Senha" : "Acesso Restrito"}</h1>
+          <p className="text-zinc-500">{isForgotPassword ? "Insira seu e-mail para recuperar o acesso." : "Faça login para gerenciar sua loja Gridiron."}</p>
         </div>
 
         <GlassCard className="p-8 border-white/5">
-          {isNewStore && (
+          {isNewStore && !isForgotPassword && (
             <div className="mb-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm">
               🚀 <b>Loja criada com sucesso!</b>
               <br />
               Sua senha temporária é <b>admin123</b>. Recomendamos alterá-la após o primeiro acesso.
             </div>
           )}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={isForgotPassword ? handleForgotPassword : handleLogin} className="space-y-6">
             <div className="space-y-2">
               <label className="text-sm font-medium text-zinc-400 ml-1">E-mail Corporativo</label>
               <div className="relative">
@@ -107,29 +136,41 @@ function LoginForm() {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center justify-between ml-1">
-                <label className="text-sm font-medium text-zinc-400">Senha</label>
-                <button type="button" className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
-                  Esqueceu a senha?
-                </button>
+            {!isForgotPassword && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between ml-1">
+                  <label className="text-sm font-medium text-zinc-400">Senha</label>
+                  <button type="button" onClick={() => setIsForgotPassword(true)} className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
+                    Esqueceu a senha?
+                  </button>
+                </div>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    required
+                    className="w-full h-12 bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 text-white focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all placeholder:text-zinc-600"
+                  />
+                </div>
               </div>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={18} />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  className="w-full h-12 bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 text-white focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all placeholder:text-zinc-600"
-                />
-              </div>
-            </div>
+            )}
 
             {error && (
               <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
                 {error}
+              </motion.div>
+            )}
+
+            {success && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-sm text-center"
+              >
+                {success}
               </motion.div>
             )}
 
@@ -138,10 +179,16 @@ function LoginForm() {
                 <Loader2 className="animate-spin" size={20} />
               ) : (
                 <>
-                  Entrar <ArrowRight className="ml-2" size={20} />
+                  {isForgotPassword ? "Enviar Recuperação" : "Entrar"} <ArrowRight className="ml-2" size={20} />
                 </>
               )}
             </GlassButton>
+
+            {isForgotPassword && (
+              <button type="button" onClick={() => setIsForgotPassword(false)} className="w-full text-center text-sm text-zinc-500 hover:text-white transition-colors">
+                Voltar para o Login
+              </button>
+            )}
           </form>
         </GlassCard>
 
