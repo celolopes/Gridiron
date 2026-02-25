@@ -6,7 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
-export interface CreateTenantDto {
+export class CreateTenantDto {
   name: string;
   slug: string;
   adminEmail: string;
