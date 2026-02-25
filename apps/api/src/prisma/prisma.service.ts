@@ -16,15 +16,21 @@ export class PrismaService
       throw new Error('DATABASE_URL is not set');
     }
 
-    // Force sslmode=no-verify for Prisma engine if it tries to use the URL natively
-    if (
-      connectionString &&
-      !connectionString.includes('sslmode') &&
-      !connectionString.includes('localhost')
-    ) {
+    // Force sslmode=no-verify for database connection
+    if (connectionString && !connectionString.includes('localhost')) {
+      // Remove any existing sslmode to avoid conflicts
+      connectionString = connectionString.replace(/([?&])sslmode=[^&]*/g, '');
       const separator = connectionString.includes('?') ? '&' : '?';
       connectionString = `${connectionString}${separator}sslmode=no-verify`;
+
+      // Update the env var so any other parts of the app use the corrected string
       process.env.DATABASE_URL = connectionString;
+
+      // Also set this for global node TLS handling
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+      console.log(
+        '[PrismaService] Forced SSL mode to no-verify and disabled unauthorized TLS rejection',
+      );
     }
 
     if (!connectionString) {
@@ -55,11 +61,6 @@ export class PrismaService
       const adapter = new PrismaPg(pool);
       super({ adapter });
       console.log('[PrismaService] Adapter initialized.');
-
-      // Also set environment variable as a fallback for other potential pg internal usages
-      if (!isLocal) {
-        process.env.PGSSLMODE = 'no-verify';
-      }
     }
   }
   async onModuleInit() {
