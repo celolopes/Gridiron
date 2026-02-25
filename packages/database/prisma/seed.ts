@@ -1,10 +1,26 @@
+import * as dotenv from "dotenv";
+import * as path from "path";
+dotenv.config({ path: path.join(__dirname, "../../../.env") });
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src";
 import * as bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log("Starting seed...");
+  console.log("DATABASE_URL found:", !!process.env.DATABASE_URL);
 
   // Create Demo Tenant
   const tenant = await prisma.tenant.upsert({
