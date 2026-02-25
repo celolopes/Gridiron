@@ -5,15 +5,24 @@ import { motion } from "framer-motion";
 import { Lock, Mail, ArrowRight, Layers, Loader2 } from "lucide-react";
 import { GlassCard, GlassButton, GlassInput } from "@gridiron/ui";
 import { API_URL } from "../../../../lib/api";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Suspense, useEffect } from "react";
 
-export default function AdminLoginPage() {
-  const [email, setEmail] = useState("");
+function LoginForm() {
+  const searchParams = useSearchParams();
+  const initialEmail = searchParams.get("email") || "";
+  const isNewStore = searchParams.get("newStore") === "true";
+
+  const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (initialEmail) setEmail(initialEmail);
+  }, [initialEmail]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,6 +84,13 @@ export default function AdminLoginPage() {
         </div>
 
         <GlassCard className="p-8 border-white/5">
+          {isNewStore && (
+            <div className="mb-6 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm">
+              🚀 <b>Loja criada com sucesso!</b>
+              <br />
+              Sua senha temporária é <b>admin123</b>. Recomendamos alterá-la após o primeiro acesso.
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <label className="text-sm font-medium text-zinc-400 ml-1">E-mail Corporativo</label>
@@ -137,5 +153,13 @@ export default function AdminLoginPage() {
         </p>
       </motion.div>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

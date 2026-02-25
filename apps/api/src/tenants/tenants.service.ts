@@ -1,9 +1,70 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
+
+export interface CreateTenantDto {
+  name: string;
+  slug: string;
+  adminEmail: string;
+}
 
 @Injectable()
 export class TenantsService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async register(data: CreateTenantDto) {
+    const existingTenant = await this.prisma.tenant.findUnique({
+      where: { slug: data.slug },
+    });
+
+    if (existingTenant) {
+      throw new ConflictException('A store with this slug already exists');
+    }
+
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: data.adminEmail },
+    });
+
+    if (existingUser) {
+      throw new ConflictException('A user with this email already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash('admin123', 10); // Default password for new stores
+
+    return this.prisma.$transaction(async (tx) => {
+      const tenant = await tx.tenant.create({
+        data: {
+          name: data.name,
+          slug: data.slug,
+          subscriptionPlan: 'FREE',
+          isSaasEnabled: true,
+          settings: {
+            create: {
+              storeName: data.name,
+              currency: 'BRL',
+              primaryColor: '#2563eb',
+            },
+          },
+        },
+      });
+
+      const user = await tx.user.create({
+        data: {
+          email: data.adminEmail,
+          password: hashedPassword,
+          name: 'Store Admin',
+          role: 'ADMIN',
+          tenantId: tenant.id,
+        },
+      });
+
+      return { tenant, user };
+    });
+  }
 
   async findBySlug(slug: string) {
     const tenant = await this.prisma.tenant.findUnique({

@@ -42,7 +42,7 @@ export default function LandingPage() {
             <Link href="#features" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
               Recursos
             </Link>
-            <Link href="#demo" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
+            <Link href="/t/demo" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
               Demonstração
             </Link>
             <Link href="#pricing" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
@@ -54,9 +54,11 @@ export default function LandingPage() {
             <Link href="/admin/login" className="text-sm font-medium text-zinc-400 hover:text-white">
               Entrar
             </Link>
-            <GlassButton size="sm" className="bg-white/10 text-white hover:bg-white/20">
-              Começar agora
-            </GlassButton>
+            <Link href="/onboarding">
+              <GlassButton size="sm" className="bg-white/10 text-white hover:bg-white/20">
+                Começar agora
+              </GlassButton>
+            </Link>
           </div>
         </div>
       </nav>
@@ -81,12 +83,16 @@ export default function LandingPage() {
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-col gap-4 sm:flex-row">
-              <GlassButton className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 text-lg">
-                Criar minha loja <ArrowRight className="ml-2" size={20} />
-              </GlassButton>
-              <GlassButton variant="secondary" className="px-8 py-4 text-lg border-white/10 bg-white/5 text-white hover:bg-white/10">
-                Ver demonstração
-              </GlassButton>
+              <Link href="/onboarding">
+                <GlassButton className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 text-lg">
+                  Criar minha loja <ArrowRight className="ml-2" size={20} />
+                </GlassButton>
+              </Link>
+              <Link href="/t/demo">
+                <GlassButton variant="secondary" className="px-8 py-4 text-lg border-white/10 bg-white/5 text-white hover:bg-white/10">
+                  Ver demonstração
+                </GlassButton>
+              </Link>
             </motion.div>
 
             <motion.div variants={itemVariants} className="flex items-center gap-6 mt-4">
@@ -164,7 +170,9 @@ export default function LandingPage() {
           <h2 className="relative z-10 font-outfit text-4xl font-bold text-white">Pronto para entrar em campo?</h2>
           <p className="relative z-10 mt-4 text-lg text-zinc-400">Junte-se à elite dos lojistas de jerseys NFL.</p>
           <div className="relative z-10 mt-10 flex flex-col items-center justify-center gap-6 sm:flex-row">
-            <GlassButton className="bg-white text-black hover:bg-zinc-200 px-10 py-5 text-xl font-bold">Criar minha loja agora</GlassButton>
+            <Link href="/onboarding">
+              <GlassButton className="bg-white text-black hover:bg-zinc-200 px-10 py-5 text-xl font-bold">Criar minha loja agora</GlassButton>
+            </Link>
             <p className="text-sm text-zinc-500 flex items-center gap-2">
               <Globe size={16} /> Experimente 14 dias grátis
             </p>
