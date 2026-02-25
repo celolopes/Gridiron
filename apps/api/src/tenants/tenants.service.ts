@@ -41,7 +41,9 @@ export class TenantsService {
       throw new ConflictException('A user with this email already exists');
     }
 
+    console.log('[TenantsService] Hashing default password...');
     const hashedPassword = await bcrypt.hash('admin123', 10); // Default password for new stores
+    console.log('[TenantsService] Password hashed.');
 
     try {
       return await this.prisma.$transaction(

@@ -34,13 +34,22 @@ export class PrismaService
         connectionString.includes('localhost') ||
         connectionString.includes('127.0.0.1');
 
+      console.log(
+        '[PrismaService] Initializing with custom PostgreSQL adapter...',
+      );
       const pool = new Pool({
         connectionString,
         ssl: isLocal ? false : { rejectUnauthorized: false },
+        connectionTimeoutMillis: 10000,
+      });
+
+      pool.on('error', (err) => {
+        console.error('[PrismaService] Unexpected error on idle client', err);
       });
 
       const adapter = new PrismaPg(pool);
       super({ adapter });
+      console.log('[PrismaService] Adapter initialized.');
 
       // Also set environment variable as a fallback for other potential pg internal usages
       if (!isLocal) {
