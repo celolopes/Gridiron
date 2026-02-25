@@ -34,17 +34,24 @@ export default async function TenantLayout({ children, params }: { children: Rea
       <header className="fixed top-0 w-full z-50 border-b border-black/5 dark:border-white/5 backdrop-blur-xl bg-white/70 dark:bg-black/70">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <Link href={`/t/${tenantSlug}`} className="flex items-center space-x-2">
-            <span className="text-2xl font-black tracking-tighter uppercase italic text-primary">{tenantSettings?.brandName || "Gridiron"}</span>
+            <span
+              className={`text-2xl font-black tracking-tighter uppercase italic ${themeMode === "dark" && (primaryColor === "#000000" || primaryColor === "black") ? "text-white" : "text-primary"}`}
+            >
+              {tenantSettings?.brandName || "Gridiron"}
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href={`/t/${tenantSlug}`} className="text-sm font-bold uppercase tracking-widest hover:text-accent transition-all">
+            <Link href={`/t/${tenantSlug}`} className="text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-accent dark:hover:text-accent transition-all">
               Início
             </Link>
-            <Link href={`/t/${tenantSlug}/products`} className="text-sm font-bold uppercase tracking-widest hover:text-accent transition-all">
+            <Link href={`/t/${tenantSlug}/products`} className="text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-accent dark:hover:text-accent transition-all">
               Catálogo
             </Link>
-            <Link href={`/t/${tenantSlug}/products?category=jerseys`} className="text-sm font-bold uppercase tracking-widest hover:text-accent transition-all">
+            <Link
+              href={`/t/${tenantSlug}/products?category=jerseys`}
+              className="text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-accent dark:hover:text-accent transition-all"
+            >
               Jerseys
             </Link>
           </nav>
@@ -60,7 +67,7 @@ export default async function TenantLayout({ children, params }: { children: Rea
             </button>
             <Link
               href="/admin/login"
-              className="px-5 py-2 rounded-full border border-black/10 dark:border-white/10 text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+              className="px-5 py-2 rounded-full border border-black/10 dark:border-white/10 text-xs font-black uppercase tracking-widest text-zinc-800 dark:text-zinc-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
             >
               Admin
             </Link>
@@ -78,13 +85,13 @@ export default async function TenantLayout({ children, params }: { children: Rea
               <p className="text-sm text-zinc-500 max-w-xs">A melhor experiência em jerseys autênticas e acessórios premium para fãs de verdade.</p>
             </div>
             <div className="flex space-x-6 text-sm font-bold uppercase tracking-widest">
-              <Link href="#" className="hover:text-accent">
+              <Link href="#" className="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">
                 Sobre
               </Link>
-              <Link href="#" className="hover:text-accent">
+              <Link href="#" className="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">
                 Envio
               </Link>
-              <Link href="#" className="hover:text-accent">
+              <Link href="#" className="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">
                 Contato
               </Link>
             </div>

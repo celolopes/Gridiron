@@ -68,8 +68,8 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
                 <div className="mb-4 p-4 rounded-3xl bg-white dark:bg-black shadow-sm group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300">
                   {benefit.icon}
                 </div>
-                <h3 className="font-black uppercase tracking-tighter transition-colors group-hover:text-accent">{benefit.title}</h3>
-                <p className="text-xs text-zinc-500 font-medium">{benefit.desc}</p>
+                <h3 className="font-black uppercase tracking-tighter transition-colors group-hover:text-accent text-zinc-900 dark:text-zinc-100">{benefit.title}</h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -80,14 +80,14 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
       <section className="py-24 container mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <h2 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-4">
+            <h2 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter mb-4 text-zinc-900 dark:text-white">
               Produtos <span className="text-accent">Destaque</span>
             </h2>
-            <p className="text-zinc-500 font-medium">Os itens mais desejados da temporada, selecionados para você.</p>
+            <p className="text-zinc-500 dark:text-zinc-400 font-medium">Os itens mais desejados da temporada, selecionados para você.</p>
           </div>
           <Link href={`/t/${tenantSlug}/products`} className="flex items-center space-x-2 text-sm font-black uppercase tracking-[0.2em] group">
-            <span className="group-hover:text-accent transition-colors">Explorar Tudo</span>
-            <span className="w-8 h-[1px] bg-zinc-300 group-hover:bg-accent transition-all group-hover:w-12" />
+            <span className="group-hover:text-accent transition-colors text-zinc-800 dark:text-zinc-200">Explorar Tudo</span>
+            <span className="w-8 h-[1px] bg-zinc-300 dark:bg-zinc-700 group-hover:bg-accent transition-all group-hover:w-12" />
           </Link>
         </div>
 

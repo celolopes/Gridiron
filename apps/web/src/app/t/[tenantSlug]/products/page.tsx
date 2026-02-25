@@ -17,14 +17,14 @@ export default async function CatalogPage({ params }: { params: Promise<{ tenant
       {/* Catalog Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
         <div>
-          <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4">
+          <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4 text-zinc-900 dark:text-white">
             Catálogo <span className="text-accent underline decoration-4 underline-offset-8">Completo</span>
           </h1>
-          <p className="text-zinc-500 font-medium text-lg">Performance e autenticidade em cada detalhe da nossa coleção.</p>
+          <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg">Performance e autenticidade em cada detalhe da nossa coleção.</p>
         </div>
 
         <div className="flex items-center space-x-4">
-          <button className="flex items-center space-x-2 px-6 py-3 rounded-full border border-black/10 dark:border-white/10 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all font-black uppercase tracking-widest text-[10px]">
+          <button className="flex items-center space-x-2 px-6 py-3 rounded-full border border-black/10 dark:border-white/10 text-zinc-800 dark:text-zinc-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all font-black uppercase tracking-widest text-[10px]">
             <SlidersHorizontal className="w-4 h-4" />
             <span>Filtros</span>
           </button>
@@ -37,8 +37,8 @@ export default async function CatalogPage({ params }: { params: Promise<{ tenant
       {products.length === 0 ? (
         <div className="py-40 text-center border-2 border-dashed border-zinc-200 dark:border-zinc-800 rounded-[40px]">
           <ShoppingBag className="w-16 h-16 mx-auto mb-6 text-zinc-300 opacity-20" />
-          <h2 className="text-2xl font-black uppercase tracking-tighter mb-2">Ops! Loja Vazia</h2>
-          <p className="text-zinc-500 font-medium">Estamos preparando novidades incríveis para você. Volte em breve!</p>
+          <h2 className="text-2xl font-black uppercase tracking-tighter mb-2 text-zinc-900 dark:text-zinc-100">Ops! Loja Vazia</h2>
+          <p className="text-zinc-500 dark:text-zinc-400 font-medium">Estamos preparando novidades incríveis para você. Volte em breve!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -67,7 +67,7 @@ export default async function CatalogPage({ params }: { params: Promise<{ tenant
               </div>
 
               <div className="px-2">
-                <h3 className="font-black uppercase tracking-tighter text-xl mb-1 group-hover:text-accent transition-colors line-clamp-1">{product.name}</h3>
+                <h3 className="font-black uppercase tracking-tighter text-xl mb-1 group-hover:text-accent transition-colors line-clamp-1 text-zinc-900 dark:text-zinc-100">{product.name}</h3>
                 <div className="flex items-center justify-between">
                   <p className="font-bold text-accent text-lg">{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(product.price)}</p>
                   <div className="flex space-x-1">
