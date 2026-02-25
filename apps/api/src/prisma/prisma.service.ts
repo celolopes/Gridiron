@@ -11,6 +11,11 @@ export class PrismaService
   constructor() {
     let connectionString = process.env.DATABASE_URL;
 
+    if (!connectionString) {
+      console.error('[PrismaService] DATABASE_URL is not set!');
+      throw new Error('DATABASE_URL is not set');
+    }
+
     // Force sslmode=no-verify for Prisma engine if it tries to use the URL natively
     if (
       connectionString &&
