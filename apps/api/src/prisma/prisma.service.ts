@@ -9,19 +9,43 @@ export class PrismaService
   implements OnModuleInit
 {
   constructor() {
-    const connectionString = process.env.DATABASE_URL;
+    let connectionString = process.env.DATABASE_URL;
+
+    // Force sslmode=no-verify for Prisma engine if it tries to use the URL natively
+    if (
+      connectionString &&
+      !connectionString.includes('sslmode') &&
+      !connectionString.includes('localhost')
+    ) {
+      const separator = connectionString.includes('?') ? '&' : '?';
+      connectionString = `${connectionString}${separator}sslmode=no-verify`;
+      process.env.DATABASE_URL = connectionString;
+    }
+
     if (!connectionString) {
       console.error(
         'CRITICAL: DATABASE_URL is not defined in environment variables',
       );
       super();
     } else {
+      // Force pg to allow self-signed certificates
+      // This is necessary for some hosted databases like Render/Supabase
+      const isLocal =
+        connectionString.includes('localhost') ||
+        connectionString.includes('127.0.0.1');
+
       const pool = new Pool({
         connectionString,
-        ssl: { rejectUnauthorized: false },
+        ssl: isLocal ? false : { rejectUnauthorized: false },
       });
+
       const adapter = new PrismaPg(pool);
       super({ adapter });
+
+      // Also set environment variable as a fallback for other potential pg internal usages
+      if (!isLocal) {
+        process.env.PGSSLMODE = 'no-verify';
+      }
     }
   }
   async onModuleInit() {
