@@ -5,10 +5,18 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { IsString, IsEmail, MinLength, Matches } from 'class-validator';
 
 export class CreateTenantDto {
+  @IsString()
+  @MinLength(3)
   name: string;
+
+  @IsString()
+  @Matches(/^[a-z0-9-]+$/)
   slug: string;
+
+  @IsEmail()
   adminEmail: string;
 }
 
