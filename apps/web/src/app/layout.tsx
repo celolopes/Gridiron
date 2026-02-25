@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Launch your customized NFL jersey shop in minutes. Premium glassmorphism UI, automated order tracking, and seamless payments.",
 };
 
+import { Analytics } from "@vercel/analytics/react";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,6 +28,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased`} suppressHydrationWarning>
         {children}
+        <Analytics />
       </body>
     </html>
   );
