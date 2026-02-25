@@ -54,22 +54,23 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 bg-zinc-100 dark:bg-zinc-900/50">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+      {/* Benefits Section - Premium Floating Glass Bar */}
+      <section className="relative z-20 -mt-16 mb-20 px-6">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-8 rounded-[40px] bg-white/80 dark:bg-zinc-900/80 backdrop-blur-2xl border border-white/20 dark:border-white/5 shadow-2xl overflow-hidden relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             {[
-              { icon: <ShieldCheck className="w-8 h-8 text-accent" />, title: "100% Original", desc: "Produtos oficiais e certificados" },
-              { icon: <Truck className="w-8 h-8 text-accent" />, title: "Envio Rápido", desc: "Entrega expressa para todo Brasil" },
-              { icon: <Star className="w-8 h-8 text-accent" />, title: "Premium VIP", desc: "Qualidade de jogador nos detalhes" },
-              { icon: <ShoppingBag className="w-8 h-8 text-accent" />, title: "Compra Segura", desc: "Sua segurança é nossa prioridade" },
+              { icon: <ShieldCheck className="w-6 h-6" />, title: "100% Original", desc: "Oficial & Certificado" },
+              { icon: <Truck className="w-6 h-6" />, title: "Envio Rápido", desc: "Todo o Brasil" },
+              { icon: <Star className="w-6 h-6" />, title: "Premium VIP", desc: "Qualidade de Elite" },
+              { icon: <ShoppingBag className="w-6 h-6" />, title: "Compra Segura", desc: "Dados Protegidos" },
             ].map((benefit, i) => (
-              <div key={i} className="flex flex-col items-center text-center group">
-                <div className="mb-4 p-4 rounded-3xl bg-white dark:bg-black shadow-sm group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300">
+              <div key={i} className="flex flex-col items-center md:items-start text-center md:text-left group/item relative z-10 transition-transform hover:scale-105 duration-300">
+                <div className="mb-4 p-3 rounded-2xl bg-accent/10 text-accent group-hover/item:bg-accent group-hover/item:text-white shadow-lg shadow-accent/5 transition-all duration-500">
                   {benefit.icon}
                 </div>
-                <h3 className="font-black uppercase tracking-tighter transition-colors group-hover:text-accent text-zinc-900 dark:text-zinc-100">{benefit.title}</h3>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">{benefit.desc}</p>
+                <h3 className="text-xs font-black uppercase tracking-tighter text-zinc-900 dark:text-zinc-100 group-hover/item:text-accent transition-colors">{benefit.title}</h3>
+                <p className="hidden md:block text-[10px] text-zinc-500 dark:text-zinc-400 font-bold uppercase tracking-widest mt-1 opacity-70">{benefit.desc}</p>
               </div>
             ))}
           </div>

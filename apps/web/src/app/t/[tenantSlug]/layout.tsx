@@ -33,10 +33,8 @@ export default async function TenantLayout({ children, params }: { children: Rea
 
       <header className="fixed top-0 w-full z-50 border-b border-black/5 dark:border-white/5 backdrop-blur-xl bg-white/70 dark:bg-black/70">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href={`/t/${tenantSlug}`} className="flex items-center space-x-2">
-            <span
-              className={`text-2xl font-black tracking-tighter uppercase italic ${themeMode === "dark" && (primaryColor === "#000000" || primaryColor === "black") ? "text-white" : "text-primary"}`}
-            >
+          <Link href={`/t/${tenantSlug}`} className="flex items-center space-x-2 group">
+            <span className="text-2xl font-black tracking-tighter uppercase italic transition-all group-hover:skew-x-[-10deg] text-zinc-900 dark:text-zinc-100">
               {tenantSettings?.brandName || "Gridiron"}
             </span>
           </Link>
@@ -57,13 +55,15 @@ export default async function TenantLayout({ children, params }: { children: Rea
           </nav>
 
           <div className="flex items-center space-x-6">
-            <button className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors relative">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <button className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors relative text-zinc-900 dark:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
                 <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
               </svg>
-              <span className="absolute top-0 right-0 bg-accent text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+              <span className="absolute -top-1 -right-1 bg-accent text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-black animate-bounce shadow-lg shadow-accent/40">
+                0
+              </span>
             </button>
             <Link
               href="/admin/login"
@@ -81,23 +81,25 @@ export default async function TenantLayout({ children, params }: { children: Rea
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="text-center md:text-left">
-              <h3 className="text-lg font-black italic uppercase tracking-tighter mb-2">{tenantSettings?.brandName || "Gridiron Store"}</h3>
-              <p className="text-sm text-zinc-500 max-w-xs">A melhor experiência em jerseys autênticas e acessórios premium para fãs de verdade.</p>
+              <h3 className="text-xl font-black italic uppercase tracking-tighter mb-2 text-zinc-900 dark:text-white">{tenantSettings?.brandName || "Gridiron Store"}</h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-xs font-medium leading-relaxed italic opacity-80">
+                A melhor experiência em jerseys autênticas e acessórios premium para fãs de verdade.
+              </p>
             </div>
-            <div className="flex space-x-6 text-sm font-bold uppercase tracking-widest">
-              <Link href="#" className="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">
+            <div className="flex space-x-8 text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="#" className="text-zinc-400 dark:text-zinc-500 hover:text-accent dark:hover:text-white transition-colors">
                 Sobre
               </Link>
-              <Link href="#" className="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">
+              <Link href="#" className="text-zinc-400 dark:text-zinc-500 hover:text-accent dark:hover:text-white transition-colors">
                 Envio
               </Link>
-              <Link href="#" className="text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors">
+              <Link href="#" className="text-zinc-400 dark:text-zinc-500 hover:text-accent dark:hover:text-white transition-colors">
                 Contato
               </Link>
             </div>
           </div>
-          <div className="mt-12 text-center text-xs text-zinc-400 font-medium">
-            © {new Date().getFullYear()} {tenantSettings?.brandName || "Gridiron"}. Powered by Gridiron SaaS.
+          <div className="mt-16 text-center text-[10px] text-zinc-400 dark:text-zinc-600 font-bold uppercase tracking-widest">
+            © {new Date().getFullYear()} {tenantSettings?.brandName || "Gridiron"}. Powered by <span className="text-primary dark:text-white italic font-black">Gridiron SaaS</span>.
           </div>
         </div>
       </footer>
