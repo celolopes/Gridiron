@@ -46,12 +46,6 @@ export default async function TenantLayout({ children, params }: { children: Rea
             <Link href={`/t/${tenantSlug}/products`} className="text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-accent dark:hover:text-accent transition-all">
               Catálogo
             </Link>
-            <Link
-              href={`/t/${tenantSlug}/products?category=jerseys`}
-              className="text-sm font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 hover:text-accent dark:hover:text-accent transition-all"
-            >
-              Jerseys
-            </Link>
           </nav>
 
           <div className="flex items-center space-x-6">
