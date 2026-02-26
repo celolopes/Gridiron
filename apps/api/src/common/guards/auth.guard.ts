@@ -56,7 +56,7 @@ export class AuthGuard implements CanActivate {
       if (
         tenantSlugInPath &&
         !isSuperAdmin &&
-        payload.tenantSlug !== tenantSlugInPath
+        payload.tenantSlug.toLowerCase() !== tenantSlugInPath.toLowerCase()
       ) {
         throw new ForbiddenException('Tenant mismatch: Access denied');
       }

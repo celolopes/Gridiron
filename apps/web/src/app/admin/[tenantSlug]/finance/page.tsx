@@ -6,11 +6,7 @@ import { redirect } from "next/navigation";
 
 async function getFinancialData(tenantSlug: string, token: string) {
   try {
-    // We need tenantId for analytics endpoint, but we have tenantSlug.
-    // Usually, the backend should handle slug conversion or we fetch tenant first.
-    // For now, let's assume we can lookup by slug or get ID from tenant meta.
-    const tenant = await fetchApi<any>(`/tenants/${tenantSlug}`, { adminToken: token });
-    return await fetchApi<any>(`/tenants/${tenant.id}/analytics/financial`, { adminToken: token });
+    return await fetchApi<any>(`/tenants/${tenantSlug}/analytics/financial`, { adminToken: token });
   } catch (e) {
     console.error(e);
     return null;
