@@ -166,6 +166,32 @@ export class TenantsService {
     return tenant.settings;
   }
 
+  async updateSettings(slug: string, data: Record<string, any>) {
+    const tenant = await this.findBySlug(slug);
+    if (!tenant.settings) {
+      throw new NotFoundException('Settings not found for tenant');
+    }
+    const allowedFields = [
+      'brandName',
+      'logoUrl',
+      'primaryColor',
+      'accentColor',
+      'themeMode',
+      'glassOpacity',
+      'blurIntensity',
+    ];
+    const updateData: Record<string, any> = {};
+    for (const key of allowedFields) {
+      if (data[key] !== undefined) {
+        updateData[key] = data[key];
+      }
+    }
+    return this.prisma.tenantSettings.update({
+      where: { id: tenant.settings.id },
+      data: updateData,
+    });
+  }
+
   async getPlanLimits(tenantId: string) {
     const tenant = await this.prisma.tenant.findUnique({
       where: { id: tenantId },

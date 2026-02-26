@@ -38,9 +38,13 @@ export default async function TenantLayout({ children, params }: { children: Rea
         <header className="fixed top-0 w-full z-50 border-b border-black/5 dark:border-white/5 backdrop-blur-xl bg-white/70 dark:bg-black/70">
           <div className="container mx-auto px-6 h-20 flex items-center justify-between">
             <Link href={`/t/${tenantSlug}`} className="flex items-center space-x-2 group">
-              <span className="text-2xl font-black tracking-tighter uppercase italic transition-all group-hover:skew-x-[-10deg] text-zinc-900 dark:text-zinc-100">
-                {tenantSettings?.brandName || "Gridiron"}
-              </span>
+              {tenantSettings?.logoUrl ? (
+                <img src={tenantSettings.logoUrl} alt={tenantSettings.brandName || "Logo"} className="h-8 max-w-[160px] object-contain transition-transform group-hover:scale-105" />
+              ) : (
+                <span className="text-2xl font-black tracking-tighter uppercase italic transition-all group-hover:skew-x-[-10deg] text-zinc-900 dark:text-zinc-100">
+                  {tenantSettings?.brandName || "Gridiron"}
+                </span>
+              )}
             </Link>
 
             <nav className="hidden md:flex items-center space-x-8">

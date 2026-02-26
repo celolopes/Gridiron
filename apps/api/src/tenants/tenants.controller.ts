@@ -1,5 +1,14 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Patch,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { TenantsService, CreateTenantDto } from './tenants.service';
+import { AuthGuard } from '../common/guards/auth.guard';
 
 @Controller('tenants')
 export class TenantsController {
@@ -18,6 +27,15 @@ export class TenantsController {
   @Get(':slug/settings')
   async getTenantSettings(@Param('slug') slug: string) {
     return this.tenantsService.getSettings(slug);
+  }
+
+  @Patch(':slug/settings')
+  @UseGuards(AuthGuard)
+  async updateTenantSettings(
+    @Param('slug') slug: string,
+    @Body() body: Record<string, any>,
+  ) {
+    return this.tenantsService.updateSettings(slug, body);
   }
 
   @Get(':slug/suppliers')

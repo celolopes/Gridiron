@@ -37,6 +37,9 @@ export default async function AdminLayout({ children, params }: { children: Reac
           <Link href={`/admin/${tenantSlug}/suppliers`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
             Fornecedores
           </Link>
+          <Link href={`/admin/${tenantSlug}/settings`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
+            ⚙️ Configurações
+          </Link>
         </nav>
       </aside>
 
