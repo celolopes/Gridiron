@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum SubscriptionPlan {
@@ -84,6 +85,7 @@ model Product {
   fulfillmentType           FulfillmentType @default(STOCK)
   images                    ProductImage[]
   variants                  Variant[]
+  category                  String?
   createdAt                 DateTime        @default(now())
   updatedAt                 DateTime        @updatedAt
   demandScores              DemandScore[]
@@ -94,6 +96,7 @@ model ProductImage {
   url       String
   productId String
   product   Product  @relation(fields: [productId], references: [id])
+  position  Int      @default(0)
   createdAt DateTime @default(now())
 }
 

@@ -107,7 +107,12 @@ export class CatalogService {
         price: data.price ? parseFloat(data.price) : undefined,
         costPrice: data.costPrice ? parseFloat(data.costPrice) : undefined,
         category: data.category,
-        // Optional: Implement image management
+        images: data.images
+          ? {
+              deleteMany: {},
+              create: data.images.map((url: string) => ({ url })),
+            }
+          : undefined,
       },
     });
   }
