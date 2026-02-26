@@ -1,6 +1,7 @@
 import { fetchApi } from "../../../../lib/api";
 import { GlassCard, GlassButton } from "@gridiron/ui";
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingBag, Star, ShieldCheck, Truck } from "lucide-react";
 
 export default async function TenantHome({ params }: { params: Promise<{ tenantSlug: string }> }) {
@@ -21,7 +22,14 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
       <section className="relative min-h-[85vh] flex items-center pt-20">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10" />
-          <img src="https://images.unsplash.com/photo-1508344928928-71653da93292?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover scale-105" alt="Hero Background" />
+          <Image
+            src="https://images.unsplash.com/photo-1508344928928-71653da93292?q=80&w=2070&auto=format&fit=crop"
+            className="w-full h-full object-cover scale-105"
+            alt="Hero Background"
+            fill
+            priority
+            sizes="100vw"
+          />
         </div>
 
         <div className="container mx-auto px-6 relative z-20">
@@ -102,7 +110,13 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
               <Link key={product.id} href={`/t/${tenantSlug}/products/${product.slug || product.id}`} className="group">
                 <div className="relative aspect-[3/4] rounded-[32px] overflow-hidden mb-6 bg-white dark:bg-zinc-900 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
                   {product.images?.[0]?.url ? (
-                    <img src={product.images[0].url} alt={product.name} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
+                    <Image
+                      src={product.images[0].url}
+                      alt={product.name}
+                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-zinc-500">
                       <ShoppingBag className="w-12 h-12 opacity-10" />
