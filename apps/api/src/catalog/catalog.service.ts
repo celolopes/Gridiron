@@ -41,20 +41,84 @@ export class CatalogService {
     });
   }
 
-  async getProduct(idOrSlug: string, slug: string) {
+  async getProduct(idOrSlug: string, slugOrId: string) {
     const tenantId = await this.resolveTenantId(idOrSlug);
     const product = await this.prisma.product.findFirst({
-      where: { tenantId, slug },
+      where: {
+        tenantId,
+        OR: [{ slug: slugOrId }, { id: slugOrId }],
+      },
       include: {
         images: true,
-        variants: true,
+        variants: {
+          include: {
+            inventory: true,
+          },
+        },
       },
     });
 
     if (!product) {
-      throw new NotFoundException(`Product with slug ${slug} not found`);
+      throw new NotFoundException(`Product not found`);
     }
 
     return product;
+  }
+
+  async createProduct(idOrSlug: string, data: any) {
+    const tenantId = await this.resolveTenantId(idOrSlug);
+    const slug =
+      data.slug ||
+      data.name
+        .toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/[^\w-]+/g, '');
+
+    return this.prisma.product.create({
+      data: {
+        name: data.name,
+        slug,
+        description: data.description,
+        price: parseFloat(data.price),
+        costPrice: data.costPrice ? parseFloat(data.costPrice) : undefined,
+        category: data.category,
+        tenantId,
+        images: {
+          create: data.images?.map((url: string) => ({ url })) || [],
+        },
+      },
+    });
+  }
+
+  async updateProduct(idOrSlug: string, id: string, data: any) {
+    const tenantId = await this.resolveTenantId(idOrSlug);
+
+    // Ensure we are only updating product belonging to this tenant
+    const product = await this.prisma.product.findFirst({
+      where: { id, tenantId },
+    });
+    if (!product) throw new NotFoundException('Product not found in this shop');
+
+    return this.prisma.product.update({
+      where: { id },
+      data: {
+        name: data.name,
+        description: data.description,
+        price: data.price ? parseFloat(data.price) : undefined,
+        costPrice: data.costPrice ? parseFloat(data.costPrice) : undefined,
+        category: data.category,
+        // Optional: Implement image management
+      },
+    });
+  }
+
+  async deleteProduct(idOrSlug: string, id: string) {
+    const tenantId = await this.resolveTenantId(idOrSlug);
+    const product = await this.prisma.product.findFirst({
+      where: { id, tenantId },
+    });
+    if (!product) throw new NotFoundException('Product not found');
+
+    return this.prisma.product.delete({ where: { id } });
   }
 }

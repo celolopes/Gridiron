@@ -2,6 +2,7 @@ import { fetchApi } from "../../../../../lib/api";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function AdminProductsPage({ params }: { params: Promise<{ tenantSlug: string }> }) {
   const { tenantSlug } = await params;
@@ -27,7 +28,9 @@ export default async function AdminProductsPage({ params }: { params: Promise<{ 
           <h2 className="text-3xl font-black mb-1">Produtos</h2>
           <p className="text-neutral-400">Gerencie seu catálogo de jerseys e acessórios.</p>
         </div>
-        <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors">Novo Produto</button>
+        <Link href={`/admin/${tenantSlug}/products/new`}>
+          <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors">Novo Produto</button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -52,11 +55,13 @@ export default async function AdminProductsPage({ params }: { params: Promise<{ 
 
               <div className="flex items-center justify-between mt-auto">
                 <span className="text-lg font-black text-blue-400">{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(product.price)}</span>
-                <button className="p-2 hover:bg-neutral-800 rounded-lg text-neutral-400 hover:text-white transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                  </svg>
-                </button>
+                <Link href={`/admin/${tenantSlug}/products/${product.id}`}>
+                  <button className="p-2 hover:bg-neutral-800 rounded-lg text-neutral-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                    </svg>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
