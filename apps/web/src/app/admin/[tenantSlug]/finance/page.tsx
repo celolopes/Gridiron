@@ -2,6 +2,7 @@ import { fetchApi } from "../../../../../lib/api";
 import { GlassCard, GlassButton } from "@gridiron/ui";
 import { DollarSign, TrendingUp, ShoppingBag, Percent, ArrowUpRight, ArrowDownRight, Briefcase } from "lucide-react";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 async function getFinancialData(tenantSlug: string, token: string) {
   try {
@@ -21,7 +22,9 @@ export default async function FinancePage({ params }: { params: Promise<{ tenant
   const cookieStore = await cookies();
   const token = cookieStore.get("adminToken")?.value;
 
-  if (!token) return <div>Access Denied</div>;
+  if (!token) {
+    redirect("/admin/login");
+  }
 
   const data = await getFinancialData(tenantSlug, token);
 

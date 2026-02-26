@@ -21,7 +21,7 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
       <section className="relative min-h-[85vh] flex items-center pt-20">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10" />
-          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop" className="w-full h-full object-cover scale-105" alt="Hero Background" />
+          <img src="https://images.unsplash.com/photo-1508344928928-71653da93292?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover scale-105" alt="Hero Background" />
         </div>
 
         <div className="container mx-auto px-6 relative z-20">

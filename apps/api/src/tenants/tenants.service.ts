@@ -83,13 +83,61 @@ export class TenantsService {
           });
           console.log(`[TenantsService] Admin user created`);
 
-          // Store starts empty as requested by user ("loja zerada")
-          console.log(`[TenantsService] Store created with empty catalog`);
+          // Seed Example Products (Elite Collection)
+          const eliteProducts = [
+            {
+              name: 'Jersey Kansas City Home - Mahomes #15',
+              price: 499.9,
+              category: 'Jerseys',
+              image:
+                'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?auto=format&fit=crop&q=80&w=1000',
+              description:
+                'Jersey oficial modelo Home do quarterback Patrick Mahomes. Material premium com tecnologia de ventilação.',
+            },
+            {
+              name: 'Jersey Philadelphia Home - Hurts #1',
+              price: 479.9,
+              category: 'Jerseys',
+              image:
+                'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?auto=format&fit=crop&q=80&w=1000',
+              description:
+                'A armadura dos Eagles. Versão oficial de jogador com detalhes bordados e tecido ultra-resistente.',
+            },
+            {
+              name: 'Jersey Cincinnati Home - Burrow #9',
+              price: 489.9,
+              category: 'Jerseys',
+              image:
+                'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&q=80&w=1000',
+              description:
+                'Modelo clássico dos Bengals. Conforto excepcional para o dia a dia e para o estádio.',
+            },
+          ];
+
+          for (const item of eliteProducts) {
+            await tx.product.create({
+              data: {
+                name: item.name,
+                description: item.description,
+                price: item.price,
+                costPrice: item.price * 0.4,
+                tenantId: tenant.id,
+                category: item.category,
+                images: {
+                  create: [{ url: item.image, position: 0 }],
+                },
+              },
+            });
+          }
+
+          console.log(
+            `[TenantsService] Seeded ${eliteProducts.length} elite products`,
+          );
 
           return { tenant };
         },
         {
-          timeout: 15000, // Increase timeout to 15s for the seeding process
+          timeout: 20000, // Increase timeout to 20s for the seeding process
         },
       );
     } catch (error) {
