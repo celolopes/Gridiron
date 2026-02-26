@@ -41,7 +41,11 @@ export default async function TenantLayout({ children, params }: { children: Rea
             <div className="container mx-auto px-6 h-20 flex items-center justify-between">
               <Link href={`/t/${tenantSlug}`} className="flex items-center space-x-2 group">
                 {tenantSettings?.logoUrl ? (
-                  <img src={tenantSettings.logoUrl} alt={tenantSettings.brandName || "Logo"} className="h-8 max-w-[160px] object-contain transition-transform group-hover:scale-105" />
+                  <img
+                    src={tenantSettings.logoUrl}
+                    alt={tenantSettings.brandName || "Logo"}
+                    className="h-12 max-w-[200px] object-contain transition-transform group-hover:scale-105 dark:brightness-0 dark:invert"
+                  />
                 ) : (
                   <span className="text-2xl font-black tracking-tighter uppercase italic transition-all group-hover:skew-x-[-10deg] text-zinc-900 dark:text-zinc-100">
                     {tenantSettings?.brandName || "Gridiron"}
@@ -84,7 +88,7 @@ export default async function TenantLayout({ children, params }: { children: Rea
               <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                 <div className="text-center md:text-left">
                   {tenantSettings?.logoUrl ? (
-                    <img src={tenantSettings.logoUrl} alt={tenantSettings.brandName || "Logo"} className="h-10 max-w-[180px] object-contain mb-2 mx-auto md:mx-0" />
+                    <img src={tenantSettings.logoUrl} alt={tenantSettings.brandName || "Logo"} className="h-14 max-w-[220px] object-contain mb-3 mx-auto md:mx-0 dark:brightness-0 dark:invert" />
                   ) : (
                     <h3 className="text-xl font-black italic uppercase tracking-tighter mb-2 text-zinc-900 dark:text-white">{tenantSettings?.brandName || "Gridiron Store"}</h3>
                   )}

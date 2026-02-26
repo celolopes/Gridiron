@@ -162,19 +162,40 @@ export default function SettingsPage({ params }: { params: Promise<{ tenantSlug:
         </div>
 
         <p className="text-sm text-neutral-400 leading-relaxed">
-          Envie o logo da sua loja. Ele será exibido no header de todas as páginas.
+          Envie o logo da sua loja. Ele será exibido no header e footer de todas as páginas.
           <br />
-          <strong className="text-neutral-300">Tamanho recomendado:</strong> 200×60 pixels (proporcional, horizontal).
+          <strong className="text-neutral-300">Tamanho recomendado:</strong> 400×120 pixels (proporcional, horizontal).
           <br />
-          <strong className="text-neutral-300">Formatos:</strong> PNG, SVG ou WebP (fundo transparente).
+          <strong className="text-neutral-300">Dica:</strong> Use fundo transparente (PNG/SVG) para melhor resultado.
+          <br />
+          <strong className="text-neutral-300">Dark Mode:</strong> Logos escuros serão invertidos automaticamente no tema escuro.
           <br />
           <strong className="text-neutral-300">Máximo:</strong> 2MB.
         </p>
 
-        <div className="flex items-center gap-6">
-          {/* Preview */}
-          <div className="w-[200px] h-[60px] rounded-xl border-2 border-dashed border-neutral-700 flex items-center justify-center bg-neutral-950 overflow-hidden flex-shrink-0">
-            {logoUrl ? <img src={logoUrl} alt="Logo preview" className="max-w-full max-h-full object-contain p-1" /> : <span className="text-xs text-neutral-600 text-center px-2">Sem logo</span>}
+        <div className="flex items-start gap-6">
+          {/* Preview - Light & Dark */}
+          <div className="flex flex-col gap-3">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-1 block">Modo Claro</span>
+              <div className="w-[240px] h-[80px] rounded-xl border-2 border-dashed border-neutral-700 flex items-center justify-center bg-white overflow-hidden flex-shrink-0">
+                {logoUrl ? (
+                  <img src={logoUrl} alt="Logo preview light" className="max-w-full max-h-full object-contain p-2" />
+                ) : (
+                  <span className="text-xs text-neutral-400 text-center px-2">Sem logo</span>
+                )}
+              </div>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-1 block">Modo Escuro (auto-invertido)</span>
+              <div className="w-[240px] h-[80px] rounded-xl border-2 border-dashed border-neutral-700 flex items-center justify-center bg-neutral-950 overflow-hidden flex-shrink-0">
+                {logoUrl ? (
+                  <img src={logoUrl} alt="Logo preview dark" className="max-w-full max-h-full object-contain p-2 brightness-0 invert" />
+                ) : (
+                  <span className="text-xs text-neutral-600 text-center px-2">Sem logo</span>
+                )}
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -279,7 +300,7 @@ export default function SettingsPage({ params }: { params: Promise<{ tenantSlug:
         <h2 className="text-lg font-bold text-white mb-4">Pré-visualização do Header</h2>
         <div className="rounded-xl border border-neutral-700 p-4 flex items-center gap-4" style={{ backgroundColor: themeMode === "dark" ? "#0a0a0a" : "#fafafa" }}>
           {logoUrl ? (
-            <img src={logoUrl} alt="Logo preview" className="h-8 max-w-[120px] object-contain" />
+            <img src={logoUrl} alt="Logo preview" className="h-12 max-w-[180px] object-contain" style={themeMode === "dark" ? { filter: "brightness(0) invert(1)" } : {}} />
           ) : (
             <span className="text-xl font-black tracking-tighter uppercase italic" style={{ color: themeMode === "dark" ? "#fff" : "#000" }}>
               {brandName || "Sua Loja"}
