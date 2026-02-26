@@ -139,7 +139,7 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
                 </div>
 
                 <div className="px-2">
-                  <h3 className="font-black uppercase tracking-tighter text-lg mb-1 group-hover:text-accent transition-colors line-clamp-1">{product.name}</h3>
+                  <h3 className="font-black uppercase tracking-tighter text-lg mb-1 group-hover:text-accent transition-colors line-clamp-1 text-zinc-900 dark:text-zinc-100">{product.name}</h3>
                   <div className="flex items-center justify-between">
                     <p className="font-bold text-accent">{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(product.price)}</p>
                     <div className="flex space-x-1">

@@ -79,7 +79,7 @@ export default async function TenantLayout({ children, params }: { children: Rea
           {/* Cart Slide Panel */}
           <CartPanel tenantSlug={tenantSlug} />
 
-          <footer className="relative z-10 pt-20 pb-10 border-t border-black/5 dark:border-white/5 bg-white/50 dark:bg-black/50">
+          <footer className="relative z-10 pt-20 pb-10 border-t border-zinc-200 dark:border-white/5 bg-zinc-100 dark:bg-zinc-950">
             <div className="container mx-auto px-6">
               <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                 <div className="text-center md:text-left">
@@ -89,19 +89,19 @@ export default async function TenantLayout({ children, params }: { children: Rea
                   </p>
                 </div>
                 <div className="flex space-x-8 text-xs font-black uppercase tracking-[0.2em]">
-                  <Link href="#" className="text-zinc-400 dark:text-zinc-500 hover:text-accent dark:hover:text-white transition-colors">
+                  <Link href="#" className="text-zinc-600 dark:text-zinc-400 hover:text-accent transition-colors">
                     Sobre
                   </Link>
-                  <Link href="#" className="text-zinc-400 dark:text-zinc-500 hover:text-accent dark:hover:text-white transition-colors">
+                  <Link href="#" className="text-zinc-600 dark:text-zinc-400 hover:text-accent transition-colors">
                     Envio
                   </Link>
-                  <Link href="#" className="text-zinc-400 dark:text-zinc-500 hover:text-accent dark:hover:text-white transition-colors">
+                  <Link href="#" className="text-zinc-600 dark:text-zinc-400 hover:text-accent transition-colors">
                     Contato
                   </Link>
                 </div>
               </div>
-              <div className="mt-16 text-center text-[10px] text-zinc-400 dark:text-zinc-600 font-bold uppercase tracking-widest">
-                © {new Date().getFullYear()} {tenantSettings?.brandName || "Gridiron"}. Powered by <span className="text-primary dark:text-white italic font-black">Gridiron SaaS</span>.
+              <div className="mt-16 text-center text-[10px] text-zinc-500 dark:text-zinc-600 font-bold uppercase tracking-widest">
+                © {new Date().getFullYear()} {tenantSettings?.brandName || "Gridiron"}. Powered by <span className="text-zinc-800 dark:text-white italic font-black">Gridiron SaaS</span>.
               </div>
             </div>
           </footer>
