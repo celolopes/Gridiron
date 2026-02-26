@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { GlassCard, GlassInput, GlassButton } from "@gridiron/ui";
-import { Save, ChevronLeft, Loader2, Image as ImageIcon } from "lucide-react";
+import { Save, ChevronLeft, Loader2, Image as ImageIcon, Upload } from "lucide-react";
 import Link from "next/link";
 import { fetchApi } from "../../../../../../lib/api";
+import { supabase } from "../../../../../../lib/supabase";
 
 interface ProductFormProps {
   tenantSlug: string;
@@ -16,6 +17,9 @@ interface ProductFormProps {
 export default function ProductForm({ tenantSlug, token, initialData }: ProductFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [formData, setFormData] = useState({
     name: initialData?.name || "",
     description: initialData?.description || "",
@@ -24,6 +28,34 @@ export default function ProductForm({ tenantSlug, token, initialData }: ProductF
     category: initialData?.category || "Jerseys",
     imageUrl: initialData?.images?.[0]?.url || "",
   });
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+      const filePath = `products/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage.from("product-images").upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("product-images").getPublicUrl(filePath);
+
+      setFormData({ ...formData, imageUrl: publicUrl });
+    } catch (err: any) {
+      console.error("Upload error", err);
+      alert(`Erro no upload: ${err.message || "Falha ao enviar imagem"}`);
+    } finally {
+      setUploading(false);
+      if (e.target) e.target.value = "";
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,19 +130,23 @@ export default function ProductForm({ tenantSlug, token, initialData }: ProductF
             <h3 className="text-xs font-black uppercase tracking-widest text-neutral-500 mb-6">Mídia e Imagem</h3>
             <div className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-2 block">URL da Imagem (Principal)</label>
+                <label className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-2 block">Imagens do Produto</label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
                     <ImageIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
                     <input
                       type="url"
-                      required
                       value={formData.imageUrl}
                       onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                      placeholder="https://images.unsplash.com/..."
-                      className="w-full bg-black/40 border border-neutral-700 focus:border-blue-500 rounded-xl pl-11 pr-4 py-3 outline-none text-white transition-all"
+                      placeholder="https://..."
+                      className="w-full bg-black/40 border border-neutral-700 focus:border-blue-500 rounded-xl pl-11 pr-4 py-3 outline-none text-white transition-all text-sm"
                     />
                   </div>
+                  <input type="file" ref={fileInputRef} onChange={handleUpload} accept="image/*" className="hidden" />
+                  <GlassButton type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading || loading} className="whitespace-nowrap flex items-center gap-2">
+                    {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                    {uploading ? "Enviando..." : "Upload"}
+                  </GlassButton>
                 </div>
               </div>
 
