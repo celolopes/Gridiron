@@ -1,3 +1,14 @@
 @import "@gridiron/ui/styles";
 
-/* Additional Web-specific overrides if necessary */
+@keyframes slow-zoom {
+  0% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s ease-in-out infinite alternate;
+}

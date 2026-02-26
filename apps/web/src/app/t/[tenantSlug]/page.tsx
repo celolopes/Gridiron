@@ -19,17 +19,19 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
   return (
     <div className="pb-24">
       {/* Hero Section - Full Width & Impactful */}
-      <section className="relative min-h-[85vh] flex items-center pt-20">
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10" />
+      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1508344928928-71653da93292?q=80&w=2070&auto=format&fit=crop"
-            className="w-full h-full object-cover scale-105"
-            alt="Hero Background"
+            src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop"
+            className="w-full h-full object-cover scale-105 animate-slow-zoom"
+            alt="NFL Stadium Background"
             fill
             priority
             sizes="100vw"
+            style={{ zIndex: 0 }}
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/20 z-10" />
         </div>
 
         <div className="container mx-auto px-6 relative z-20">
