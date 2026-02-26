@@ -22,12 +22,27 @@ export default async function AdminDashboard({ params }: { params: Promise<{ ten
 
   try {
     const [suggestionsData, metricsData, tenantData] = (await Promise.all([
-      fetchApi(`/tenants/${tenantSlug}/analytics/suggestions`, { adminToken: token }),
-      fetchApi(`/tenants/${tenantSlug}/analytics/financial`, { adminToken: token }),
-      fetchApi(`/tenants/${tenantSlug}`),
+      fetchApi(`/tenants/${tenantSlug}/analytics/suggestions`, { adminToken: token }).catch((e) => {
+        console.error(e);
+        return [];
+      }),
+      fetchApi(`/tenants/${tenantSlug}/analytics/financial`, { adminToken: token }).catch((e) => {
+        console.error(e);
+        return null;
+      }),
+      fetchApi(`/tenants/${tenantSlug}`).catch((e) => {
+        console.error(e);
+        return null;
+      }),
     ])) as [any[], any, any];
-    suggestions = suggestionsData;
-    metrics = metricsData;
+    suggestions = suggestionsData || [];
+    metrics = metricsData || {
+      totalRevenue: 0,
+      totalProfit: 0,
+      paidOrdersCount: 0,
+      awaitingPaymentCount: 0,
+      ordersTodayCount: 0,
+    };
     tenant = tenantData;
   } catch (e) {
     console.error("Failed to fetch dashboard data", e);
@@ -55,22 +70,14 @@ export default async function AdminDashboard({ params }: { params: Promise<{ ten
                 <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-widest mb-1">Link de Divulgação</span>
                 <code className="text-blue-400 font-mono text-sm">{`gridiron.app${storeUrl}`}</code>
               </div>
-              <button
-                onClick={() => {
-                  // This is a server component, but I can add a small client wrapper or just use the link below
-                }}
-                className="text-neutral-500 hover:text-white transition-colors"
-                title="Copiar link"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
-                  />
-                </svg>
-              </button>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                />
+              </svg>
             </div>
 
             <a

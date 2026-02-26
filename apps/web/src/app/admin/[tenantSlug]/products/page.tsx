@@ -14,7 +14,8 @@ export default async function AdminProductsPage({ params }: { params: Promise<{ 
 
   let products: any[] = [];
   try {
-    products = await fetchApi(`/tenants/${tenantSlug}/catalog/products`, { adminToken: token });
+    const data = await fetchApi<any[]>(`/tenants/${tenantSlug}/catalog/products`, { adminToken: token });
+    products = data || [];
   } catch (e) {
     console.error("Failed to fetch products", e);
   }

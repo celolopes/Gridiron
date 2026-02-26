@@ -25,13 +25,29 @@ export default async function FinancePage({ params }: { params: Promise<{ tenant
 
   const data = await getFinancialData(tenantSlug, token);
 
-  if (!data) return <div className="p-8">Ocorreu um erro ao carregar os dados financeiros.</div>;
+  if (!data) {
+    return (
+      <div className="p-8 text-center bg-neutral-900 border border-neutral-800 rounded-2xl m-8">
+        <h2 className="text-xl font-bold mb-2 font-outfit text-white">Ops! Erro ao carregar dados financeiros.</h2>
+        <p className="text-neutral-400">Verifique sua conexão ou permissões administrativas.</p>
+      </div>
+    );
+  }
+
+  const safeData = {
+    totalRevenue: data.totalRevenue || 0,
+    totalProfit: data.totalProfit || 0,
+    averageMargin: data.averageMargin || 0,
+    ticketMedio: data.ticketMedio || 0,
+    paidOrdersCount: data.paidOrdersCount || 0,
+    totalItemsSold: data.totalItemsSold || 0,
+  };
 
   const stats = [
-    { label: "Receita Total", value: data.totalRevenue, icon: DollarSign, color: "text-emerald-500", suffix: "" },
-    { label: "Lucro Estimado", value: data.totalProfit, icon: TrendingUp, color: "text-blue-500", suffix: "" },
-    { label: "Margem Média", value: data.averageMargin, icon: Percent, color: "text-purple-500", suffix: "%" },
-    { label: "Ticket Médio", value: data.ticketMedio, icon: ShoppingBag, color: "text-amber-500", suffix: "" },
+    { label: "Receita Total", value: safeData.totalRevenue, icon: DollarSign, color: "text-emerald-500", suffix: "" },
+    { label: "Lucro Estimado", value: safeData.totalProfit, icon: TrendingUp, color: "text-blue-500", suffix: "" },
+    { label: "Margem Média", value: safeData.averageMargin, icon: Percent, color: "text-purple-500", suffix: "%" },
+    { label: "Ticket Médio", value: safeData.ticketMedio, icon: ShoppingBag, color: "text-amber-500", suffix: "" },
   ];
 
   return (
