@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useCart } from "../CartProvider";
+import { useCart } from "../../CartProvider";
 import { ShoppingCart, ChevronLeft, Star, Shield, Truck, RotateCcw, Check, ShoppingBag } from "lucide-react";
 import { API_URL } from "../../../../../../lib/api";
 
