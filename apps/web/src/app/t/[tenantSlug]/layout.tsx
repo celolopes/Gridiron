@@ -83,7 +83,11 @@ export default async function TenantLayout({ children, params }: { children: Rea
             <div className="container mx-auto px-6">
               <div className="flex flex-col md:flex-row justify-between items-center gap-8">
                 <div className="text-center md:text-left">
-                  <h3 className="text-xl font-black italic uppercase tracking-tighter mb-2 text-zinc-900 dark:text-white">{tenantSettings?.brandName || "Gridiron Store"}</h3>
+                  {tenantSettings?.logoUrl ? (
+                    <img src={tenantSettings.logoUrl} alt={tenantSettings.brandName || "Logo"} className="h-10 max-w-[180px] object-contain mb-2 mx-auto md:mx-0" />
+                  ) : (
+                    <h3 className="text-xl font-black italic uppercase tracking-tighter mb-2 text-zinc-900 dark:text-white">{tenantSettings?.brandName || "Gridiron Store"}</h3>
+                  )}
                   <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-xs font-medium leading-relaxed italic opacity-80">
                     A melhor experiência em jerseys autênticas e acessórios premium para fãs de verdade.
                   </p>
