@@ -12,6 +12,14 @@ enum SubscriptionPlan {
   ENTERPRISE
 }
 
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
+}
+
 model Tenant {
   id                  String               @id @default(uuid())
   slug                String               @unique // Used for /t/[slug] routing
@@ -26,6 +34,7 @@ model Tenant {
   products            Product[]
   orders              Order[]
   settings            TenantSettings?
+  subscription        Subscription?
   demandScores        DemandScore[]
   purchaseSuggestions PurchaseSuggestion[]
   events              Event[]
@@ -243,4 +252,20 @@ model Event {
   eventType String // e.g., "PURCHASE", "PRODUCT_VIEW", "VIEW"
   metadata  Json?
   createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  tenantId             String             @unique
+  tenant               Tenant             @relation(fields: [tenantId], references: [id])
+  stripeCustomerId     String             @unique
+  stripeSubscriptionId String?            @unique
+  stripePriceId        String?
+  status               SubscriptionStatus @default(TRIALING)
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  trialEndsAt          DateTime?
+  canceledAt           DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
 }

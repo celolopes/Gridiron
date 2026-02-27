@@ -63,4 +63,11 @@ export class TenantsController {
   ) {
     return this.tenantsService.updateSupplier(slug, supplierId, body);
   }
+
+  @Get(':slug/usage')
+  @UseGuards(AuthGuard)
+  async getUsageStats(@Param('slug') slug: string) {
+    const tenant = await this.tenantsService.findBySlug(slug);
+    return this.tenantsService.getUsageStats(tenant.id);
+  }
 }

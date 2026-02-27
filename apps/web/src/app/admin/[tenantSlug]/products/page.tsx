@@ -14,23 +14,55 @@ export default async function AdminProductsPage({ params }: { params: Promise<{ 
   }
 
   let products: any[] = [];
+  let usage: any = null;
   try {
-    const data = await fetchApi<any[]>(`/tenants/${tenantSlug}/catalog/products`, { adminToken: token });
-    products = data || [];
+    const [productsData, usageData] = await Promise.all([
+      fetchApi<any[]>(`/tenants/${tenantSlug}/catalog/products`, { adminToken: token }),
+      fetchApi<any>(`/tenants/${tenantSlug}/usage`, { adminToken: token }),
+    ]);
+    products = productsData || [];
+    usage = usageData || null;
   } catch (e) {
-    console.error("Failed to fetch products", e);
+    console.error("Failed to fetch products or usage", e);
   }
+
+  const currentProducts = usage?.products?.current || 0;
+  const maxProducts = usage?.products?.limit || 20;
+  const isLimitReached = currentProducts >= maxProducts;
+  const progressPercent = Math.min((currentProducts / maxProducts) * 100, 100);
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black mb-1">Produtos</h2>
           <p className="text-neutral-400">Gerencie seu catálogo de jerseys e acessórios.</p>
         </div>
-        <Link href={`/admin/${tenantSlug}/products/new`}>
-          <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-colors">Novo Produto</button>
-        </Link>
+
+        <div className="flex items-center gap-6">
+          {usage && (
+            <div className="flex flex-col gap-1.5 w-40">
+              <div className="flex justify-between text-xs font-semibold">
+                <span className="text-neutral-400">Uso do Plano</span>
+                <span className={isLimitReached ? "text-red-400" : "text-white"}>
+                  {currentProducts} / {maxProducts}
+                </span>
+              </div>
+              <div className="h-1.5 w-full bg-neutral-800 rounded-full overflow-hidden">
+                <div className={`h-full rounded-full ${isLimitReached ? "bg-red-500" : "bg-blue-500"}`} style={{ width: `${progressPercent}%` }} />
+              </div>
+            </div>
+          )}
+
+          <Link href={`/admin/${tenantSlug}/products/new`} className={isLimitReached ? "pointer-events-none opacity-50" : ""}>
+            <button
+              disabled={isLimitReached}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-neutral-800 disabled:text-neutral-500 text-white font-bold rounded-xl transition-colors shrink-0"
+            >
+              Novo Produto
+            </button>
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

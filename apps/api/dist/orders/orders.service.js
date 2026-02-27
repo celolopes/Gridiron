@@ -13,13 +13,16 @@ exports.OrdersService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const events_service_1 = require("../events/events.service");
+const tenants_service_1 = require("../tenants/tenants.service");
 const database_1 = require("@gridiron/database");
 let OrdersService = class OrdersService {
     prisma;
     events;
-    constructor(prisma, events) {
+    tenantsService;
+    constructor(prisma, events, tenantsService) {
         this.prisma = prisma;
         this.events = events;
+        this.tenantsService = tenantsService;
     }
     async createOrder(tenantId, userId, data) {
         try {
@@ -28,6 +31,11 @@ let OrdersService = class OrdersService {
             });
             if (!tenant)
                 throw new common_1.NotFoundException('Tenant not found');
+            const canOrder = await this.tenantsService.canCreateOrder(tenantId);
+            if (!canOrder) {
+                const limits = await this.tenantsService.getPlanLimits(tenantId);
+                throw new common_1.ForbiddenException(`Limite de pedidos mensais atingido (${limits.maxOrdersPerMonth}). Faça upgrade do seu plano para receber mais pedidos.`);
+            }
             const variants = await this.prisma.variant.findMany({
                 where: {
                     id: { in: data.items.map((i) => i.variantId) },
@@ -164,6 +172,7 @@ exports.OrdersService = OrdersService;
 exports.OrdersService = OrdersService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        events_service_1.EventsService])
+        events_service_1.EventsService,
+        tenants_service_1.TenantsService])
 ], OrdersService);
 //# sourceMappingURL=orders.service.js.map

@@ -2,9 +2,11 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { EventsService } from '../events/events.service';
+import { TenantsService } from '../tenants/tenants.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderStatus, FulfillmentType } from '@gridiron/database';
 
@@ -13,6 +15,7 @@ export class OrdersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly events: EventsService,
+    private readonly tenantsService: TenantsService,
   ) {}
 
   async createOrder(
@@ -26,6 +29,15 @@ export class OrdersService {
       });
 
       if (!tenant) throw new NotFoundException('Tenant not found');
+
+      // Enforce plan limits
+      const canOrder = await this.tenantsService.canCreateOrder(tenantId);
+      if (!canOrder) {
+        const limits = await this.tenantsService.getPlanLimits(tenantId);
+        throw new ForbiddenException(
+          `Limite de pedidos mensais atingido (${limits.maxOrdersPerMonth}). Faça upgrade do seu plano para receber mais pedidos.`,
+        );
+      }
 
       // Fetch all variants with their products
       const variants = await this.prisma.variant.findMany({

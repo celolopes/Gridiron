@@ -1,9 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantsService } from '../tenants/tenants.service';
 
 @Injectable()
 export class CatalogService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly tenantsService: TenantsService,
+  ) {}
 
   async resolveTenantId(idOrSlug: string): Promise<string> {
     const uuidRegex =
@@ -67,6 +75,16 @@ export class CatalogService {
 
   async createProduct(idOrSlug: string, data: any) {
     const tenantId = await this.resolveTenantId(idOrSlug);
+
+    // Enforce plan limits
+    const canAdd = await this.tenantsService.canAddProduct(tenantId);
+    if (!canAdd) {
+      const limits = await this.tenantsService.getPlanLimits(tenantId);
+      throw new ForbiddenException(
+        `Limite de produtos atingido (${limits.maxProducts}). Faça upgrade do seu plano para adicionar mais produtos.`,
+      );
+    }
+
     const slug =
       data.slug ||
       data.name

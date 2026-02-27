@@ -24,6 +24,7 @@ const auth_module_1 = require("./auth/auth.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const nestjs_pino_1 = require("nestjs-pino");
 const config_1 = require("@nestjs/config");
+const billing_module_1 = require("./billing/billing.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -59,6 +60,7 @@ exports.AppModule = AppModule = __decorate([
             email_module_1.EmailModule,
             storefront_module_1.StorefrontModule,
             auth_module_1.AuthModule,
+            billing_module_1.BillingModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatalogService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const tenants_service_1 = require("../tenants/tenants.service");
 let CatalogService = class CatalogService {
     prisma;
-    constructor(prisma) {
+    tenantsService;
+    constructor(prisma, tenantsService) {
         this.prisma = prisma;
+        this.tenantsService = tenantsService;
     }
     async resolveTenantId(idOrSlug) {
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -70,6 +73,11 @@ let CatalogService = class CatalogService {
     }
     async createProduct(idOrSlug, data) {
         const tenantId = await this.resolveTenantId(idOrSlug);
+        const canAdd = await this.tenantsService.canAddProduct(tenantId);
+        if (!canAdd) {
+            const limits = await this.tenantsService.getPlanLimits(tenantId);
+            throw new common_1.ForbiddenException(`Limite de produtos atingido (${limits.maxProducts}). Faça upgrade do seu plano para adicionar mais produtos.`);
+        }
         const slug = data.slug ||
             data.name
                 .toLowerCase()
@@ -127,6 +135,7 @@ let CatalogService = class CatalogService {
 exports.CatalogService = CatalogService;
 exports.CatalogService = CatalogService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        tenants_service_1.TenantsService])
 ], CatalogService);
 //# sourceMappingURL=catalog.service.js.map

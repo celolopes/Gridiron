@@ -10,4 +10,15 @@ export declare class TenantsController {
     listSuppliers(slug: string): Promise<any>;
     createSupplier(slug: string, body: any): Promise<any>;
     updateSupplier(slug: string, supplierId: string, body: any): Promise<any>;
+    getUsageStats(slug: string): Promise<{
+        plan: any;
+        products: {
+            current: any;
+            limit: number;
+        };
+        ordersThisMonth: {
+            current: any;
+            limit: number;
+        };
+    }>;
 }

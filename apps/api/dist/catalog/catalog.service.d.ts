@@ -1,7 +1,9 @@
 import { PrismaService } from '../prisma/prisma.service';
+import { TenantsService } from '../tenants/tenants.service';
 export declare class CatalogService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly tenantsService;
+    constructor(prisma: PrismaService, tenantsService: TenantsService);
     resolveTenantId(idOrSlug: string): Promise<string>;
     listProducts(idOrSlug: string): Promise<any>;
     getProduct(idOrSlug: string, slugOrId: string): Promise<any>;

@@ -2,6 +2,7 @@ import { fetchApi } from "../../../../lib/api";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { GridironLogo } from "../../../components/GridironLogo";
+import { UpgradeBanner } from "./components/UpgradeBanner";
 
 export default async function AdminLayout({ children, params }: { children: React.ReactNode; params: Promise<{ tenantSlug: string }> }) {
   const { tenantSlug } = await params;
@@ -62,6 +63,9 @@ export default async function AdminLayout({ children, params }: { children: Reac
           <Link href={`/admin/${tenantSlug}/settings`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
             ⚙️ Configurações
           </Link>
+          <Link href={`/admin/${tenantSlug}/billing`} className="block px-4 py-2 text-sm rounded-md hover:bg-neutral-800/50 text-neutral-400 hover:text-white transition-colors">
+            💳 Cobrança
+          </Link>
         </nav>
       </aside>
 
@@ -88,6 +92,9 @@ export default async function AdminLayout({ children, params }: { children: Reac
             )}
           </div>
         </header>
+
+        <UpgradeBanner tenantSlug={tenantSlug} />
+
         <div className="p-8">{children}</div>
       </main>
     </div>

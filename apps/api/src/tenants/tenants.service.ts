@@ -49,12 +49,22 @@ export class TenantsService {
           console.log(
             `[TenantsService] Starting registration for: ${data.slug}`,
           );
+          const trialEndsAt = new Date();
+          trialEndsAt.setDate(trialEndsAt.getDate() + 14);
+
           const tenant = await tx.tenant.create({
             data: {
               name: data.name,
               slug: data.slug,
-              subscriptionPlan: 'FREE',
+              subscriptionPlan: 'PRO',
               isSaasEnabled: true,
+              subscription: {
+                create: {
+                  status: 'TRIALING',
+                  plan: 'PRO',
+                  trialEndsAt,
+                },
+              },
               settings: {
                 create: {
                   brandName: data.name,
@@ -248,9 +258,13 @@ export class TenantsService {
     if (!tenant) throw new NotFoundException('Tenant not found');
 
     const PLAN_LIMITS = {
-      FREE: { maxProducts: 10, maxOrdersPerMonth: 50 },
-      PRO: { maxProducts: 200, maxOrdersPerMonth: 1000 },
-      ENTERPRISE: { maxProducts: 10000, maxOrdersPerMonth: 100000 },
+      FREE: { maxProducts: 20, maxOrdersPerMonth: 50, maxStores: 1 },
+      PRO: { maxProducts: 100000, maxOrdersPerMonth: 1000, maxStores: 100000 },
+      ENTERPRISE: {
+        maxProducts: 100000,
+        maxOrdersPerMonth: 100000,
+        maxStores: 100000,
+      },
     };
 
     const plan = tenant.subscriptionPlan as keyof typeof PLAN_LIMITS;
@@ -269,6 +283,54 @@ export class TenantsService {
     });
 
     return productCount < limits.maxProducts;
+  }
+
+  async canCreateOrder(tenantId: string) {
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { id: tenantId },
+    });
+    if (!tenant?.isSaasEnabled) return true; // Disabled for Mode A (Individual Stores)
+
+    const limits = await this.getPlanLimits(tenantId);
+
+    // Count orders created this month
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const orderCount = await this.prisma.order.count({
+      where: {
+        tenantId,
+        createdAt: { gte: startOfMonth },
+      },
+    });
+
+    return orderCount < limits.maxOrdersPerMonth;
+  }
+
+  async getUsageStats(tenantId: string) {
+    const limits = await this.getPlanLimits(tenantId);
+
+    const productCount = await this.prisma.product.count({
+      where: { tenantId },
+    });
+
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const orderCount = await this.prisma.order.count({
+      where: {
+        tenantId,
+        createdAt: { gte: startOfMonth },
+      },
+    });
+
+    const tenant = await this.prisma.tenant.findUnique({
+      where: { id: tenantId },
+    });
+
+    return {
+      plan: tenant?.subscriptionPlan || 'FREE',
+      products: { current: productCount, limit: limits.maxProducts },
+      ordersThisMonth: { current: orderCount, limit: limits.maxOrdersPerMonth },
+    };
   }
 
   async listSuppliersBySlug(slug: string) {

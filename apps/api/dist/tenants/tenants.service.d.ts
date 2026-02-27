@@ -15,14 +15,29 @@ export declare class TenantsService {
     getPlanLimits(tenantId: string): Promise<{
         maxProducts: number;
         maxOrdersPerMonth: number;
+        maxStores: number;
     } | {
         maxProducts: number;
         maxOrdersPerMonth: number;
+        maxStores: number;
     } | {
         maxProducts: number;
         maxOrdersPerMonth: number;
+        maxStores: number;
     }>;
     canAddProduct(tenantId: string): Promise<boolean>;
+    canCreateOrder(tenantId: string): Promise<boolean>;
+    getUsageStats(tenantId: string): Promise<{
+        plan: any;
+        products: {
+            current: any;
+            limit: number;
+        };
+        ordersThisMonth: {
+            current: any;
+            limit: number;
+        };
+    }>;
     listSuppliersBySlug(slug: string): Promise<any>;
     createSupplier(slug: string, data: any): Promise<any>;
     updateSupplier(slug: string, supplierId: string, data: any): Promise<any>;

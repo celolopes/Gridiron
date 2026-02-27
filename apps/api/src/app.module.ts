@@ -12,10 +12,10 @@ import { EmailModule } from './email/email.module';
 import { AdminModule } from './admin/admin.module';
 import { StorefrontModule } from './storefront/storefront.module';
 import { AuthModule } from './auth/auth.module';
-
 import { PrismaModule } from './prisma/prisma.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { BillingModule } from './billing/billing.module';
 
 @Module({
   imports: [
@@ -49,6 +49,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     EmailModule,
     StorefrontModule,
     AuthModule,
+    BillingModule,
   ],
   controllers: [AppController],
   providers: [
