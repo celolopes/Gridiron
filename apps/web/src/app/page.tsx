@@ -58,16 +58,16 @@ export default function LandingPage() {
           <div className="flex flex-col gap-8">
             <motion.div variants={itemVariants}>
               <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-blue-400 uppercase">
-                <Zap size={14} /> SaaS para Jerseys NFL
+                <Zap size={14} /> Plataforma de Lojas Virtuais
               </span>
             </motion.div>
 
             <motion.h1 variants={itemVariants} className="font-outfit text-5xl font-extrabold leading-[1.15] text-white md:text-7xl">
-              A sua loja de jerseys, <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">em alto nível.</span>
+              Sua loja virtual, <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">do jeito certo.</span>
             </motion.h1>
 
             <motion.p variants={itemVariants} className="max-w-xl text-lg leading-relaxed text-zinc-400">
-              Crie o seu e-commerce especializado em jerseys da NFL em minutos. UI premium com Glassmorphism, checkout otimizado e painel administrativo potente.
+              Lance o seu e-commerce em minutos. UI premium com design moderno, checkout otimizado, painel administrativo completo e domínio próprio — tudo pronto para vender.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-col gap-4 sm:flex-row">
@@ -90,7 +90,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <p className="text-sm text-zinc-500">
-                <span className="font-bold text-white">+500 lojistas</span> já escalando com o Gridiron.
+                <span className="font-bold text-white">+500 lojistas</span> já escalando com a plataforma.
               </p>
             </motion.div>
           </div>
@@ -108,7 +108,7 @@ export default function LandingPage() {
                     <BarChart3 className="text-green-500" size={24} />
                   </div>
                   <div>
-                    <p className="text-xs text-zinc-400 uppercase tracking-wider">Vendas Hoje</p>
+                    <p className="text-xs text-zinc-400 uppercase tracking-wider">Faturamento Hoje</p>
                     <p className="text-2xl font-bold text-white">R$ 12.450</p>
                   </div>
                 </div>
@@ -129,8 +129,8 @@ export default function LandingPage() {
         {/* ── Features Grid ── */}
         <section id="features" className="mt-40">
           <div className="mb-20 text-center">
-            <h2 className="font-outfit text-3xl font-bold text-white md:text-5xl">Tudo o que você precisa para dominar.</h2>
-            <p className="mt-4 text-zinc-400">Funcionalidades pensadas para o mercado de jerseys.</p>
+            <h2 className="font-outfit text-3xl font-bold text-white md:text-5xl">Tudo que você precisa para vender online.</h2>
+            <p className="mt-4 text-zinc-400">Funcionalidades pensadas para quem leva o e-commerce a sério.</p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
@@ -138,24 +138,24 @@ export default function LandingPage() {
               <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-600/20 text-blue-500 group-hover:bg-blue-600 group-hover:text-white transition-all">
                 <Layout size={24} />
               </div>
-              <h3 className="mb-3 text-xl font-bold text-white">Storefront Apple-Style</h3>
-              <p className="text-zinc-400">UI impecável focada em conversão, com efeitos de vidro e tipografia moderna.</p>
+              <h3 className="mb-3 text-xl font-bold text-white">Loja com Design Premium</h3>
+              <p className="text-zinc-400">Vitrines impecáveis, focadas em conversão, com efeitos modernos e tipografia que impressiona.</p>
             </GlassCard>
 
             <GlassCard className="group p-8 border-white/5 transition-all hover:border-purple-500/30">
               <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-600/20 text-purple-500 group-hover:bg-purple-600 group-hover:text-white transition-all">
                 <Zap size={24} />
               </div>
-              <h3 className="mb-3 text-xl font-bold text-white">Deploy Instantâneo</h3>
-              <p className="text-zinc-400">Em poucos cliques seu domínio está no ar com SSL e CDN para performance máxima.</p>
+              <h3 className="mb-3 text-xl font-bold text-white">No Ar em Minutos</h3>
+              <p className="text-zinc-400">Configure seu domínio, ative o SSL e comece a vender em poucos cliques — sem precisar de TI.</p>
             </GlassCard>
 
             <GlassCard className="group p-8 border-white/5 transition-all hover:border-green-500/30">
               <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-green-600/20 text-green-500 group-hover:bg-green-600 group-hover:text-white transition-all">
                 <ShieldCheck size={24} />
               </div>
-              <h3 className="mb-3 text-xl font-bold text-white">Gestão Segura</h3>
-              <p className="text-zinc-400">Painel administrativo com proteção contra brute force e isolamento total de dados.</p>
+              <h3 className="mb-3 text-xl font-bold text-white">Gestão Completa</h3>
+              <p className="text-zinc-400">Painel administrativo poderoso: produtos, pedidos, clientes e relatórios em um único lugar.</p>
             </GlassCard>
           </div>
         </section>
@@ -176,8 +176,8 @@ export default function LandingPage() {
             <GridironLogo variant="dark" size="md" showTagline />
           </div>
 
-          <h2 className="relative z-10 font-outfit text-4xl font-bold text-white">Pronto para entrar em campo?</h2>
-          <p className="relative z-10 mt-4 text-lg text-zinc-400">Junte-se à elite dos lojistas de jerseys NFL.</p>
+          <h2 className="relative z-10 font-outfit text-4xl font-bold text-white">Pronto para vender mais?</h2>
+          <p className="relative z-10 mt-4 text-lg text-zinc-400">Junte-se a centenas de lojistas que já confiam na plataforma.</p>
           <div className="relative z-10 mt-10 flex flex-col items-center justify-center gap-6 sm:flex-row">
             <Link href="/auth/signup">
               <GlassButton className="bg-white text-black hover:bg-zinc-200 px-10 py-5 text-xl font-bold">Criar minha loja agora</GlassButton>
@@ -196,7 +196,7 @@ export default function LandingPage() {
             {/* Logo + tagline */}
             <div className="flex flex-col items-center md:items-start gap-3">
               <GridironLogo variant="dark" size="md" showTagline />
-              <p className="text-xs text-zinc-600 max-w-[260px] text-center md:text-left leading-relaxed">A plataforma SaaS líder em e-commerce de jerseys NFL no Brasil.</p>
+              <p className="text-xs text-zinc-600 max-w-[260px] text-center md:text-left leading-relaxed">A plataforma mais simples e poderosa para criar e gerenciar sua loja virtual.</p>
             </div>
 
             {/* Links */}
@@ -217,7 +217,7 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-12 border-t border-white/5 pt-6 text-center">
-            <p className="text-xs text-zinc-700">© 2026 Gridiron SaaS. Todos os direitos reservados.</p>
+            <p className="text-xs text-zinc-700">© 2026 Gridiron. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
