@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import { OAuthHashRedirect } from "../components/OAuthHashRedirect";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,11 +15,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Gridiron | Professional SaaS for NFL Jersey Stores",
-  description: "Launch your customized NFL jersey shop in minutes. Premium glassmorphism UI, automated order tracking, and seamless payments.",
+  title: "Gridiron | Plataforma de Lojas Virtuais",
+  description: "Lance sua loja virtual em minutos. UI premium, checkout otimizado, domínio próprio e painel administrativo completo.",
 };
-
-import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
   children,
@@ -25,8 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased`} suppressHydrationWarning>
+        {/* Safety net: forwards OAuth hash tokens to /auth/callback if they land on root */}
+        <OAuthHashRedirect />
         {children}
         <Analytics />
       </body>
