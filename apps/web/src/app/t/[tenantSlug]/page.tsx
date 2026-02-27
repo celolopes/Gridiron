@@ -4,17 +4,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShoppingBag, Star, ShieldCheck, Truck } from "lucide-react";
 
+const DEFAULT_HERO = "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=2070&auto=format&fit=crop";
+
 export default async function TenantHome({ params }: { params: Promise<{ tenantSlug: string }> }) {
   const { tenantSlug } = await params;
 
   let products: any[] = [];
+  let tenantSettings: any = null;
   try {
-    products = await fetchApi(`/tenants/${tenantSlug}/catalog/products`, {
-      next: { revalidate: 60 },
-    });
+    const [p, s] = await Promise.all([
+      fetchApi(`/tenants/${tenantSlug}/catalog/products`, { next: { revalidate: 60 } }) as Promise<any[]>,
+      fetchApi(`/tenants/${tenantSlug}/settings`) as Promise<any>,
+    ]);
+    products = p ?? [];
+    tenantSettings = s;
   } catch (e) {
-    console.error("Failed to load products");
+    console.error("Failed to load data");
   }
+
+  const heroImage = tenantSettings?.heroImageUrl || DEFAULT_HERO;
 
   return (
     <div className="pb-24">
@@ -23,13 +31,7 @@ export default async function TenantHome({ params }: { params: Promise<{ tenantS
         {/* Background image using native img for reliability */}
         <div className="absolute inset-0 z-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?q=80&w=2070&auto=format&fit=crop"
-            className="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
-            alt="NFL Stadium Background"
-            loading="eager"
-            fetchPriority="high"
-          />
+          <img src={heroImage} className="absolute inset-0 w-full h-full object-cover animate-slow-zoom" alt="Hero Banner" loading="eager" fetchPriority="high" />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 z-10" />
         </div>

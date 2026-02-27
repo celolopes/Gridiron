@@ -38,6 +38,7 @@ model TenantSettings {
   tenant              Tenant   @relation(fields: [tenantId], references: [id])
   brandName           String?
   logoUrl             String?
+  heroImageUrl        String?
   primaryColor        String?
   accentColor         String?
   themeMode           String   @default("light") // light, dark, system

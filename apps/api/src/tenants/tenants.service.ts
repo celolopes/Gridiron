@@ -174,6 +174,7 @@ export class TenantsService {
     const allowedFields = [
       'brandName',
       'logoUrl',
+      'heroImageUrl',
       'primaryColor',
       'accentColor',
       'themeMode',

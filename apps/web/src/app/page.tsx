@@ -51,10 +51,10 @@ export default function LandingPage() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link href="/admin/login" className="text-sm font-medium text-zinc-400 hover:text-white">
+            <Link href="/auth/login" className="text-sm font-medium text-zinc-400 hover:text-white">
               Entrar
             </Link>
-            <Link href="/onboarding">
+            <Link href="/auth/signup">
               <GlassButton size="sm" className="bg-white/10 text-white hover:bg-white/20">
                 Começar agora
               </GlassButton>
