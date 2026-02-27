@@ -12,6 +12,7 @@ export declare class AnalyticsController {
         awaitingPaymentCount: any;
         ordersTodayCount: any;
         totalItemsSold: number;
+        revenueByMonth: any[];
     }>;
     calculateDemandScores(tenantSlug: string): Promise<{
         message: string;

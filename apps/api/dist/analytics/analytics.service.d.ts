@@ -17,5 +17,6 @@ export declare class AnalyticsService {
         awaitingPaymentCount: any;
         ordersTodayCount: any;
         totalItemsSold: number;
+        revenueByMonth: any[];
     }>;
 }

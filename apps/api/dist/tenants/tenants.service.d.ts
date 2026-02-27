@@ -24,4 +24,6 @@ export declare class TenantsService {
     }>;
     canAddProduct(tenantId: string): Promise<boolean>;
     listSuppliersBySlug(slug: string): Promise<any>;
+    createSupplier(slug: string, data: any): Promise<any>;
+    updateSupplier(slug: string, supplierId: string, data: any): Promise<any>;
 }

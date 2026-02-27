@@ -275,9 +275,30 @@ let TenantsService = class TenantsService {
         return productCount < limits.maxProducts;
     }
     async listSuppliersBySlug(slug) {
-        const tenant = await this.findBySlug(slug);
-        return this.prisma.supplier.findMany({
-            where: {},
+        await this.findBySlug(slug);
+        return this.prisma.supplier.findMany({});
+    }
+    async createSupplier(slug, data) {
+        await this.findBySlug(slug);
+        return this.prisma.supplier.create({
+            data: {
+                name: data.name,
+                contactEmail: data.contactEmail,
+                leadTimeDays: data.leadTimeDays,
+                supportsDropshipping: data.supportsDropshipping,
+            },
+        });
+    }
+    async updateSupplier(slug, supplierId, data) {
+        await this.findBySlug(slug);
+        return this.prisma.supplier.update({
+            where: { id: supplierId },
+            data: {
+                name: data.name,
+                contactEmail: data.contactEmail,
+                leadTimeDays: data.leadTimeDays,
+                supportsDropshipping: data.supportsDropshipping,
+            },
         });
     }
 };

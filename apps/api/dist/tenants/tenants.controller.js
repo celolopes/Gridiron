@@ -39,6 +39,12 @@ let TenantsController = class TenantsController {
     async listSuppliers(slug) {
         return this.tenantsService.listSuppliersBySlug(slug);
     }
+    async createSupplier(slug, body) {
+        return this.tenantsService.createSupplier(slug, body);
+    }
+    async updateSupplier(slug, supplierId, body) {
+        return this.tenantsService.updateSupplier(slug, supplierId, body);
+    }
 };
 exports.TenantsController = TenantsController;
 __decorate([
@@ -85,6 +91,25 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TenantsController.prototype, "listSuppliers", null);
+__decorate([
+    (0, common_1.Post)(':slug/suppliers'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Param)('slug')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "createSupplier", null);
+__decorate([
+    (0, common_1.Patch)(':slug/suppliers/:supplierId'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Param)('slug')),
+    __param(1, (0, common_1.Param)('supplierId')),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:returntype", Promise)
+], TenantsController.prototype, "updateSupplier", null);
 exports.TenantsController = TenantsController = __decorate([
     (0, common_1.Controller)('tenants'),
     __metadata("design:paramtypes", [tenants_service_1.TenantsService])
