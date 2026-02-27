@@ -23,7 +23,21 @@ let AnalyticsService = class AnalyticsService {
             algorithm: 'ceil((DemandScore_14d / 20) * 1.2)',
         };
     }
-    async getSuggestions(tenantId) {
+    async resolveTenantId(idOrSlug) {
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (uuidRegex.test(idOrSlug)) {
+            return idOrSlug;
+        }
+        const tenant = await this.prisma.tenant.findUnique({
+            where: { slug: idOrSlug },
+        });
+        if (!tenant) {
+            throw new Error(`Tenant with slug or ID ${idOrSlug} not found`);
+        }
+        return tenant.id;
+    }
+    async getSuggestions(idOrSlug) {
+        const tenantId = await this.resolveTenantId(idOrSlug);
         const suggestions = await this.prisma.purchaseSuggestion.findMany({
             where: { tenantId },
             orderBy: { createdAt: 'desc' },
@@ -36,7 +50,8 @@ let AnalyticsService = class AnalyticsService {
             suggestionQty: s.suggestedQty,
         }));
     }
-    async getFinancialMetrics(tenantId) {
+    async getFinancialMetrics(idOrSlug) {
+        const tenantId = await this.resolveTenantId(idOrSlug);
         const paidOrders = await this.prisma.order.findMany({
             where: {
                 tenantId,
@@ -52,6 +67,20 @@ let AnalyticsService = class AnalyticsService {
                         },
                     },
                 },
+            },
+        });
+        const awaitingPaymentCount = await this.prisma.order.count({
+            where: {
+                tenantId,
+                status: { in: ['REQUESTED_PAYMENT', 'LINK_SENT'] },
+            },
+        });
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const ordersTodayCount = await this.prisma.order.count({
+            where: {
+                tenantId,
+                createdAt: { gte: today },
             },
         });
         let totalRevenue = 0;
@@ -77,6 +106,8 @@ let AnalyticsService = class AnalyticsService {
             averageMargin,
             ticketMedio,
             paidOrdersCount: paidOrders.length,
+            awaitingPaymentCount,
+            ordersTodayCount,
             totalItemsSold: totalItems,
         };
     }

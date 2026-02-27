@@ -19,6 +19,12 @@ export class TenantsController {
     return this.tenantsService.register(createTenantDto);
   }
 
+  @Get('by-email/:email')
+  @UseGuards(AuthGuard)
+  async getTenantByEmail(@Param('email') email: string) {
+    return this.tenantsService.findByAdminEmail(email);
+  }
+
   @Get(':slug')
   async getTenantBySlug(@Param('slug') slug: string) {
     return this.tenantsService.findBySlug(slug);

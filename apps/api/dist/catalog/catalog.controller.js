@@ -15,36 +15,74 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatalogController = void 0;
 const common_1 = require("@nestjs/common");
 const catalog_service_1 = require("./catalog.service");
+const auth_guard_1 = require("../common/guards/auth.guard");
 let CatalogController = class CatalogController {
     catalogService;
     constructor(catalogService) {
         this.catalogService = catalogService;
     }
-    async listProducts(tenantId) {
-        return this.catalogService.listProducts(tenantId);
+    async listProducts(tenantSlug) {
+        return this.catalogService.listProducts(tenantSlug);
     }
-    async getProduct(tenantId, slug) {
-        return this.catalogService.getProduct(tenantId, slug);
+    async getProduct(tenantSlug, slug) {
+        return this.catalogService.getProduct(tenantSlug, slug);
+    }
+    async createProduct(tenantSlug, data) {
+        return this.catalogService.createProduct(tenantSlug, data);
+    }
+    async updateProduct(tenantSlug, id, data) {
+        return this.catalogService.updateProduct(tenantSlug, id, data);
+    }
+    async deleteProduct(tenantSlug, id) {
+        return this.catalogService.deleteProduct(tenantSlug, id);
     }
 };
 exports.CatalogController = CatalogController;
 __decorate([
     (0, common_1.Get)('products'),
-    __param(0, (0, common_1.Param)('tenantId')),
+    __param(0, (0, common_1.Param)('tenantSlug')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CatalogController.prototype, "listProducts", null);
 __decorate([
     (0, common_1.Get)('products/:slug'),
-    __param(0, (0, common_1.Param)('tenantId')),
+    __param(0, (0, common_1.Param)('tenantSlug')),
     __param(1, (0, common_1.Param)('slug')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], CatalogController.prototype, "getProduct", null);
+__decorate([
+    (0, common_1.Post)('products'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Param)('tenantSlug')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], CatalogController.prototype, "createProduct", null);
+__decorate([
+    (0, common_1.Patch)('products/:id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Param)('tenantSlug')),
+    __param(1, (0, common_1.Param)('id')),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:returntype", Promise)
+], CatalogController.prototype, "updateProduct", null);
+__decorate([
+    (0, common_1.Delete)('products/:id'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    __param(0, (0, common_1.Param)('tenantSlug')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CatalogController.prototype, "deleteProduct", null);
 exports.CatalogController = CatalogController = __decorate([
-    (0, common_1.Controller)('tenants/:tenantId/catalog'),
+    (0, common_1.Controller)('tenants/:tenantSlug/catalog'),
     __metadata("design:paramtypes", [catalog_service_1.CatalogService])
 ], CatalogController);
 //# sourceMappingURL=catalog.controller.js.map

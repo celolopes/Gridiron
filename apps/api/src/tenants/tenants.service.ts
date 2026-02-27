@@ -161,6 +161,19 @@ export class TenantsService {
     return tenant;
   }
 
+  async findByAdminEmail(email: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      include: { tenant: true },
+    });
+
+    if (!user || !user.tenant) {
+      throw new NotFoundException(`No tenant found for user email: ${email}`);
+    }
+
+    return user.tenant;
+  }
+
   async getSettings(slug: string) {
     const tenant = await this.findBySlug(slug);
     return tenant.settings;

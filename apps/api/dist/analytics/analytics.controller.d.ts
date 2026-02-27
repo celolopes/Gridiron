@@ -2,16 +2,18 @@ import { AnalyticsService } from './analytics.service';
 export declare class AnalyticsController {
     private readonly analyticsService;
     constructor(analyticsService: AnalyticsService);
-    getSuggestions(tenantId: string): Promise<any>;
-    getFinancialMetrics(tenantId: string): Promise<{
+    getSuggestions(tenantSlug: string): Promise<any>;
+    getFinancialMetrics(tenantSlug: string): Promise<{
         totalRevenue: number;
         totalProfit: number;
         averageMargin: number;
         ticketMedio: number;
         paidOrdersCount: any;
+        awaitingPaymentCount: any;
+        ordersTodayCount: any;
         totalItemsSold: number;
     }>;
-    calculateDemandScores(tenantId: string): Promise<{
+    calculateDemandScores(tenantSlug: string): Promise<{
         message: string;
         algorithm: string;
     }>;

@@ -12,7 +12,20 @@ const nestjs_pino_1 = require("nestjs-pino");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, { bufferLogs: true });
     app.useLogger(app.get(nestjs_pino_1.Logger));
-    app.use((0, helmet_1.default)());
+    app.use((0, helmet_1.default)({
+        contentSecurityPolicy: {
+            directives: {
+                ...helmet_1.default.contentSecurityPolicy.getDefaultDirectives(),
+                'img-src': [
+                    "'self'",
+                    'data:',
+                    'https://images.unsplash.com',
+                    'https://*.supabase.co',
+                ],
+            },
+        },
+        crossOriginResourcePolicy: { policy: 'cross-origin' },
+    }));
     app.enableCors();
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,

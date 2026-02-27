@@ -15,45 +15,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalyticsController = void 0;
 const common_1 = require("@nestjs/common");
 const analytics_service_1 = require("./analytics.service");
+const auth_guard_1 = require("../common/guards/auth.guard");
 let AnalyticsController = class AnalyticsController {
     analyticsService;
     constructor(analyticsService) {
         this.analyticsService = analyticsService;
     }
-    async getSuggestions(tenantId) {
-        return this.analyticsService.getSuggestions(tenantId);
+    async getSuggestions(tenantSlug) {
+        return this.analyticsService.getSuggestions(tenantSlug);
     }
-    async getFinancialMetrics(tenantId) {
-        return this.analyticsService.getFinancialMetrics(tenantId);
+    async getFinancialMetrics(tenantSlug) {
+        return this.analyticsService.getFinancialMetrics(tenantSlug);
     }
-    async calculateDemandScores(tenantId) {
-        return this.analyticsService.calculateDemandScores(tenantId);
+    async calculateDemandScores(tenantSlug) {
+        return this.analyticsService.calculateDemandScores(tenantSlug);
     }
 };
 exports.AnalyticsController = AnalyticsController;
 __decorate([
     (0, common_1.Get)('suggestions'),
-    __param(0, (0, common_1.Param)('tenantId')),
+    __param(0, (0, common_1.Param)('tenantSlug')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnalyticsController.prototype, "getSuggestions", null);
 __decorate([
     (0, common_1.Get)('financial'),
-    __param(0, (0, common_1.Param)('tenantId')),
+    __param(0, (0, common_1.Param)('tenantSlug')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnalyticsController.prototype, "getFinancialMetrics", null);
 __decorate([
     (0, common_1.Post)('calculate-demand'),
-    __param(0, (0, common_1.Param)('tenantId')),
+    __param(0, (0, common_1.Param)('tenantSlug')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AnalyticsController.prototype, "calculateDemandScores", null);
 exports.AnalyticsController = AnalyticsController = __decorate([
-    (0, common_1.Controller)('tenants/:tenantId/analytics'),
+    (0, common_1.Controller)('tenants/:tenantSlug/analytics'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [analytics_service_1.AnalyticsService])
 ], AnalyticsController);
 //# sourceMappingURL=analytics.controller.js.map

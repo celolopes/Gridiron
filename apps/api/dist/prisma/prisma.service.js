@@ -16,15 +16,38 @@ const adapter_pg_1 = require("@prisma/adapter-pg");
 const pg_1 = require("pg");
 let PrismaService = class PrismaService extends database_1.PrismaClient {
     constructor() {
-        const connectionString = process.env.DATABASE_URL;
+        let connectionString = process.env.DATABASE_URL;
+        if (!connectionString) {
+            console.error('[PrismaService] DATABASE_URL is not set!');
+            throw new Error('DATABASE_URL is not set');
+        }
+        if (connectionString && !connectionString.includes('localhost')) {
+            connectionString = connectionString.replace(/([?&])sslmode=[^&]*/g, '');
+            const separator = connectionString.includes('?') ? '&' : '?';
+            connectionString = `${connectionString}${separator}sslmode=no-verify`;
+            process.env.DATABASE_URL = connectionString;
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+            console.log('[PrismaService] Forced SSL mode to no-verify and disabled unauthorized TLS rejection');
+        }
         if (!connectionString) {
             console.error('CRITICAL: DATABASE_URL is not defined in environment variables');
             super();
         }
         else {
-            const pool = new pg_1.Pool({ connectionString });
+            const isLocal = connectionString.includes('localhost') ||
+                connectionString.includes('127.0.0.1');
+            console.log('[PrismaService] Initializing with custom PostgreSQL adapter...');
+            const pool = new pg_1.Pool({
+                connectionString,
+                ssl: isLocal ? false : { rejectUnauthorized: false },
+                connectionTimeoutMillis: 10000,
+            });
+            pool.on('error', (err) => {
+                console.error('[PrismaService] Unexpected error on idle client', err);
+            });
             const adapter = new adapter_pg_1.PrismaPg(pool);
             super({ adapter });
+            console.log('[PrismaService] Adapter initialized.');
         }
     }
     async onModuleInit() {
