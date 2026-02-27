@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Rocket, Store, Mail, AtSign, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Store, Mail, AtSign, Loader2, ShoppingBag, BarChart3, Palette } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { GlassButton, GlassCard } from "@gridiron/ui";
 import { API_URL } from "../../../lib/api";
+import { GridironLogo } from "../../components/GridironLogo";
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -36,7 +37,6 @@ export default function OnboardingPage() {
     setError("");
     setCurrentStep(0);
 
-    // Simulate progress while the real request happens
     const progressInterval = setInterval(() => {
       setCurrentStep((prev) => {
         if (prev < LOADING_STEPS.length - 1) return prev + 1;
@@ -47,14 +47,8 @@ export default function OnboardingPage() {
     try {
       const response = await fetch(`${API_URL}/tenants/register`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: storeName,
-          slug,
-          adminEmail: email,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: storeName, slug, adminEmail: email }),
       });
 
       if (!response.ok) {
@@ -62,13 +56,8 @@ export default function OnboardingPage() {
         throw new Error(data.message || "Falha ao criar loja");
       }
 
-      // Final step visual
       setCurrentStep(LOADING_STEPS.length - 1);
-
-      // Give a tiny moment to see the completion
       await new Promise((resolve) => setTimeout(resolve, 800));
-
-      // Success! Redirect to login with a hint
       router.push(`/admin/login?email=${encodeURIComponent(email)}&slug=${slug}&newStore=true`);
     } catch (err: any) {
       setError(err.message || "Ocorreu um erro inesperado");
@@ -79,16 +68,21 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black font-inter selection:bg-blue-500/30">
+    <div className="relative min-h-screen overflow-hidden bg-[#050510] font-inter selection:bg-blue-500/30">
       {/* Background Blobs */}
       <div className="absolute top-0 -left-1/4 h-[800px] w-[800px] rounded-full bg-blue-600/10 blur-[120px]" />
       <div className="absolute bottom-0 -right-1/4 h-[800px] w-[800px] rounded-full bg-purple-600/10 blur-[120px]" />
 
-      <div className="relative z-10 mx-auto max-w-xl px-6 pt-20 pb-40">
-        <Link href="/" className="mb-12 inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
-          <ArrowLeft size={16} /> Voltar para o início
-        </Link>
+      {/* Navbar */}
+      <nav className="fixed top-0 z-50 w-full border-b border-white/5 bg-black/50 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
+          <Link href="/">
+            <GridironLogo variant="dark" size="sm" />
+          </Link>
+        </div>
+      </nav>
 
+      <div className="relative z-10 mx-auto max-w-xl px-6 pt-28 pb-40">
         {loading ? (
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center justify-center text-center pt-20">
             <div className="relative mb-12">
@@ -98,7 +92,7 @@ export default function OnboardingPage() {
               </div>
             </div>
 
-            <h2 className="font-outfit text-3xl font-bold text-white mb-6">Criando seu império...</h2>
+            <h2 className="font-outfit text-3xl font-bold text-white mb-6">Criando sua loja...</h2>
 
             <div className="w-full max-w-md bg-white/5 border border-white/10 rounded-full h-3 mb-8 overflow-hidden">
               <motion.div
@@ -119,15 +113,32 @@ export default function OnboardingPage() {
           </motion.div>
         ) : (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-              <Rocket className="text-white" size={32} />
+            {/* Logo + Title */}
+            <div className="text-center mb-10">
+              <div className="flex justify-center mb-6">
+                <GridironLogo variant="dark" size="lg" showTagline />
+              </div>
+              <div className="w-16 h-[2px] mx-auto bg-gradient-to-r from-transparent via-blue-500 to-transparent mb-8" />
+              <h1 className="font-outfit text-4xl font-bold text-white mb-3">Crie sua loja virtual</h1>
+              <p className="text-zinc-400 text-lg">Preencha os dados abaixo e tenha sua loja no ar em minutos.</p>
             </div>
 
-            <h1 className="font-outfit text-4xl font-bold text-white mb-4">Crie sua loja Gridiron</h1>
-            <p className="text-zinc-400 text-lg mb-10">Você está a poucos passos de ter o seu próprio império de jerseys NFL.</p>
+            {/* Highlights */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {[
+                { icon: ShoppingBag, label: "Checkout integrado" },
+                { icon: BarChart3, label: "Painel completo" },
+                { icon: Palette, label: "Personalizável" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2 p-3 rounded-xl border border-white/5 bg-white/[0.02]">
+                  <Icon size={18} className="text-blue-400" />
+                  <span className="text-[11px] text-zinc-500 font-medium text-center">{label}</span>
+                </div>
+              ))}
+            </div>
 
             <GlassCard className="p-8 border-white/10">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-zinc-300 flex items-center gap-2">
                     <Store size={14} className="text-blue-400" /> Nome da Loja
@@ -135,8 +146,8 @@ export default function OnboardingPage() {
                   <input
                     type="text"
                     required
-                    placeholder="Ex: Jersey King Store"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 p-4 text-white placeholder-zinc-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                    placeholder="Ex: Moda Elegante, TechGear BR"
+                    className="w-full rounded-xl border border-white/10 bg-white/5 p-3.5 text-white placeholder-zinc-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
                     value={storeName}
                     onChange={(e) => setStoreName(e.target.value)}
                   />
@@ -150,14 +161,14 @@ export default function OnboardingPage() {
                     <input
                       type="text"
                       required
-                      placeholder="ex: jersey-king"
-                      className="w-full rounded-xl border border-white/10 bg-white/5 p-4 pl-4 pr-32 text-white placeholder-zinc-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono"
+                      placeholder="ex: minha-loja"
+                      className="w-full rounded-xl border border-white/10 bg-white/5 p-3.5 pr-32 text-white placeholder-zinc-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono text-sm"
                       value={slug}
                       onChange={handleSlugChange}
                     />
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-500 uppercase tracking-wider">.gridiron.app</div>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-500 uppercase tracking-wider">.GRIDIRON.APP</div>
                   </div>
-                  <p className="text-[10px] text-zinc-500 px-1">Apenas letras, números e hifas.</p>
+                  <p className="text-[10px] text-zinc-600 px-1">Apenas letras minúsculas, números e hifens.</p>
                 </div>
 
                 <div className="space-y-2">
@@ -168,24 +179,24 @@ export default function OnboardingPage() {
                     type="email"
                     required
                     placeholder="seu@email.com"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 p-4 text-white placeholder-zinc-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
+                    className="w-full rounded-xl border border-white/10 bg-white/5 p-3.5 text-white placeholder-zinc-600 outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
-                {error && <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-4 text-sm text-red-500">{error}</div>}
+                {error && <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-4 text-sm text-red-400">{error}</div>}
 
-                <GlassButton type="submit" disabled={loading} className="w-full bg-blue-600 text-white hover:bg-blue-700 h-14 text-lg font-bold group">
+                <GlassButton type="submit" disabled={loading} className="w-full bg-blue-600 text-white hover:bg-blue-500 h-14 text-base font-bold group shadow-lg shadow-blue-600/20">
                   Confirmar e criar loja
-                  <ArrowLeft className="ml-2 rotate-180 transition-transform group-hover:translate-x-1" size={20} />
+                  <ArrowRight className="ml-2 transition-transform group-hover:translate-x-1" size={18} />
                 </GlassButton>
               </form>
             </GlassCard>
 
-            <p className="mt-8 text-center text-sm text-zinc-500">
+            <p className="mt-8 text-center text-sm text-zinc-600">
               Ao clicar em confirmar, você concorda com nossos{" "}
-              <Link href="#" className="underline">
+              <Link href="#" className="underline hover:text-zinc-400 transition-colors">
                 Termos de Uso
               </Link>
               .
@@ -193,6 +204,11 @@ export default function OnboardingPage() {
           </motion.div>
         )}
       </div>
+
+      {/* Footer */}
+      <footer className="absolute bottom-0 left-0 right-0 border-t border-white/5 py-6 px-6 text-center">
+        <p className="text-xs text-zinc-700">© 2026 Gridiron. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 }

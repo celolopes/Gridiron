@@ -201,7 +201,7 @@ export default function SignupPage() {
                 required
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
-                placeholder="Ex: Jersey King NFL"
+                placeholder="Ex: Moda Elegante, TechGear BR"
                 className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
               />
             </div>
@@ -216,7 +216,7 @@ export default function SignupPage() {
                   required
                   value={storeSlug}
                   onChange={handleSlugChange}
-                  placeholder="jersey-king"
+                  placeholder="minha-loja"
                   className="w-full px-4 py-3 pr-32 rounded-xl border border-white/10 bg-white/5 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm font-mono"
                 />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-zinc-500">.gridiron.app</span>
