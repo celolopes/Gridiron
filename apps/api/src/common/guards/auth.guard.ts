@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { PrismaService } from '../../prisma/prisma.service';
 
 interface JwtPayload {
   sub: string;
@@ -17,7 +18,10 @@ interface JwtPayload {
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private prisma: PrismaService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -32,16 +36,37 @@ export class AuthGuard implements CanActivate {
       if (!secret)
         throw new Error('JWT_SECRET environment variable is required');
 
-      const payload: JwtPayload = await this.jwtService.verifyAsync(token, {
+      let payload: any = await this.jwtService.verifyAsync(token, {
         secret,
       });
+
+      // If the payload lacks roles (e.g., it is a pure Supabase JWT)
+      if (!payload.roles) {
+        if (!payload.email) {
+          throw new UnauthorizedException('Token is missing email claim');
+        }
+        const user = await this.prisma.user.findUnique({
+          where: { email: payload.email },
+          include: { managedStores: true },
+        });
+
+        if (!user) {
+          throw new UnauthorizedException('User not found in database');
+        }
+
+        // Attach user info back to the payload to unify logic
+        payload.roles = [user.role];
+        payload.managedStores = user.managedStores;
+      }
 
       // Attach trusted payload to request
       request['user'] = payload;
 
       // 1. RBAC Check (Only ADMIN, STAFF, or SUPER_ADMIN)
       const allowedRoles = ['ADMIN', 'STAFF', 'SUPER_ADMIN'];
-      const hasRole = payload.roles.some((role) => allowedRoles.includes(role));
+      const hasRole = payload.roles.some((role: string) =>
+        allowedRoles.includes(role),
+      );
 
       if (!hasRole) {
         throw new ForbiddenException('Insufficient permissions: RBAC failure');
@@ -53,12 +78,31 @@ export class AuthGuard implements CanActivate {
       // Bypass tenant check if SUPER_ADMIN
       const isSuperAdmin = payload.roles.includes('SUPER_ADMIN');
 
-      if (
-        tenantSlugInPath &&
-        !isSuperAdmin &&
-        payload.tenantSlug.toLowerCase() !== tenantSlugInPath.toLowerCase()
-      ) {
-        throw new ForbiddenException('Tenant mismatch: Access denied');
+      if (tenantSlugInPath && !isSuperAdmin) {
+        // If it's a legacy or self-signed payload with a direct tenantSlug
+        if (payload.tenantSlug) {
+          if (
+            payload.tenantSlug.toLowerCase() !== tenantSlugInPath.toLowerCase()
+          ) {
+            throw new ForbiddenException('Tenant mismatch: Access denied');
+          }
+        }
+        // If it's a dynamic payload populated from DB
+        else if (payload.managedStores) {
+          const hasAccessToTenant = payload.managedStores.some(
+            (store: any) =>
+              store.slug.toLowerCase() === tenantSlugInPath.toLowerCase(),
+          );
+          if (!hasAccessToTenant) {
+            throw new ForbiddenException(
+              'Tenant mismatch: You do not manage this store',
+            );
+          }
+        } else {
+          throw new ForbiddenException(
+            'Tenant details not available on session',
+          );
+        }
       }
     } catch (e) {
       if (e instanceof ForbiddenException) throw e;
