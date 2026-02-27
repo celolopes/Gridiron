@@ -5,7 +5,7 @@ import { ShoppingBag, Zap, ShieldCheck, Globe, BarChart3, ArrowRight, Layout } f
 import Image from "next/image";
 import Link from "next/link";
 import { GlassButton, GlassCard } from "@gridiron/ui";
-import { GridironLogo } from "../../components/GridironLogo";
+import { GridironLogo } from "../components/GridironLogo";
 
 export default function LandingPage() {
   const containerVariants = {
