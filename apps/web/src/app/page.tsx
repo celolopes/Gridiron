@@ -34,7 +34,7 @@ export default function LandingPage() {
             <Link href="/t/demo" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
               Demonstração
             </Link>
-            <Link href="#pricing" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
+            <Link href="/pricing" className="text-sm font-medium text-zinc-400 transition-colors hover:text-white">
               Preços
             </Link>
           </div>
@@ -85,8 +85,18 @@ export default function LandingPage() {
 
             <motion.div variants={itemVariants} className="flex items-center gap-6 mt-2">
               <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="h-10 w-10 rounded-full border-2 border-black bg-zinc-800" />
+                {[
+                  { initials: "AP", color: "from-pink-500 to-rose-600" },
+                  { initials: "RS", color: "from-blue-500 to-cyan-600" },
+                  { initials: "CT", color: "from-violet-500 to-purple-600" },
+                  { initials: "DM", color: "from-emerald-500 to-teal-600" },
+                ].map(({ initials, color }) => (
+                  <div
+                    key={initials}
+                    className={`h-10 w-10 rounded-full border-2 border-black bg-gradient-to-br ${color} flex items-center justify-center text-white text-[10px] font-black flex-shrink-0`}
+                  >
+                    {initials}
+                  </div>
                 ))}
               </div>
               <p className="text-sm text-zinc-500">
@@ -98,7 +108,7 @@ export default function LandingPage() {
           <motion.div variants={itemVariants} className="relative">
             <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-blue-600 to-purple-600 opacity-20 blur-xl" />
             <div className="relative rounded-[2rem] border border-white/10 bg-zinc-900/50 p-2 backdrop-blur-2xl">
-              <Image src="/hero.png" alt="Gridiron Storefront Preview" width={800} height={600} className="rounded-[1.5rem] shadow-2xl" />
+              <Image src="/hero.png" alt="Gridiron — Plataforma de Lojas Virtuais" width={800} height={600} className="rounded-[1.5rem] shadow-2xl" />
             </div>
 
             <div className="absolute -bottom-10 -left-10 hidden md:block">
