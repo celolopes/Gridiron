@@ -13,7 +13,7 @@ export default function VerifyPage() {
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((event: import("@supabase/supabase-js").AuthChangeEvent, session: import("@supabase/supabase-js").Session | null) => {
       if (event === "SIGNED_IN" && session) {
         setStatus("success");
       } else if (event === "USER_UPDATED") {
@@ -22,12 +22,12 @@ export default function VerifyPage() {
     });
 
     // Also check if there's already a session (in case of page reload)
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: { data: { session: import("@supabase/supabase-js").Session | null } }) => {
       if (session) setStatus("success");
       else {
         // Give Supabase time to process the URL hash token
         setTimeout(() => {
-          supabase.auth.getSession().then(({ data: { session: s2 } }) => {
+          supabase.auth.getSession().then(({ data: { session: s2 } }: { data: { session: import("@supabase/supabase-js").Session | null } }) => {
             if (s2) setStatus("success");
             else {
               setStatus("error");
