@@ -47,4 +47,20 @@ export class TenantsController {
   async listSuppliers(@Param('slug') slug: string) {
     return this.tenantsService.listSuppliersBySlug(slug);
   }
+
+  @Post(':slug/suppliers')
+  @UseGuards(AuthGuard)
+  async createSupplier(@Param('slug') slug: string, @Body() body: any) {
+    return this.tenantsService.createSupplier(slug, body);
+  }
+
+  @Patch(':slug/suppliers/:supplierId')
+  @UseGuards(AuthGuard)
+  async updateSupplier(
+    @Param('slug') slug: string,
+    @Param('supplierId') supplierId: string,
+    @Body() body: any,
+  ) {
+    return this.tenantsService.updateSupplier(slug, supplierId, body);
+  }
 }

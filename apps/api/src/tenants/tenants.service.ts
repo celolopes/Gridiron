@@ -272,12 +272,31 @@ export class TenantsService {
   }
 
   async listSuppliersBySlug(slug: string) {
-    const tenant = await this.findBySlug(slug);
-    return this.prisma.supplier.findMany({
-      where: {
-        // In a shared marketplace mode, we might list all.
-        // For individual mode, we list those linked to tenant or all if global.
-        // For now, let's list all as partners.
+    await this.findBySlug(slug);
+    return this.prisma.supplier.findMany({});
+  }
+
+  async createSupplier(slug: string, data: any) {
+    await this.findBySlug(slug);
+    return this.prisma.supplier.create({
+      data: {
+        name: data.name,
+        contactEmail: data.contactEmail,
+        leadTimeDays: data.leadTimeDays,
+        supportsDropshipping: data.supportsDropshipping,
+      },
+    });
+  }
+
+  async updateSupplier(slug: string, supplierId: string, data: any) {
+    await this.findBySlug(slug);
+    return this.prisma.supplier.update({
+      where: { id: supplierId },
+      data: {
+        name: data.name,
+        contactEmail: data.contactEmail,
+        leadTimeDays: data.leadTimeDays,
+        supportsDropshipping: data.supportsDropshipping,
       },
     });
   }
