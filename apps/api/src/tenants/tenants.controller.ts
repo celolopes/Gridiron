@@ -20,7 +20,6 @@ export class TenantsController {
   }
 
   @Get('by-email/:email')
-  @UseGuards(AuthGuard)
   async getTenantByEmail(@Param('email') email: string) {
     return this.tenantsService.findByAdminEmail(email);
   }

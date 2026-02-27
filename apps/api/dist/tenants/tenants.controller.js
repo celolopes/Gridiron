@@ -50,7 +50,6 @@ __decorate([
 ], TenantsController.prototype, "registerTenant", null);
 __decorate([
     (0, common_1.Get)('by-email/:email'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __param(0, (0, common_1.Param)('email')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
