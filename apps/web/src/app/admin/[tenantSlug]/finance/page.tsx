@@ -40,7 +40,11 @@ export default async function FinancePage({ params }: { params: Promise<{ tenant
     ticketMedio: data.ticketMedio || 0,
     paidOrdersCount: data.paidOrdersCount || 0,
     totalItemsSold: data.totalItemsSold || 0,
+    revenueByMonth: data.revenueByMonth || new Array(12).fill(0),
   };
+
+  const maxRevenue = Math.max(...safeData.revenueByMonth, 1);
+  const currentYear = new Date().getFullYear();
 
   const stats = [
     { label: "Receita Total", value: safeData.totalRevenue, icon: DollarSign, color: "text-emerald-500", suffix: "" },
@@ -79,21 +83,33 @@ export default async function FinancePage({ params }: { params: Promise<{ tenant
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <GlassCard className="lg:col-span-2 p-8 border-white/5">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl font-bold font-outfit">Fluxo de Caixa (Simulado)</h3>
-            <select className="bg-white/5 border border-white/10 rounded-lg px-3 py-1 text-sm outline-none">
-              <option>Últimos 30 dias</option>
-              <option>Últimos 7 dias</option>
+            <h3 className="text-xl font-bold font-outfit">Fluxo de Caixa ({currentYear})</h3>
+            <select className="bg-white/5 border border-white/10 rounded-lg px-3 py-1 text-sm outline-none text-zinc-300">
+              <option>Este Ano</option>
             </select>
           </div>
-          <div className="h-[300px] w-full flex items-end gap-2 px-2">
-            {[40, 70, 45, 90, 65, 80, 50, 60, 75, 55, 85, 95].map((h, i) => (
-              <div key={i} className="flex-1 bg-gradient-to-t from-blue-600/40 to-blue-400/20 rounded-t-lg transition-all hover:from-blue-500 group relative" style={{ height: `${h}%` }}>
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                  R$ {h * 150}
-                </div>
-              </div>
-            ))}
-          </div>
+          {maxRevenue <= 1 && safeData.revenueByMonth.every((r: number) => r === 0) ? (
+            <div className="h-[300px] w-full flex items-center justify-center border border-dashed border-white/10 rounded-xl bg-white/[0.01]">
+              <p className="text-zinc-500 font-medium">Nenhum fluxo de caixa registrado neste ano ainda.</p>
+            </div>
+          ) : (
+            <div className="h-[300px] w-full flex items-end gap-2 px-2">
+              {safeData.revenueByMonth.map((val: number, i: number) => {
+                const heightPercentage = Math.max((val / maxRevenue) * 100, 2); // At least 2% height so bar is visible slightly
+                return (
+                  <div
+                    key={i}
+                    className="flex-1 bg-gradient-to-t from-blue-600/40 to-blue-400/20 rounded-t-lg transition-all hover:from-blue-500 group relative"
+                    style={{ height: `${heightPercentage}%` }}
+                  >
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none shadow-lg">
+                      {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(val)}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
           <div className="flex justify-between mt-4 text-[10px] text-zinc-600 font-bold uppercase tracking-wider">
             <span>Jan</span>
             <span>Fev</span>

@@ -98,8 +98,16 @@ export class AnalyticsService {
     let totalCost = 0;
     let totalItems = 0;
 
+    const currentYear = new Date().getFullYear();
+    const revenueByMonth = new Array(12).fill(0);
+
     paidOrders.forEach((order) => {
-      totalRevenue += order.totalAmount - order.shippingAmount;
+      const orderRev = order.totalAmount - order.shippingAmount;
+      totalRevenue += orderRev;
+
+      if (order.createdAt.getFullYear() === currentYear) {
+        revenueByMonth[order.createdAt.getMonth()] += orderRev;
+      }
 
       order.orderItems.forEach((item) => {
         const prod = item.variant.product;
@@ -127,6 +135,7 @@ export class AnalyticsService {
       awaitingPaymentCount,
       ordersTodayCount,
       totalItemsSold: totalItems,
+      revenueByMonth,
     };
   }
 }
