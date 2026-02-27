@@ -55,6 +55,9 @@ export default function AuthCallbackPage() {
 
         const user = session.user;
 
+        // --- NEW: set the adminToken cookie for Server Components ---
+        document.cookie = `adminToken=${session.access_token}; path=/; max-age=604800; SameSite=Lax`;
+
         // ── Check if user already has a tenant
         const tenantsRes = await fetch(`${API_URL}/tenants/by-email/${encodeURIComponent(user.email || "")}`, { headers: { Authorization: `Bearer ${session.access_token}` } });
 

@@ -21,12 +21,16 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
 
     if (authError) {
       setError(authError.message === "Invalid login credentials" ? "E-mail ou senha incorretos." : authError.message);
       setLoading(false);
       return;
+    }
+
+    if (data.session) {
+      document.cookie = `adminToken=${data.session.access_token}; path=/; max-age=604800; SameSite=Lax`;
     }
 
     router.push("/dashboard");
