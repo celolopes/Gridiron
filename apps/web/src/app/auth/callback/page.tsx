@@ -61,7 +61,15 @@ export default function AuthCallbackPage() {
         if (tenantsRes.ok) {
           const tenantData = await tenantsRes.json();
           setStatus("success");
-          setTimeout(() => router.push(`/admin/${tenantData.slug}`), 1200);
+
+          if (Array.isArray(tenantData) && tenantData.length > 1) {
+            setTimeout(() => router.push("/auth/select-store"), 1200);
+          } else if (Array.isArray(tenantData) && tenantData.length === 1) {
+            setTimeout(() => router.push(`/admin/${tenantData[0].slug}`), 1200);
+          } else {
+            // Fallback just in case api returns object
+            setTimeout(() => router.push(`/admin/${tenantData.slug || tenantData[0]?.slug}`), 1200);
+          }
         } else {
           // New Google user — send to onboarding
           setStatus("success");

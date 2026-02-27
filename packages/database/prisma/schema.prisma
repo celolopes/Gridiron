@@ -29,7 +29,8 @@ model Tenant {
   demandScores        DemandScore[]
   purchaseSuggestions PurchaseSuggestion[]
   events              Event[]
-  users               User[]
+  users               User[]   @relation("TenantUsers") // Customers/Staff
+  managers            User[]   @relation("StoreManagers") // Users who can manage this store 
 }
 
 model TenantSettings {
@@ -56,8 +57,9 @@ model User {
   name      String?
   password  String
   role      Role     @default(CUSTOMER)
-  tenantId  String?
-  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+  tenantId      String?
+  tenant        Tenant?  @relation("TenantUsers", fields: [tenantId], references: [id])
+  managedStores Tenant[] @relation("StoreManagers")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

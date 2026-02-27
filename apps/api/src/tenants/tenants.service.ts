@@ -37,9 +37,7 @@ export class TenantsService {
       where: { email: data.adminEmail },
     });
 
-    if (existingUser) {
-      throw new ConflictException('A user with this email already exists');
-    }
+    // If a user exists, we will reuse them and grant them access to this new store.
 
     console.log('[TenantsService] Hashing default password...');
     const hashedPassword = await bcrypt.hash('admin123', 10); // Default password for new stores
@@ -72,16 +70,32 @@ export class TenantsService {
           });
           console.log(`[TenantsService] Tenant created: ${tenant.id}`);
 
-          await tx.user.create({
-            data: {
-              email: data.adminEmail,
-              password: hashedPassword,
-              name: 'Store Admin',
-              role: 'ADMIN',
-              tenantId: tenant.id,
-            },
-          });
-          console.log(`[TenantsService] Admin user created`);
+          if (existingUser) {
+            // Add existing user to the new store's managers
+            await tx.user.update({
+              where: { email: data.adminEmail },
+              data: {
+                managedStores: {
+                  connect: { id: tenant.id },
+                },
+              },
+            });
+            console.log(`[TenantsService] Admin user linked to new store`);
+          } else {
+            // Create new user and link them as manager
+            await tx.user.create({
+              data: {
+                email: data.adminEmail,
+                password: hashedPassword,
+                name: 'Store Admin',
+                role: 'ADMIN',
+                managedStores: {
+                  connect: { id: tenant.id },
+                },
+              },
+            });
+            console.log(`[TenantsService] Admin user created`);
+          }
 
           // Seed Example Products (Elite Collection)
           const eliteProducts = [
@@ -164,14 +178,14 @@ export class TenantsService {
   async findByAdminEmail(email: string) {
     const user = await this.prisma.user.findUnique({
       where: { email },
-      include: { tenant: true },
+      include: { managedStores: true },
     });
 
-    if (!user || !user.tenant) {
+    if (!user || user.managedStores.length === 0) {
       throw new NotFoundException(`No tenant found for user email: ${email}`);
     }
 
-    return user.tenant;
+    return user.managedStores;
   }
 
   async getSettings(slug: string) {
