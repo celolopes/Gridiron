@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../../../lib/supabase";
 import { API_URL } from "../../../../lib/api";
+import { GoogleSignInButton } from "../_components/GoogleSignInButton";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -128,6 +129,14 @@ export default function SignupPage() {
 
         {step === "account" ? (
           <form onSubmit={handleAccountNext} className="space-y-5">
+            {/* Google sign up */}
+            <GoogleSignInButton label="Cadastrar com Google" />
+
+            <div className="flex items-center gap-4">
+              <div className="flex-1 h-[1px] bg-white/10" />
+              <span className="text-xs text-zinc-600 font-medium uppercase tracking-widest">ou</span>
+              <div className="flex-1 h-[1px] bg-white/10" />
+            </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-zinc-300">E-mail</label>
               <div className="relative">

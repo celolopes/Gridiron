@@ -6,6 +6,7 @@ import { Mail, Lock, Eye, EyeOff, LogIn, Loader2, AlertCircle } from "lucide-rea
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../../../lib/supabase";
+import { GoogleSignInButton } from "../_components/GoogleSignInButton";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
 
     if (authError) {
       setError(authError.message === "Invalid login credentials" ? "E-mail ou senha incorretos." : authError.message);
@@ -28,7 +29,6 @@ export default function LoginPage() {
       return;
     }
 
-    // Redirect to dashboard after successful login
     router.push("/dashboard");
   };
 
@@ -39,7 +39,17 @@ export default function LoginPage() {
         <p className="text-zinc-400">Acesse sua conta Gridiron.</p>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+      <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm space-y-5">
+        {/* Google Sign In */}
+        <GoogleSignInButton label="Entrar com Google" />
+
+        {/* Divider */}
+        <div className="flex items-center gap-4">
+          <div className="flex-1 h-[1px] bg-white/10" />
+          <span className="text-xs text-zinc-600 font-medium uppercase tracking-widest">ou</span>
+          <div className="flex-1 h-[1px] bg-white/10" />
+        </div>
+
         <form onSubmit={handleLogin} className="space-y-5">
           {error && (
             <div className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
@@ -101,7 +111,7 @@ export default function LoginPage() {
             ) : (
               <>
                 <LogIn size={16} />
-                Entrar
+                Entrar com e-mail
               </>
             )}
           </button>
