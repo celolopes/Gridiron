@@ -1,27 +1,25 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 /**
  * OAuthHashRedirect — Mounted in the root layout.
- * When Supabase OAuth redirects to the Site URL (/) instead of /auth/callback
- * (because the redirect URL wasn't allowed), the tokens land in window.location.hash.
- * This component detects that and silently forwards to /auth/callback preserving the hash.
+ * When Supabase OAuth redirects to the Site URL (/) with tokens in the hash
+ * (because PKCE state was lost or the implicit flow is active),
+ * this component detects it and uses window.location.replace to forward
+ * to /auth/callback preserving the entire hash fragment.
  */
 export function OAuthHashRedirect() {
-  const router = useRouter();
-
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const hash = window.location.hash;
-    // If the root URL has OAuth tokens in the hash, redirect to callback page
-    if (hash && (hash.includes("access_token") || hash.includes("error_description"))) {
-      // Redirect to /auth/callback preserving the hash so it can parse the tokens
-      router.replace(`/auth/callback${hash}`);
+    // Only intercept if we're on the root path AND there are OAuth tokens/errors in the hash
+    if (window.location.pathname === "/" && hash && (hash.includes("access_token") || hash.includes("error_description"))) {
+      // Use native navigation to preserve the hash reliably
+      window.location.replace(`/auth/callback${hash}`);
     }
-  }, [router]);
+  }, []);
 
   return null;
 }

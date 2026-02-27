@@ -7,4 +7,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn("Supabase credentials missing. Image uploads will fail.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    // Use implicit flow so OAuth tokens are returned in the URL hash.
+    // PKCE (default) stores a code_verifier in localStorage that gets lost
+    // during Google's OAuth redirect on some hosting environments (e.g. Render).
+    flowType: "implicit",
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+});
