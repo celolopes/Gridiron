@@ -82,9 +82,6 @@ let TenantsService = class TenantsService {
         const existingUser = await this.prisma.user.findUnique({
             where: { email: data.adminEmail },
         });
-        if (existingUser) {
-            throw new common_1.ConflictException('A user with this email already exists');
-        }
         console.log('[TenantsService] Hashing default password...');
         const hashedPassword = await bcrypt.hash('admin123', 10);
         console.log('[TenantsService] Password hashed.');
@@ -110,16 +107,31 @@ let TenantsService = class TenantsService {
                     },
                 });
                 console.log(`[TenantsService] Tenant created: ${tenant.id}`);
-                await tx.user.create({
-                    data: {
-                        email: data.adminEmail,
-                        password: hashedPassword,
-                        name: 'Store Admin',
-                        role: 'ADMIN',
-                        tenantId: tenant.id,
-                    },
-                });
-                console.log(`[TenantsService] Admin user created`);
+                if (existingUser) {
+                    await tx.user.update({
+                        where: { email: data.adminEmail },
+                        data: {
+                            managedStores: {
+                                connect: { id: tenant.id },
+                            },
+                        },
+                    });
+                    console.log(`[TenantsService] Admin user linked to new store`);
+                }
+                else {
+                    await tx.user.create({
+                        data: {
+                            email: data.adminEmail,
+                            password: hashedPassword,
+                            name: 'Store Admin',
+                            role: 'ADMIN',
+                            managedStores: {
+                                connect: { id: tenant.id },
+                            },
+                        },
+                    });
+                    console.log(`[TenantsService] Admin user created`);
+                }
                 const eliteProducts = [
                     {
                         name: 'Jersey Kansas City Home - Mahomes #15',
@@ -182,14 +194,29 @@ let TenantsService = class TenantsService {
         return tenant;
     }
     async findByAdminEmail(email) {
-        const user = await this.prisma.user.findUnique({
+        let user = await this.prisma.user.findUnique({
             where: { email },
-            include: { tenant: true },
+            include: { managedStores: true, tenant: true },
         });
-        if (!user || !user.tenant) {
+        if (!user) {
             throw new common_1.NotFoundException(`No tenant found for user email: ${email}`);
         }
-        return user.tenant;
+        if (user.managedStores.length === 0 && user.tenantId && user.tenant) {
+            await this.prisma.user.update({
+                where: { id: user.id },
+                data: {
+                    managedStores: {
+                        connect: { id: user.tenantId },
+                    },
+                },
+            });
+            console.log(`[TenantsService] Backfilled managedStores for legacy user ${email}`);
+            return [user.tenant];
+        }
+        if (user.managedStores.length === 0) {
+            throw new common_1.NotFoundException(`No tenant found for user email: ${email}`);
+        }
+        return user.managedStores;
     }
     async getSettings(slug) {
         const tenant = await this.findBySlug(slug);

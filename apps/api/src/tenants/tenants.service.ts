@@ -176,12 +176,32 @@ export class TenantsService {
   }
 
   async findByAdminEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
+    let user = await this.prisma.user.findUnique({
       where: { email },
-      include: { managedStores: true },
+      include: { managedStores: true, tenant: true },
     });
 
-    if (!user || user.managedStores.length === 0) {
+    if (!user) {
+      throw new NotFoundException(`No tenant found for user email: ${email}`);
+    }
+
+    // Backfill legacy users: if they have a tenantId but no managedStores
+    if (user.managedStores.length === 0 && user.tenantId && user.tenant) {
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: {
+          managedStores: {
+            connect: { id: user.tenantId },
+          },
+        },
+      });
+      console.log(
+        `[TenantsService] Backfilled managedStores for legacy user ${email}`,
+      );
+      return [user.tenant];
+    }
+
+    if (user.managedStores.length === 0) {
       throw new NotFoundException(`No tenant found for user email: ${email}`);
     }
 
