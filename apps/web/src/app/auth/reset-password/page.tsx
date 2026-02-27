@@ -22,7 +22,7 @@ export default function ResetPasswordPage() {
     // We need to listen for the PASSWORD_RECOVERY event
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event) => {
+    } = supabase.auth.onAuthStateChange((event: import("@supabase/supabase-js").AuthChangeEvent) => {
       if (event === "PASSWORD_RECOVERY") {
         setSessionReady(true);
       }
