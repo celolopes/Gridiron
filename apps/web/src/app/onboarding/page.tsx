@@ -58,7 +58,8 @@ export default function OnboardingPage() {
 
       setCurrentStep(LOADING_STEPS.length - 1);
       await new Promise((resolve) => setTimeout(resolve, 800));
-      router.push(`/admin/login?email=${encodeURIComponent(email)}&slug=${slug}&newStore=true`);
+      // Redireciona direto para a loja, já que o usuário já possui um token Supabase válido via Google SignIn.
+      router.push(`/admin/${slug}`);
     } catch (err: any) {
       setError(err.message || "Ocorreu um erro inesperado");
       setLoading(false);

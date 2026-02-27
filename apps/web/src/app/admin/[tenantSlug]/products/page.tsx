@@ -10,7 +10,7 @@ export default async function AdminProductsPage({ params }: { params: Promise<{ 
   const token = cookieStore.get("adminToken")?.value;
 
   if (!token) {
-    redirect("/admin/login");
+    redirect("/auth/login");
   }
 
   let products: any[] = [];

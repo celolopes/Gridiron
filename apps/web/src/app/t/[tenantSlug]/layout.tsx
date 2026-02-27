@@ -69,7 +69,7 @@ export default async function TenantLayout({ children, params }: { children: Rea
                 <ThemeToggle />
                 <CartButton />
                 <Link
-                  href="/admin/login"
+                  href="/auth/login"
                   className="px-5 py-2 rounded-full border border-black/10 dark:border-white/10 text-xs font-black uppercase tracking-widest text-zinc-800 dark:text-zinc-200 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
                 >
                   Admin

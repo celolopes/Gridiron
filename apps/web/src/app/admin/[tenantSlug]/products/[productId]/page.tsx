@@ -9,7 +9,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ te
   const token = cookieStore.get("adminToken")?.value;
 
   if (!token) {
-    redirect("/admin/login");
+    redirect("/auth/login");
   }
 
   let product = null;

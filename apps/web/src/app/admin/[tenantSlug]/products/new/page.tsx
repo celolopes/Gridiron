@@ -8,7 +8,7 @@ export default async function NewProductPage({ params }: { params: Promise<{ ten
   const token = cookieStore.get("adminToken")?.value;
 
   if (!token) {
-    redirect("/admin/login");
+    redirect("/auth/login");
   }
 
   return (

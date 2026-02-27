@@ -19,7 +19,7 @@ export default async function FinancePage({ params }: { params: Promise<{ tenant
   const token = cookieStore.get("adminToken")?.value;
 
   if (!token) {
-    redirect("/admin/login");
+    redirect("/auth/login");
   }
 
   const data = await getFinancialData(tenantSlug, token);
