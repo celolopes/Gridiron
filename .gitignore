@@ -8,6 +8,8 @@ build
 .next
 .turbo
 *.tsbuildinfo
+stripe.exe
+webhook.json
 
 # Environment variables
 .env
@@ -15,6 +17,9 @@ build
 .env.production
 .env.development
 .env.test
+packages/database/.env
+apps/api/.env
+apps/web/.env
 
 # Debug logs
 *.log

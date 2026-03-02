@@ -33,11 +33,25 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv = __importStar(require("dotenv"));
+const path = __importStar(require("path"));
+dotenv.config({ path: path.join(__dirname, "../../../.env") });
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+const pg_1 = require("pg");
+const adapter_pg_1 = require("@prisma/adapter-pg");
 const src_1 = require("../src");
 const bcrypt = __importStar(require("bcrypt"));
-const prisma = new src_1.PrismaClient();
+const pool = new pg_1.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
+});
+const adapter = new adapter_pg_1.PrismaPg(pool);
+const prisma = new src_1.PrismaClient({ adapter });
 async function main() {
     console.log("Starting seed...");
+    console.log("DATABASE_URL found:", !!process.env.DATABASE_URL);
     // Create Demo Tenant
     const tenant = await prisma.tenant.upsert({
         where: { slug: "demo" },
