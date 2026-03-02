@@ -100,7 +100,7 @@ export default async function AdminDashboard({ params }: { params: Promise<{ ten
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-blue-500" />
-              <span className="text-xs text-neutral-500 font-medium">Plano: {settings?.subscriptionPlan || "FREE"}</span>
+              <span className="text-xs text-neutral-500 font-medium">Plano: {tenant?.subscriptionPlan || "FREE"}</span>
             </div>
           </div>
         </div>
