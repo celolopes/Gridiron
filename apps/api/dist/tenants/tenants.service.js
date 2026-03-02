@@ -81,7 +81,22 @@ let TenantsService = class TenantsService {
         }
         const existingUser = await this.prisma.user.findUnique({
             where: { email: data.adminEmail },
+            include: {
+                managedStores: {
+                    include: {
+                        subscription: true,
+                    },
+                },
+            },
         });
+        if (existingUser && existingUser.managedStores.length > 0) {
+            const hasActivePro = existingUser.managedStores.some((store) => (store.subscriptionPlan === 'PRO' ||
+                store.subscriptionPlan === 'ENTERPRISE') &&
+                store.subscription?.status === 'ACTIVE');
+            if (!hasActivePro) {
+                throw new common_1.ConflictException('Apenas contas com o plano PRO ou superior (Assinatura Ativa) podem criar e gerenciar múltiplas lojas.');
+            }
+        }
         console.log('[TenantsService] Hashing default password...');
         const hashedPassword = await bcrypt.hash('admin123', 10);
         console.log('[TenantsService] Password hashed.');

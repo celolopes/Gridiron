@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { GridironLogo } from "../../../components/GridironLogo";
 import { UpgradeBanner } from "./components/UpgradeBanner";
+import { Store } from "lucide-react";
 
 export default async function AdminLayout({ children, params }: { children: React.ReactNode; params: Promise<{ tenantSlug: string }> }) {
   const { tenantSlug } = await params;
@@ -72,10 +73,17 @@ export default async function AdminLayout({ children, params }: { children: Reac
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
         <header className="h-16 flex items-center px-8 border-b border-neutral-800 bg-neutral-900/30 backdrop-blur-md sticky top-0 z-10 w-full justify-between">
-          <div>
-            <span className="text-sm font-semibold text-neutral-300 bg-neutral-800/50 px-3 py-1.5 rounded-md border border-neutral-700/50">
-              Loja Selecionada: <span className="text-white ml-1 font-bold">{settings?.brandName || tenantSlug}</span>
+          <div className="flex items-center gap-4">
+            <span className="text-sm font-semibold text-neutral-300 bg-neutral-800/50 px-3 py-1.5 rounded-md border border-neutral-700/50 flex items-center gap-2">
+              <Store size={14} className="text-blue-400" />
+              Loja Selecionada: <span className="text-white font-bold truncate max-w-[150px]">{settings?.brandName || tenantSlug}</span>
             </span>
+            <Link
+              href="/auth/select-store"
+              className="text-xs font-semibold px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-neutral-300 hover:text-white hover:bg-white/10 transition-colors flex items-center gap-1.5"
+            >
+              Trocar / Criar Loja
+            </Link>
           </div>
 
           <div className="flex items-center space-x-4">

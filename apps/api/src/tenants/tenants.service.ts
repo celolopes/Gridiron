@@ -35,7 +35,30 @@ export class TenantsService {
 
     const existingUser = await this.prisma.user.findUnique({
       where: { email: data.adminEmail },
+      include: {
+        managedStores: {
+          include: {
+            subscription: true,
+          },
+        },
+      },
     });
+
+    if (existingUser && existingUser.managedStores.length > 0) {
+      // Check if user has an active PRO subscription on any of their stores
+      const hasActivePro = existingUser.managedStores.some(
+        (store) =>
+          (store.subscriptionPlan === 'PRO' ||
+            store.subscriptionPlan === 'ENTERPRISE') &&
+          store.subscription?.status === 'ACTIVE',
+      );
+
+      if (!hasActivePro) {
+        throw new ConflictException(
+          'Apenas contas com o plano PRO ou superior (Assinatura Ativa) podem criar e gerenciar múltiplas lojas.',
+        );
+      }
+    }
 
     // If a user exists, we will reuse them and grant them access to this new store.
 

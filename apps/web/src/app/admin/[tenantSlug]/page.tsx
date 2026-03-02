@@ -126,6 +126,41 @@ export default async function AdminDashboard({ params }: { params: Promise<{ ten
         </div>
       </div>
 
+      {/* PRO Benefits Section */}
+      {(settings?.subscriptionPlan === "PRO" || tenant?.subscriptionPlan === "PRO") && (
+        <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 p-8 rounded-2xl relative overflow-hidden backdrop-blur-md">
+          <div className="relative z-10">
+            <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+              <span className="text-2xl">✨</span> Benefícios Supremos do Plano PRO
+            </h3>
+            <p className="text-blue-200/80 mb-6">Os selos de limitação foram retirados. Você está pronto para escalar com força máxima.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-black/40 border border-blue-500/20 rounded-xl p-5 hover:border-blue-500/50 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-3">
+                  <span className="text-blue-400 font-bold">♾️</span>
+                </div>
+                <h4 className="text-white font-bold mb-1">Catálogo Ilimitado</h4>
+                <p className="text-sm text-neutral-400">Sem limites de 20 produtos. Importe quantos itens do Aliexpress quiser para preencher as vitrines da sua loja.</p>
+              </div>
+              <div className="bg-black/40 border border-blue-500/20 rounded-xl p-5 hover:border-blue-500/50 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-3">
+                  <span className="text-blue-400 font-bold">🛒</span>
+                </div>
+                <h4 className="text-white font-bold mb-1">Volume Desbloqueado</h4>
+                <p className="text-sm text-neutral-400">Venda no automático. Não existem mais os bloqueios de vendas simultâneas ou faturamento estagnado do modo de teste.</p>
+              </div>
+              <div className="bg-black/40 border border-purple-500/20 rounded-xl p-5 hover:border-purple-500/50 transition-colors">
+                <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mb-3">
+                  <span className="text-purple-400 font-bold">🏢</span>
+                </div>
+                <h4 className="text-white font-bold mb-1">Múltiplas Lojas</h4>
+                <p className="text-sm text-neutral-400">Gostou das oportunidades? Crie novos domínios e nichos independentes utilizando o link 'Trocar / Criar Loja' na barra superior.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Suggestions Table */}
       <div>
         <h3 className="text-xl font-bold mb-4">O que importar (Sugestões via Demand Score)</h3>
