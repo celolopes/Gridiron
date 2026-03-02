@@ -45,7 +45,7 @@ export default function BillingPage({ params }: { params: Promise<{ tenantSlug: 
         adminToken,
         body: JSON.stringify({
           tenantSlug,
-          priceId: process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID || "price_dummy",
+          priceId: process.env.NEXT_PUBLIC_STRIPE_PRO_PRICE_ID || "price_1T6XRaPaS87I74rZQSImorxX",
           successUrl: `${window.location.origin}/admin/${tenantSlug}/billing?success=true`,
           cancelUrl: `${window.location.origin}/admin/${tenantSlug}/billing?canceled=true`,
         }),
