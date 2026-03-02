@@ -2,12 +2,12 @@ import {
   Controller,
   Post,
   Req,
-  RawBodyRequest,
   BadRequestException,
   Headers,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { BillingService } from './billing.service';
+import type { RawBodyRequest } from '@nestjs/common';
 import { Request } from 'express';
 import Stripe from 'stripe';
 
@@ -22,7 +22,7 @@ export class WebhookController {
     this.stripe = new Stripe(
       this.config.get<string>('STRIPE_SECRET_KEY') || '',
       {
-        apiVersion: '2024-12-18.acacia',
+        apiVersion: '2024-06-20',
       },
     );
   }

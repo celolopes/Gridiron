@@ -22,7 +22,7 @@ export class BillingService {
       );
     }
     this.stripe = new Stripe(stripeKey || '', {
-      apiVersion: '2024-12-18.acacia',
+      apiVersion: '2024-06-20',
     });
   }
 
