@@ -1,15 +1,40 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Resend } from 'resend';
 
 @Injectable()
 export class EmailService {
   private readonly logger = new Logger(EmailService.name);
+  private resend: Resend | null = null;
+
+  constructor() {
+    if (process.env.RESEND_API_KEY) {
+      this.resend = new Resend(process.env.RESEND_API_KEY);
+      this.logger.log('Resend initialized with API key.');
+    } else {
+      this.logger.warn('RESEND_API_KEY not found. Emails will be mocked.');
+    }
+  }
 
   async sendEmail(to: string, subject: string, body: string) {
-    // Phase 1 Mockup for Email Sending
-    // Replace with Resend or SMTP integration later
-    this.logger.log(`[MOCK EMAIL] To: ${to} | Subject: ${subject}`);
-    this.logger.debug(body);
-    return true;
+    if (this.resend) {
+      try {
+        await this.resend.emails.send({
+          from: 'Acme <onboarding@resend.dev>', // Should use a verified domain in prob
+          to: [to],
+          subject: subject,
+          html: body,
+        });
+        this.logger.log(`Email sent via Resend to ${to}`);
+        return true;
+      } catch (e) {
+        this.logger.error(`Error sending email to ${to}: ${e.message}`);
+        return false;
+      }
+    } else {
+      this.logger.log(`[MOCK EMAIL] To: ${to} | Subject: ${subject}`);
+      this.logger.debug(body);
+      return true;
+    }
   }
 
   async sendOrderRequestedPayment(userEmail: string, orderId: string) {

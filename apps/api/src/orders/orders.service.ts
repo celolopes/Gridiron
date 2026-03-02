@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { EventsService } from '../events/events.service';
 import { TenantsService } from '../tenants/tenants.service';
+import { EmailService } from '../email/email.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderStatus, FulfillmentType } from '@gridiron/database';
 
@@ -16,6 +17,7 @@ export class OrdersService {
     private readonly prisma: PrismaService,
     private readonly events: EventsService,
     private readonly tenantsService: TenantsService,
+    private readonly email: EmailService,
   ) {}
 
   async createOrder(
@@ -103,6 +105,27 @@ export class OrdersService {
           orderItems: { include: { variant: { include: { product: true } } } },
         },
       });
+
+      // Fire and forget email notification
+      setTimeout(() => {
+        const fakePixPayload = `00020126360014BR.GOV.BCB.PIX0114+55119999999995204000053039865405${order.totalAmount.toFixed(2)}5802BR5913${tenantId.substring(0, 8)}6008BRASILIA62070503***63041234`;
+        this.email
+          .sendEmail(
+            order.customerEmail,
+            `Seu Pedido #${order.id.slice(0, 8)} - Pagamento Pendente`,
+            `<div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+            <h2>Olá, ${order.customerName}!</h2>
+            <p>Seu pedido na loja <strong>${tenant.name}</strong> foi recebido com sucesso e estamos aguardando o pagamento do PIX para processar seus itens.</p>
+            <p><strong>Valor Total:</strong> R$ ${order.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p>Copie o código PIX abaixo para pagar no aplicativo do seu banco:</p>
+            <div style="background-color: #f4f4f5; padding: 16px; border-radius: 8px; margin: 16px 0; font-family: monospace; word-break: break-all;">
+              ${fakePixPayload}
+            </div>
+            <p>Se tiver qualquer dúvida, responda este e-mail.</p>
+          </div>`,
+          )
+          .catch((e) => console.error('[Email Error]', e));
+      }, 0);
 
       return order;
     } catch (error) {

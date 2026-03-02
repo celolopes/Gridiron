@@ -14,15 +14,18 @@ const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const events_service_1 = require("../events/events.service");
 const tenants_service_1 = require("../tenants/tenants.service");
+const email_service_1 = require("../email/email.service");
 const database_1 = require("@gridiron/database");
 let OrdersService = class OrdersService {
     prisma;
     events;
     tenantsService;
-    constructor(prisma, events, tenantsService) {
+    email;
+    constructor(prisma, events, tenantsService, email) {
         this.prisma = prisma;
         this.events = events;
         this.tenantsService = tenantsService;
+        this.email = email;
     }
     async createOrder(tenantId, userId, data) {
         try {
@@ -89,6 +92,21 @@ let OrdersService = class OrdersService {
                     orderItems: { include: { variant: { include: { product: true } } } },
                 },
             });
+            setTimeout(() => {
+                const fakePixPayload = `00020126360014BR.GOV.BCB.PIX0114+55119999999995204000053039865405${order.totalAmount.toFixed(2)}5802BR5913${tenantId.substring(0, 8)}6008BRASILIA62070503***63041234`;
+                this.email
+                    .sendEmail(order.customerEmail, `Seu Pedido #${order.id.slice(0, 8)} - Pagamento Pendente`, `<div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+            <h2>Olá, ${order.customerName}!</h2>
+            <p>Seu pedido na loja <strong>${tenant.name}</strong> foi recebido com sucesso e estamos aguardando o pagamento do PIX para processar seus itens.</p>
+            <p><strong>Valor Total:</strong> R$ ${order.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p>Copie o código PIX abaixo para pagar no aplicativo do seu banco:</p>
+            <div style="background-color: #f4f4f5; padding: 16px; border-radius: 8px; margin: 16px 0; font-family: monospace; word-break: break-all;">
+              ${fakePixPayload}
+            </div>
+            <p>Se tiver qualquer dúvida, responda este e-mail.</p>
+          </div>`)
+                    .catch((e) => console.error('[Email Error]', e));
+            }, 0);
             return order;
         }
         catch (error) {
@@ -173,6 +191,7 @@ exports.OrdersService = OrdersService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
         events_service_1.EventsService,
-        tenants_service_1.TenantsService])
+        tenants_service_1.TenantsService,
+        email_service_1.EmailService])
 ], OrdersService);
 //# sourceMappingURL=orders.service.js.map
