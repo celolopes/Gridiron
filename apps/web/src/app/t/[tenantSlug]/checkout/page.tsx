@@ -149,9 +149,9 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
               </>
             ) : (
               <>
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">Chave PIX</h3>
-                <div className="flex bg-black/40 border border-white/10 rounded-xl overflow-hidden">
-                  <input type="text" readOnly value={generatePixLink()} className="bg-transparent text-sm w-full px-4 text-zinc-400 focus:outline-none" />
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">Chave PIX</h3>
+                <div className="flex bg-zinc-50 dark:bg-black/40 border border-zinc-200 dark:border-white/10 rounded-xl overflow-hidden">
+                  <input type="text" readOnly value={generatePixLink()} className="bg-transparent text-sm w-full px-4 text-zinc-500 dark:text-zinc-400 focus:outline-none" />
                   <button onClick={copyPix} className="bg-accent px-4 py-3 text-white font-bold text-sm whitespace-nowrap hover:bg-accent/80 transition-colors">
                     Copiar
                   </button>
@@ -171,7 +171,10 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
 
           <p className="text-zinc-500 text-sm">Também enviamos uma cópia para o seu e-mail!</p>
 
-          <Link href={`/t/${tenantSlug}`} className="inline-block w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-sm hover:bg-white/10 transition-colors mt-4">
+          <Link
+            href={`/t/${tenantSlug}`}
+            className="inline-block w-full py-4 rounded-2xl bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white font-bold text-sm hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors mt-4"
+          >
             Voltar para a Loja
           </Link>
         </div>
@@ -183,12 +186,12 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
     <div className="min-h-screen pt-24 pb-24">
       <div className="container mx-auto px-6 max-w-6xl">
         {/* Breadcrumb */}
-        <Link href={`/t/${tenantSlug}/products`} className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-accent transition-colors mb-8 group">
+        <Link href={`/t/${tenantSlug}/products`} className="inline-flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 hover:text-accent transition-colors mb-8 group">
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span className="font-bold uppercase tracking-widest text-[11px]">Continuar Comprando</span>
         </Link>
 
-        <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-10">
+        <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-zinc-900 dark:text-white mb-10">
           Finalizar <span className="text-accent">Compra</span>
         </h1>
 
@@ -205,8 +208,8 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
             {/* Left: Form */}
             <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-8">
               {/* Customer Data */}
-              <div className="bg-white/5 border border-white/5 rounded-3xl p-6 space-y-4">
-                <h2 className="text-lg font-black uppercase tracking-tight text-white flex items-center gap-2">
+              <div className="bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm dark:shadow-none">
+                <h2 className="text-lg font-black uppercase tracking-tight text-zinc-900 dark:text-white flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-accent" />
                   Dados do Cliente
                 </h2>
@@ -216,7 +219,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                     onChange={handleChange("name")}
                     placeholder="Nome completo"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     type="email"
@@ -224,7 +227,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                     onChange={handleChange("email")}
                     placeholder="E-mail"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     type="tel"
@@ -232,14 +235,14 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                     onChange={handleChange("phone")}
                     placeholder="Telefone / WhatsApp"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm md:col-span-2"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm md:col-span-2"
                   />
                 </div>
               </div>
 
               {/* Shipping */}
-              <div className="bg-white/5 border border-white/5 rounded-3xl p-6 space-y-4">
-                <h2 className="text-lg font-black uppercase tracking-tight text-white flex items-center gap-2">
+              <div className="bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/5 rounded-3xl p-6 space-y-4 shadow-sm dark:shadow-none">
+                <h2 className="text-lg font-black uppercase tracking-tight text-zinc-900 dark:text-white flex items-center gap-2">
                   <Truck className="w-5 h-5 text-accent" />
                   Endereço de Entrega
                 </h2>
@@ -249,48 +252,48 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                     onChange={handleChange("cep")}
                     placeholder="CEP"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     value={formData.address}
                     onChange={handleChange("address")}
                     placeholder="Endereço"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     value={formData.number}
                     onChange={handleChange("number")}
                     placeholder="Número"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     value={formData.complement}
                     onChange={handleChange("complement")}
                     placeholder="Complemento"
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     value={formData.neighborhood}
                     onChange={handleChange("neighborhood")}
                     placeholder="Bairro"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                   <input
                     value={formData.city}
                     onChange={handleChange("city")}
                     placeholder="Cidade"
                     required
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
+                    className="w-full px-4 py-3.5 rounded-xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:border-accent focus:outline-none transition-colors text-sm"
                   />
                 </div>
               </div>
 
               {/* Payment */}
-              <div className="bg-white/5 border border-white/5 rounded-3xl p-6">
-                <h2 className="text-lg font-black uppercase tracking-tight text-white mb-4 flex items-center gap-2">
+              <div className="bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/5 rounded-3xl p-6 shadow-sm dark:shadow-none">
+                <h2 className="text-lg font-black uppercase tracking-tight text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
                   <Shield className="w-5 h-5 text-accent" />
                   Pagamento
                 </h2>
@@ -407,15 +410,15 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
 
             {/* Right: Order Summary */}
             <div className="lg:col-span-1">
-              <div className="sticky top-28 bg-white/5 border border-white/5 rounded-3xl p-6 space-y-6">
-                <h2 className="text-lg font-black uppercase tracking-tight text-white">Resumo do Pedido</h2>
+              <div className="sticky top-28 bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/5 rounded-3xl p-6 space-y-6 shadow-sm dark:shadow-none">
+                <h2 className="text-lg font-black uppercase tracking-tight text-zinc-900 dark:text-white">Resumo do Pedido</h2>
 
                 <div className="space-y-4 max-h-[300px] overflow-y-auto">
                   {items.map((item) => {
                     const key = item.variantId || item.productId;
                     return (
                       <div key={key} className="flex gap-3">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-zinc-800 flex-shrink-0">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 flex-shrink-0">
                           {item.imageUrl ? (
                             <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
                           ) : (
@@ -425,7 +428,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-bold text-white truncate">{item.name}</h4>
+                          <h4 className="text-sm font-bold text-zinc-900 dark:text-white truncate">{item.name}</h4>
                           {item.variantName && <p className="text-xs text-zinc-500">{item.variantName}</p>}
                           <div className="flex items-center justify-between mt-1">
                             <span className="text-sm text-accent font-bold">
@@ -443,21 +446,21 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
 
                 <div className="border-t border-white/10 pt-4 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-zinc-400">Subtotal ({totalItems} itens)</span>
-                    <span className="text-white font-bold">{fmt(totalPrice)}</span>
+                    <span className="text-zinc-500 dark:text-zinc-400">Subtotal ({totalItems} itens)</span>
+                    <span className="text-zinc-900 dark:text-white font-bold">{fmt(totalPrice)}</span>
                   </div>
                   {checkoutMethod === "CREDIT_CARD_MANUAL" && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-400">Taxa de Cartão</span>
-                      <span className="text-white font-bold">{fmt(finalTotal - totalPrice)}</span>
+                      <span className="text-zinc-500 dark:text-zinc-400">Taxa de Cartão</span>
+                      <span className="text-zinc-900 dark:text-white font-bold">{fmt(finalTotal - totalPrice)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
-                    <span className="text-zinc-400">Frete</span>
-                    <span className="text-emerald-400 font-bold">A combinar</span>
+                    <span className="text-zinc-500 dark:text-zinc-400">Frete</span>
+                    <span className="text-emerald-500 dark:text-emerald-400 font-bold">A combinar</span>
                   </div>
-                  <div className="flex justify-between pt-2 border-t border-white/10">
-                    <span className="text-white font-bold">Total</span>
+                  <div className="flex justify-between pt-2 border-t border-zinc-200 dark:border-white/10">
+                    <span className="text-zinc-900 dark:text-white font-bold">Total</span>
                     <span className="text-2xl font-black text-accent">{fmt(finalTotal)}</span>
                   </div>
                 </div>
