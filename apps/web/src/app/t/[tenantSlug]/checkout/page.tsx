@@ -25,6 +25,31 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
     city: "",
   });
 
+  const [checkoutMethod, setCheckoutMethod] = React.useState<"PIX_MANUAL" | "CREDIT_CARD_MANUAL">("PIX_MANUAL");
+  const [installments, setInstallments] = React.useState<number>(1);
+
+  const CREDIT_CARD_FEES: Record<number, number> = {
+    1: 0.0539,
+    2: 0.0797,
+    3: 0.0889,
+    4: 0.098,
+    5: 0.1066,
+    6: 0.1149,
+    7: 0.1269,
+    8: 0.1359,
+    9: 0.1449,
+    10: 0.1539,
+    11: 0.1629,
+    12: 0.1718,
+  };
+
+  const getFinalTotal = () => {
+    if (checkoutMethod === "PIX_MANUAL") return totalPrice;
+    return totalPrice / (1 - CREDIT_CARD_FEES[installments]);
+  };
+
+  const finalTotal = getFinalTotal();
+
   const fmt = (v: number) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v);
 
   const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, [field]: e.target.value }));
@@ -41,12 +66,14 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
         body: JSON.stringify({ eventType: "BEGIN_CHECKOUT" }),
       }).catch(() => {});
 
+      const paymentPref = checkoutMethod === "PIX_MANUAL" ? "PIX_MANUAL" : `CREDIT_CARD_MANUAL_${installments}X`;
+
       const res = await fetch(`${API_URL}/tenants/${tenantSlug}/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: "guest-id",
-          paymentMethodPreference: "PIX_MANUAL",
+          paymentMethodPreference: paymentPref,
           customerName: formData.name,
           customerEmail: formData.email,
           customerPhone: formData.phone,
@@ -89,6 +116,8 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
   };
 
   if (success) {
+    const isCredit = checkoutMethod === "CREDIT_CARD_MANUAL";
+
     return (
       <div className="min-h-screen flex items-center justify-center pt-20 px-6">
         <div className="max-w-md w-full text-center space-y-6">
@@ -98,24 +127,46 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
             </svg>
           </div>
           <h2 className="text-4xl font-black uppercase tracking-tighter text-white">Pedido Recebido!</h2>
+
           <p className="text-zinc-400 leading-relaxed">
-            Seu pedido está reservado. <strong className="text-white">Para garantir o pagamento</strong>, pague o total de {fmt(orderData?.totalAmount || 0)} agora:
+            Seu pedido está reservado. <strong className="text-white">Para garantir a compra</strong>, pague o total de {fmt(orderData?.totalAmount || 0)} agora:
           </p>
 
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-left space-y-4">
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">Chave PIX</h3>
-            <div className="flex bg-black/40 border border-white/10 rounded-xl overflow-hidden">
-              <input type="text" readOnly value={generatePixLink()} className="bg-transparent text-sm w-full px-4 text-zinc-400 focus:outline-none" />
-              <button onClick={copyPix} className="bg-accent px-4 py-3 text-white font-bold text-sm whitespace-nowrap hover:bg-accent/80 transition-colors">
-                Copiar
-              </button>
-            </div>
-            <button onClick={sendWhatsApp} className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.47-1.761-1.643-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
-              </svg>
-              Avisar Pagamento no WhatsApp
-            </button>
+            {isCredit ? (
+              <>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">Link de Pagamento</h3>
+                <p className="text-sm text-zinc-400">Nossa equipe está gerando o seu link seguro da InfinitePay. Ele chegará no seu e-mail e você também pode solicitá-lo no WhatsApp abaixo:</p>
+                <button
+                  onClick={sendWhatsApp}
+                  className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.47-1.761-1.643-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                  </svg>
+                  Pedir Link no WhatsApp
+                </button>
+              </>
+            ) : (
+              <>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">Chave PIX</h3>
+                <div className="flex bg-black/40 border border-white/10 rounded-xl overflow-hidden">
+                  <input type="text" readOnly value={generatePixLink()} className="bg-transparent text-sm w-full px-4 text-zinc-400 focus:outline-none" />
+                  <button onClick={copyPix} className="bg-accent px-4 py-3 text-white font-bold text-sm whitespace-nowrap hover:bg-accent/80 transition-colors">
+                    Copiar
+                  </button>
+                </div>
+                <button
+                  onClick={sendWhatsApp}
+                  className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.878-.788-1.47-1.761-1.643-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+                  </svg>
+                  Avisar Pagamento no WhatsApp
+                </button>
+              </>
+            )}
           </div>
 
           <p className="text-zinc-500 text-sm">Também enviamos uma cópia para o seu e-mail!</p>
@@ -243,19 +294,76 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                   <Shield className="w-5 h-5 text-accent" />
                   Pagamento
                 </h2>
-                <div className="p-4 rounded-2xl border-2 border-accent/30 bg-accent/5 flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
+
+                <div className="space-y-4">
+                  {/* PIX Option */}
+                  <label
+                    className={`p-4 rounded-2xl border-2 cursor-pointer flex items-center justify-between transition-colors ${checkoutMethod === "PIX_MANUAL" ? "border-accent/80 bg-accent/10" : "border-white/10 hover:border-white/20"}`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <input type="radio" name="paymentMethod" value="PIX_MANUAL" checked={checkoutMethod === "PIX_MANUAL"} onChange={() => setCheckoutMethod("PIX_MANUAL")} className="hidden" />
+                      <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="font-bold text-white">Pix</p>
+                        <p className="text-xs text-emerald-400 font-bold">Sem juros</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-bold text-white">Pix Manual</p>
-                      <p className="text-xs text-zinc-400">O link será enviado por e-mail após a solicitação.</p>
+                    <div className={`w-5 h-5 rounded-full border-4 flex-shrink-0 transition-colors ${checkoutMethod === "PIX_MANUAL" ? "border-accent" : "border-zinc-600"}`} />
+                  </label>
+
+                  {/* Credit Card Option */}
+                  <label
+                    className={`p-4 rounded-2xl border-2 cursor-pointer transition-colors ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "border-accent/80 bg-accent/10" : "border-white/10 hover:border-white/20"}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3 w-full">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="CREDIT_CARD_MANUAL"
+                          checked={checkoutMethod === "CREDIT_CARD_MANUAL"}
+                          onChange={() => setCheckoutMethod("CREDIT_CARD_MANUAL")}
+                          className="hidden"
+                        />
+                        <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                          <CreditCard className="w-6 h-6 text-blue-500" />
+                        </div>
+                        <div className="w-full pr-4">
+                          <p className="font-bold text-white flex justify-between">
+                            Cartão de Crédito
+                            {checkoutMethod === "CREDIT_CARD_MANUAL" && <span className="text-xs bg-white/10 px-2 py-1 rounded text-zinc-300 font-medium">Link pós-compra</span>}
+                          </p>
+                          <p className="text-xs text-zinc-400">Em até 12x via InfinitePay</p>
+                        </div>
+                      </div>
+                      <div className={`w-5 h-5 rounded-full border-4 flex-shrink-0 transition-colors ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "border-accent" : "border-zinc-600"}`} />
                     </div>
-                  </div>
-                  <div className="w-5 h-5 rounded-full border-4 border-accent flex-shrink-0" />
+
+                    {checkoutMethod === "CREDIT_CARD_MANUAL" && (
+                      <div className="mt-4 pt-4 border-t border-white/10 animate-in fade-in slide-in-from-top-2">
+                        <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2 block">Selecione as Parcelas</label>
+                        <select
+                          value={installments}
+                          onChange={(e) => setInstallments(Number(e.target.value))}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accent appearance-none cursor-pointer"
+                        >
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => {
+                            const valWithFee = totalPrice / (1 - CREDIT_CARD_FEES[n]);
+                            const plotValue = valWithFee / n;
+                            return (
+                              <option key={n} value={n} className="bg-zinc-900 text-white">
+                                {n}x de {fmt(plotValue)} ({fmt(valWithFee)})
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    )}
+                  </label>
                 </div>
               </div>
 
@@ -265,7 +373,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                 disabled={loading}
                 className="w-full py-4 rounded-2xl bg-accent text-white font-black uppercase tracking-widest text-sm hover:bg-accent/90 transition-all shadow-xl shadow-accent/20 disabled:opacity-50 lg:hidden"
               >
-                {loading ? "Processando..." : `Solicitar Pix • ${fmt(totalPrice)}`}
+                {loading ? "Processando..." : checkoutMethod === "PIX_MANUAL" ? `Solicitar Pix • ${fmt(finalTotal)}` : `Pedir Link Cartão • ${fmt(finalTotal)}`}
               </button>
             </form>
 
@@ -310,13 +418,19 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                     <span className="text-zinc-400">Subtotal ({totalItems} itens)</span>
                     <span className="text-white font-bold">{fmt(totalPrice)}</span>
                   </div>
+                  {checkoutMethod === "CREDIT_CARD_MANUAL" && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-zinc-400">Taxa de Cartão</span>
+                      <span className="text-white font-bold">{fmt(finalTotal - totalPrice)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-sm">
                     <span className="text-zinc-400">Frete</span>
                     <span className="text-emerald-400 font-bold">A combinar</span>
                   </div>
                   <div className="flex justify-between pt-2 border-t border-white/10">
                     <span className="text-white font-bold">Total</span>
-                    <span className="text-2xl font-black text-accent">{fmt(totalPrice)}</span>
+                    <span className="text-2xl font-black text-accent">{fmt(finalTotal)}</span>
                   </div>
                 </div>
 
@@ -328,7 +442,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                   onClick={handleSubmit as any}
                   className="hidden lg:block w-full py-4 rounded-2xl bg-accent text-white font-black uppercase tracking-widest text-sm hover:bg-accent/90 transition-all shadow-xl shadow-accent/20 disabled:opacity-50"
                 >
-                  {loading ? "Processando..." : "Solicitar Pix e Finalizar"}
+                  {loading ? "Processando..." : checkoutMethod === "PIX_MANUAL" ? "Solicitar Pix e Finalizar" : "Pedir Link do Cartão"}
                 </button>
               </div>
             </div>

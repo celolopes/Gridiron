@@ -108,12 +108,27 @@ export class OrdersService {
 
       // Fire and forget email notification
       setTimeout(() => {
-        const fakePixPayload = `00020126360014BR.GOV.BCB.PIX0114+55119999999995204000053039865405${order.totalAmount.toFixed(2)}5802BR5913${tenantId.substring(0, 8)}6008BRASILIA62070503***63041234`;
-        this.email
-          .sendEmail(
-            order.customerEmail,
-            `Seu Pedido #${order.id.slice(0, 8)} - Pagamento Pendente`,
-            `<div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+        const isCreditCard =
+          order.paymentMethodPreference?.startsWith('CREDIT_CARD_MANUAL');
+        let subject = '';
+        let htmlBody = '';
+
+        if (isCreditCard) {
+          const installmentsMatch =
+            order.paymentMethodPreference?.match(/_(\d+X)$/);
+          const installments = installmentsMatch ? installmentsMatch[1] : '1X';
+          subject = `Seu Pedido #${order.id.slice(0, 8)} - Pagamento no Crédito`;
+          htmlBody = `<div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+            <h2>Olá, ${order.customerName}!</h2>
+            <p>Seu pedido na loja <strong>${tenant.name}</strong> foi recebido com sucesso e você optou pelo pagamento no <strong>Cartão de Crédito em ${installments}</strong>.</p>
+            <p><strong>Valor Total (com taxas):</strong> R$ ${order.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            <p>Em instantes, nossa equipe enviará aqui por e-mail e também no seu WhatsApp o <strong>Link de Pagamento Seguro</strong> da InfinitePay para você finalizar a compra.</p>
+            <p>Se tiver qualquer dúvida, responda este e-mail.</p>
+          </div>`;
+        } else {
+          const fakePixPayload = `00020126360014BR.GOV.BCB.PIX0114+55119999999995204000053039865405${order.totalAmount.toFixed(2)}5802BR5913${tenantId.substring(0, 8)}6008BRASILIA62070503***63041234`;
+          subject = `Seu Pedido #${order.id.slice(0, 8)} - Pagamento Pendente`;
+          htmlBody = `<div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
             <h2>Olá, ${order.customerName}!</h2>
             <p>Seu pedido na loja <strong>${tenant.name}</strong> foi recebido com sucesso e estamos aguardando o pagamento do PIX para processar seus itens.</p>
             <p><strong>Valor Total:</strong> R$ ${order.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
@@ -122,8 +137,11 @@ export class OrdersService {
               ${fakePixPayload}
             </div>
             <p>Se tiver qualquer dúvida, responda este e-mail.</p>
-          </div>`,
-          )
+          </div>`;
+        }
+
+        this.email
+          .sendEmail(order.customerEmail, subject, htmlBody)
           .catch((e) => console.error('[Email Error]', e));
       }, 0);
 
