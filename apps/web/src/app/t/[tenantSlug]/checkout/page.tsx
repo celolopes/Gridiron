@@ -301,25 +301,25 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                 <div className="space-y-4">
                   {/* PIX Option */}
                   <label
-                    className={`block p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${checkoutMethod === "PIX_MANUAL" ? "border-accent bg-accent/5 shadow-lg shadow-accent/5 scale-[1.01]" : "border-white/10 hover:border-white/20 hover:bg-white/[0.02]"}`}
+                    className={`block p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${checkoutMethod === "PIX_MANUAL" ? "border-accent bg-accent/5 shadow-lg shadow-accent/5 scale-[1.01]" : "border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 hover:bg-zinc-50 dark:hover:bg-white/[0.02]"}`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4">
                         <input type="radio" name="paymentMethod" value="PIX_MANUAL" checked={checkoutMethod === "PIX_MANUAL"} onChange={() => setCheckoutMethod("PIX_MANUAL")} className="hidden" />
                         <div
-                          className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${checkoutMethod === "PIX_MANUAL" ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-zinc-400"}`}
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${checkoutMethod === "PIX_MANUAL" ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-zinc-100 dark:bg-white/5 text-zinc-400"}`}
                         >
                           <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 0l-4.5 4.5 4.5 4.5 4.5-4.5L12 0zM12 9l-4.5 4.5 4.5 4.5 4.5-4.5L12 9z" />
                           </svg>
                         </div>
                         <div>
-                          <p className={`font-bold text-lg leading-tight ${checkoutMethod === "PIX_MANUAL" ? "text-white" : "text-zinc-300"}`}>Pix</p>
-                          <p className="text-sm text-emerald-400 font-medium">Aprovação Imediata • 0% de juros</p>
+                          <p className={`font-bold text-lg leading-tight ${checkoutMethod === "PIX_MANUAL" ? "text-zinc-900 dark:text-white" : "text-zinc-500 dark:text-zinc-300"}`}>Pix</p>
+                          <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">Aprovação Imediata • 0% de juros</p>
                         </div>
                       </div>
                       <div
-                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${checkoutMethod === "PIX_MANUAL" ? "border-accent bg-accent/10" : "border-zinc-600"}`}
+                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${checkoutMethod === "PIX_MANUAL" ? "border-accent bg-accent/10" : "border-zinc-300 dark:border-zinc-600"}`}
                       >
                         {checkoutMethod === "PIX_MANUAL" && <div className="w-3 h-3 rounded-full bg-accent" />}
                       </div>
@@ -328,7 +328,7 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
 
                   {/* Credit Card Option */}
                   <label
-                    className={`block p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "border-accent bg-accent/5 shadow-lg shadow-accent/5 scale-[1.01]" : "border-white/10 hover:border-white/20 hover:bg-white/[0.02]"}`}
+                    className={`block p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "border-accent bg-accent/5 shadow-lg shadow-accent/5 scale-[1.01]" : "border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 hover:bg-zinc-50 dark:hover:bg-white/[0.02]"}`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4 w-full">
@@ -341,30 +341,32 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                           className="hidden"
                         />
                         <div
-                          className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-zinc-400"}`}
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "bg-blue-500/20 text-blue-600 dark:text-blue-400" : "bg-zinc-100 dark:bg-white/5 text-zinc-400"}`}
                         >
                           <CreditCard className="w-6 h-6" />
                         </div>
                         <div className="pr-4 flex-1">
                           <div className="flex items-center gap-2">
-                            <p className={`font-bold text-lg leading-tight ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "text-white" : "text-zinc-300"}`}>Cartão de Crédito</p>
+                            <p className={`font-bold text-lg leading-tight ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "text-zinc-900 dark:text-white" : "text-zinc-500 dark:text-zinc-300"}`}>
+                              Cartão de Crédito
+                            </p>
                             {checkoutMethod === "CREDIT_CARD_MANUAL" && (
                               <span className="hidden sm:inline-flex text-[10px] bg-accent/20 text-accent px-2 py-0.5 rounded-md font-bold uppercase tracking-wider">Link de Pagamento</span>
                             )}
                           </div>
-                          <p className="text-sm text-zinc-400">Em até 12x via InfinitePay</p>
+                          <p className="text-sm text-zinc-500 dark:text-zinc-400">Em até 12x via InfinitePay</p>
                         </div>
                       </div>
                       <div
-                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "border-accent bg-accent/10" : "border-zinc-600"}`}
+                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${checkoutMethod === "CREDIT_CARD_MANUAL" ? "border-accent bg-accent/10" : "border-zinc-300 dark:border-zinc-600"}`}
                       >
                         {checkoutMethod === "CREDIT_CARD_MANUAL" && <div className="w-3 h-3 rounded-full bg-accent" />}
                       </div>
                     </div>
 
                     {checkoutMethod === "CREDIT_CARD_MANUAL" && (
-                      <div className="mt-5 pt-5 border-t border-white/10 animate-in fade-in slide-in-from-top-2 duration-300">
-                        <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <div className="mt-5 pt-5 border-t border-zinc-200 dark:border-white/10 animate-in fade-in slide-in-from-top-2 duration-300">
+                        <label className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                           <svg className="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                           </svg>
@@ -374,19 +376,19 @@ export default function CheckoutPage({ params }: { params: Promise<{ tenantSlug:
                           <select
                             value={installments}
                             onChange={(e) => setInstallments(Number(e.target.value))}
-                            className="w-full bg-black/50 border border-white/10 hover:border-white/20 rounded-xl pl-4 pr-10 py-4 text-white text-sm font-medium focus:outline-none focus:border-accent appearance-none cursor-pointer transition-colors shadow-inner"
+                            className="w-full bg-zinc-50 dark:bg-black/50 border border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 rounded-xl pl-4 pr-10 py-4 text-zinc-900 dark:text-white text-sm font-medium focus:outline-none focus:border-accent appearance-none cursor-pointer transition-colors shadow-inner"
                           >
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((n) => {
                               const valWithFee = totalPrice / (1 - CREDIT_CARD_FEES[n]);
                               const plotValue = valWithFee / n;
                               return (
-                                <option key={n} value={n} className="bg-zinc-900 text-white">
+                                <option key={n} value={n} className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
                                   {n}x de {fmt(plotValue)} — (Total: {fmt(valWithFee)})
                                 </option>
                               );
                             })}
                           </select>
-                          <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-zinc-400">
+                          <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-zinc-500 dark:text-zinc-400">
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                             </svg>
